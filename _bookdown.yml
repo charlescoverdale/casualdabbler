@@ -5,6 +5,8 @@ language:
 rmd_files: [
   "index.Rmd",
   "setup.Rmd",
-  "write.Rmd"]
+  "write.Rmd",
+  "03-basic-modelling-in-R.Rmd"
+  ]
 delete_merged_file: true 
 output_dir: "docs"

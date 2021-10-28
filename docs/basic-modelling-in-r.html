@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Basic modelling in R | Making free books with RStudio’s RMarkdown &amp; Bookdown</title>
+  <meta name="description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Basic modelling in R | Making free books with RStudio’s RMarkdown &amp; Bookdown" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <meta name="github-repo" content="openscapes/series" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Basic modelling in R | Making free books with RStudio’s RMarkdown &amp; Bookdown" />
+  
+  <meta name="twitter:description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  
+
+<meta name="author" content="Julie Lowndes" />
+
+
+<meta name="date" content="2021-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="write.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Mini Bookdown Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#learn-all-about-bookdown"><i class="fa fa-check"></i><b>1.1</b> Learn all about Bookdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> Setting up Bookdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#get-bookdown-tutorial-going-on-your-local-computer"><i class="fa fa-check"></i><b>2.1</b> Get “bookdown-tutorial” going on your local computer</a></li>
+<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#create-your-awesome-book-github-repo"><i class="fa fa-check"></i><b>2.2</b> Create your “awesome-book” GitHub repo</a></li>
+<li class="chapter" data-level="2.3" data-path="setup.html"><a href="setup.html#turn-bookdown-tutorial-into-awesome-book"><i class="fa fa-check"></i><b>2.3</b> Turn “bookdown-tutorial” into “awesome-book”</a></li>
+<li class="chapter" data-level="2.4" data-path="setup.html"><a href="setup.html#publish-awesome-book"><i class="fa fa-check"></i><b>2.4</b> Publish “awesome-book”</a></li>
+<li class="chapter" data-level="2.5" data-path="setup.html"><a href="setup.html#moving-forward"><i class="fa fa-check"></i><b>2.5</b> Moving forward</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Writing in Bookdown</a></li>
+<li class="chapter" data-level="4" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html"><i class="fa fa-check"></i><b>4</b> Basic modelling in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#source-format-and-plot-data"><i class="fa fa-check"></i><b>4.1</b> Source, format, and plot data</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#build-a-linear-model"><i class="fa fa-check"></i><b>4.2</b> Build a linear model</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-model-fit"><i class="fa fa-check"></i><b>4.3</b> Analyse the model fit</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#compare-the-predicted-values-with-the-actual-values"><i class="fa fa-check"></i><b>4.4</b> Compare the predicted values with the actual values</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-residuals"><i class="fa fa-check"></i><b>4.5</b> Analyse the residuals</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#linear-regression-with-more-than-one-variable"><i class="fa fa-check"></i><b>4.6</b> Linear regression with more than one variable</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#fitting-a-polynomial-regression"><i class="fa fa-check"></i><b>4.7</b> Fitting a polynomial regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Making free books with RStudio’s RMarkdown &amp; Bookdown</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-modelling-in-r" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Basic modelling in R</h1>
+<p>Creating a model is an essential part of forecasting and data analysis. I’ve put together a quick guide on my process for modelling data and checking model fit. The source data I use in this example is Melbourne’s weather record over a 12 month period. Daily temperature is based on macroscale weather and climate systems, however many observable measurements are correlated (i.e. hot days tend to have lots of sunshine). This makes using weather data great for model building.</p>
+<div id="source-format-and-plot-data" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Source, format, and plot data</h2>
+<p>Before we get started, it is useful to have some packages up and running.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="basic-modelling-in-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Useful packages for regression</span></span>
+<span id="cb1-2"><a href="basic-modelling-in-r.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-3"><a href="basic-modelling-in-r.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-4"><a href="basic-modelling-in-r.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="basic-modelling-in-r.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-6"><a href="basic-modelling-in-r.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="basic-modelling-in-r.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-8"><a href="basic-modelling-in-r.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb1-9"><a href="basic-modelling-in-r.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
+<p>I’ve put together a csv file of weather observations in Melbourne in 2019. We begin our model by downloading the data from Github.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="basic-modelling-in-r.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
+<span id="cb2-2"><a href="basic-modelling-in-r.html#cb2-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">&quot;https://raw.githubusercontent.com/charlescoverdale/predicttemperature/master/MEL_weather_2019.csv&quot;</span></span>
+<span id="cb2-3"><a href="basic-modelling-in-r.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="basic-modelling-in-r.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#We&#39;ll read this data in as a dataframe. The &#39;check.names&#39; function set to false means the funny units that the BOM use for column names won&#39;t affect the import.</span></span>
+<span id="cb2-5"><a href="basic-modelling-in-r.html#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="basic-modelling-in-r.html#cb2-6" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">check.names =</span> F)</span>
+<span id="cb2-7"><a href="basic-modelling-in-r.html#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="basic-modelling-in-r.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MEL_weather_2019)</span></code></pre></div>
+<p>This data is relatively clean. One handy change to make is to make the date into a dynamic format (to easily switch between months, years, etc).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="basic-modelling-in-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add a proper date column</span></span>
+<span id="cb3-2"><a href="basic-modelling-in-r.html#cb3-2" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="basic-modelling-in-r.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">make_date</span>(Year, Month, Day))</span></code></pre></div>
+<p>We also notice that some of the column names have symbols in them. This can be tricky to work with, so let’s rename some columns into something more manageable.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="basic-modelling-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename key df variables</span></span>
+<span id="cb4-2"><a href="basic-modelling-in-r.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(MEL_weather_2019)[<span class="dv">4</span>]<span class="ot">&lt;-</span> <span class="st">&quot;Solar_exposure&quot;</span></span>
+<span id="cb4-3"><a href="basic-modelling-in-r.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(MEL_weather_2019)[<span class="dv">5</span>]<span class="ot">&lt;-</span> <span class="st">&quot;Rainfall&quot;</span></span>
+<span id="cb4-4"><a href="basic-modelling-in-r.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(MEL_weather_2019)[<span class="dv">6</span>]<span class="ot">&lt;-</span> <span class="st">&quot;Max_temp&quot;</span></span>
+<span id="cb4-5"><a href="basic-modelling-in-r.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-6"><a href="basic-modelling-in-r.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MEL_weather_2019)</span></code></pre></div>
+<p>We’re aiming to investigate if other weather variables can predict maximum temperatures. Solar exposure seems like a plausible place to start. We start by plotting the two variables to if there is a trend.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="basic-modelling-in-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot the data</span></span>
+<span id="cb5-2"><a href="basic-modelling-in-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a>MEL_temp_investigate <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(MEL_weather_2019)<span class="sc">+</span></span>
+<span id="cb5-3"><a href="basic-modelling-in-r.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>Max_temp, <span class="at">x=</span>Solar_exposure),<span class="at">col=</span><span class="st">&quot;grey&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-4"><a href="basic-modelling-in-r.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Does solar exposure drive temperature in Melbourne?&quot;</span>,</span>
+<span id="cb5-5"><a href="basic-modelling-in-r.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Data: Bureau of Meteorology 2020&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="basic-modelling-in-r.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Solar exposure&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-7"><a href="basic-modelling-in-r.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Maximum temperature °C&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-8"><a href="basic-modelling-in-r.html#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb5-9"><a href="basic-modelling-in-r.html#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb5-10"><a href="basic-modelling-in-r.html#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb5-11"><a href="basic-modelling-in-r.html#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb5-12"><a href="basic-modelling-in-r.html#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="basic-modelling-in-r.html#cb5-13" aria-hidden="true" tabindex="-1"></a>MEL_temp_investigate</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Eyeballing the chart above, there seems to be a correlation between the two data sets. We’ll do one more quick plot to analyse the data. What is the distribution of temperature?</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="basic-modelling-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MEL_weather_2019, <span class="fu">aes</span>(<span class="at">x=</span>Max_temp)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="basic-modelling-in-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">fill=</span><span class="st">&quot;lightblue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-3"><a href="basic-modelling-in-r.html#cb6-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_density</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">fill=</span><span class="st">&quot;grey&quot;</span>,<span class="at">colour=</span><span class="st">&quot;darkblue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-4"><a href="basic-modelling-in-r.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-5"><a href="basic-modelling-in-r.html#cb6-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>),</span>
+<span id="cb6-6"><a href="basic-modelling-in-r.html#cb6-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb6-7"><a href="basic-modelling-in-r.html#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Temperature&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-8"><a href="basic-modelling-in-r.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Density&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-9"><a href="basic-modelling-in-r.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-10"><a href="basic-modelling-in-r.html#cb6-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb6-11"><a href="basic-modelling-in-r.html#cb6-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb6-12"><a href="basic-modelling-in-r.html#cb6-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We can see here the data is right skewed (i.e. the mean will be greater than the median). We’ll need to keep this in mind. Let’s start building a model.</p>
+</div>
+<div id="build-a-linear-model" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Build a linear model</h2>
+<p>We start by looking whether a simple linear regression of solar exposure seems to be correlated with temperature. In R, we can use the linear model (lm) function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="basic-modelling-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a straight line estimate to fit the data</span></span>
+<span id="cb7-2"><a href="basic-modelling-in-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a>temp_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Max_temp<span class="sc">~</span>Solar_exposure, <span class="at">data=</span>MEL_weather_2019)</span></code></pre></div>
+</div>
+<div id="analyse-the-model-fit" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Analyse the model fit</h2>
+<p>Let’s see how well solar exposure explains changes in temperature</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="basic-modelling-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Call a summary of the model</span></span>
+<span id="cb8-2"><a href="basic-modelling-in-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(temp_model)</span></code></pre></div>
+<p>The adjusted R squared value (one measure of model fit) is 0.3596. Furthermore the coefficient of our solar_exposure variable is statistically significant.</p>
+</div>
+<div id="compare-the-predicted-values-with-the-actual-values" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Compare the predicted values with the actual values</h2>
+<p>We can use this lm function to predict values of temperature based on the level of solar exposure. We can then compare this to the actual temperature record, and see how well the model fits the data set.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="basic-modelling-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use this lm model to predict the values</span></span>
+<span id="cb9-2"><a href="basic-modelling-in-r.html#cb9-2" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="basic-modelling-in-r.html#cb9-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">predicted_temp=</span><span class="fu">predict</span>(temp_model,<span class="at">newdata=</span>MEL_weather_2019))</span>
+<span id="cb9-4"><a href="basic-modelling-in-r.html#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="basic-modelling-in-r.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate the prediction interval</span></span>
+<span id="cb9-6"><a href="basic-modelling-in-r.html#cb9-6" aria-hidden="true" tabindex="-1"></a>prediction_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(temp_model, </span>
+<span id="cb9-7"><a href="basic-modelling-in-r.html#cb9-7" aria-hidden="true" tabindex="-1"></a>                               <span class="at">newdata=</span>MEL_weather_2019, </span>
+<span id="cb9-8"><a href="basic-modelling-in-r.html#cb9-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span>
+<span id="cb9-9"><a href="basic-modelling-in-r.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prediction_interval)</span>
+<span id="cb9-10"><a href="basic-modelling-in-r.html#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="basic-modelling-in-r.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Bind this prediction interval data back to the main set</span></span>
+<span id="cb9-12"><a href="basic-modelling-in-r.html#cb9-12" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(MEL_weather_2019,prediction_interval)</span>
+<span id="cb9-13"><a href="basic-modelling-in-r.html#cb9-13" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019</span></code></pre></div>
+<p>Model fit is easier to interpret graphically. Let’s plot the data with the model overlaid.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="basic-modelling-in-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot a chart with data and model on it</span></span>
+<span id="cb10-2"><a href="basic-modelling-in-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a>MEL_temp_predicted <span class="ot">&lt;-</span> </span>
+<span id="cb10-3"><a href="basic-modelling-in-r.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MEL_weather_2019)<span class="sc">+</span></span>
+<span id="cb10-4"><a href="basic-modelling-in-r.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>Max_temp, <span class="at">x=</span>Solar_exposure),</span>
+<span id="cb10-5"><a href="basic-modelling-in-r.html#cb10-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col=</span><span class="st">&quot;grey&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-6"><a href="basic-modelling-in-r.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>predicted_temp,<span class="at">x=</span>Solar_exposure),</span>
+<span id="cb10-7"><a href="basic-modelling-in-r.html#cb10-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-8"><a href="basic-modelling-in-r.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>Max_temp, <span class="at">x=</span> Solar_exposure), </span>
+<span id="cb10-9"><a href="basic-modelling-in-r.html#cb10-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span>lm)<span class="sc">+</span></span>
+<span id="cb10-10"><a href="basic-modelling-in-r.html#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>lwr,<span class="at">x=</span>Solar_exposure),</span>
+<span id="cb10-11"><a href="basic-modelling-in-r.html#cb10-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-12"><a href="basic-modelling-in-r.html#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>upr,<span class="at">x=</span>Solar_exposure),</span>
+<span id="cb10-13"><a href="basic-modelling-in-r.html#cb10-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour=</span><span class="st">&quot;red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-14"><a href="basic-modelling-in-r.html#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> </span>
+<span id="cb10-15"><a href="basic-modelling-in-r.html#cb10-15" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;Does solar exposure drive temperature in Melbourne?&quot;</span>,</span>
+<span id="cb10-16"><a href="basic-modelling-in-r.html#cb10-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&#39;Investigation using linear regression&#39;</span>,</span>
+<span id="cb10-17"><a href="basic-modelling-in-r.html#cb10-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Bureau of Meteorology 2020&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-18"><a href="basic-modelling-in-r.html#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Solar exposure&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-19"><a href="basic-modelling-in-r.html#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Maximum temperature °C&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-20"><a href="basic-modelling-in-r.html#cb10-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-21"><a href="basic-modelling-in-r.html#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb10-22"><a href="basic-modelling-in-r.html#cb10-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>))<span class="sc">+</span></span>
+<span id="cb10-23"><a href="basic-modelling-in-r.html#cb10-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-24"><a href="basic-modelling-in-r.html#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb10-25"><a href="basic-modelling-in-r.html#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb10-26"><a href="basic-modelling-in-r.html#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb10-27"><a href="basic-modelling-in-r.html#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="basic-modelling-in-r.html#cb10-28" aria-hidden="true" tabindex="-1"></a>MEL_temp_predicted</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>This chart includes the model (blue line), confidence interval (grey band around the blue line), and a prediction interval (red dotted line). A prediction interval reflects the uncertainty around a single value (put simple: what is the reasonable upper and lower bound that this data point could be estimated at?). A confidence interval reflects the uncertainty around the mean prediction values (put simply: what is a reasonable upper and lower bound for the blue line at this x value?). Therefore, a prediction interval will be generally much wider than a confidence interval for the same value.</p>
+</div>
+<div id="analyse-the-residuals" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Analyse the residuals</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basic-modelling-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add the residuals to the series</span></span>
+<span id="cb11-2"><a href="basic-modelling-in-r.html#cb11-2" aria-hidden="true" tabindex="-1"></a>residuals_temp_predict <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="basic-modelling-in-r.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_residuals</span>(temp_model)</span></code></pre></div>
+<p>Plot these residuals in a chart.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="basic-modelling-in-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a>residuals_temp_predict_chart <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="basic-modelling-in-r.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data=</span>residuals_temp_predict,</span>
+<span id="cb12-3"><a href="basic-modelling-in-r.html#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>(<span class="at">x=</span>Solar_exposure, <span class="at">y=</span>resid), <span class="at">col=</span><span class="st">&quot;grey&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-4"><a href="basic-modelling-in-r.html#cb12-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb12-5"><a href="basic-modelling-in-r.html#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="fu">geom_ref_line</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">colour=</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb12-6"><a href="basic-modelling-in-r.html#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="fu">geom_point</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-7"><a href="basic-modelling-in-r.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-8"><a href="basic-modelling-in-r.html#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="fu">xlab</span>(<span class="st">&quot;Solar exposure&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-9"><a href="basic-modelling-in-r.html#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">ylab</span>(<span class="st">&quot;Maximum temperature (°C)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-10"><a href="basic-modelling-in-r.html#cb12-10" aria-hidden="true" tabindex="-1"></a>         <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb12-11"><a href="basic-modelling-in-r.html#cb12-11" aria-hidden="true" tabindex="-1"></a>         <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Residual values from the linear model&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-12"><a href="basic-modelling-in-r.html#cb12-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-13"><a href="basic-modelling-in-r.html#cb12-13" aria-hidden="true" tabindex="-1"></a>         <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb12-14"><a href="basic-modelling-in-r.html#cb12-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-15"><a href="basic-modelling-in-r.html#cb12-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">scale_x_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb12-16"><a href="basic-modelling-in-r.html#cb12-16" aria-hidden="true" tabindex="-1"></a>residuals_temp_predict_chart</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="linear-regression-with-more-than-one-variable" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Linear regression with more than one variable</h2>
+<p>The linear model above is *okay*, but can we make it better? Let’s start by adding in some more variables into the linear regression.</p>
+<p>Rainfall data might assist our model in predicting temperature. Let’s add in that variable and analyse the results.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="basic-modelling-in-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a>temp_model_2 <span class="ot">&lt;-</span> </span>
+<span id="cb13-2"><a href="basic-modelling-in-r.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Max_temp <span class="sc">~</span> Solar_exposure <span class="sc">+</span> Rainfall, <span class="at">data=</span>MEL_weather_2019)</span>
+<span id="cb13-3"><a href="basic-modelling-in-r.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(temp_model_2)</span></code></pre></div>
+<p>We can see that adding in rainfall made the model better (R squared value has increased to 0.4338).</p>
+<p>Next, we consider whether solar exposure and rainfall might be related to each other, as well as to temperature. For our third temperature model, we add an interaction variable between solar exposure and rainfall.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="basic-modelling-in-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a>temp_model_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Max_temp <span class="sc">~</span> Solar_exposure <span class="sc">+</span> </span>
+<span id="cb14-2"><a href="basic-modelling-in-r.html#cb14-2" aria-hidden="true" tabindex="-1"></a>                              Rainfall <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="basic-modelling-in-r.html#cb14-3" aria-hidden="true" tabindex="-1"></a>                              Solar_exposure<span class="sc">:</span>Rainfall, </span>
+<span id="cb14-4"><a href="basic-modelling-in-r.html#cb14-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data=</span>MEL_weather_2019)</span>
+<span id="cb14-5"><a href="basic-modelling-in-r.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(temp_model_3)</span></code></pre></div>
+<p>We now see this variable is significant, and improves the model slightly (seen by an adjusted R squared of 0.4529).</p>
+</div>
+<div id="fitting-a-polynomial-regression" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Fitting a polynomial regression</h2>
+<p>When analysing the above data set, we see the issue is the sheer variance of temperatures associated with every other variable (it turns out weather forecasting is notoriously difficult).</p>
+<p>However we can expect that temperature follows a non-linear pattern throughout the year (in Australia it is hot in January-March, cold in June-August, then starts to warm up again). A linear model (e.g. a straight line) will be a very bad model for temperature — we need to introduce polynomials.</p>
+<p>For simplicity, we will introduce a new variable (Day_number) which is the day of the year (e.g. 1 January is #1, 31 December is #366).</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="basic-modelling-in-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="basic-modelling-in-r.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Day_number=</span><span class="fu">row_number</span>())</span>
+<span id="cb15-3"><a href="basic-modelling-in-r.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MEL_weather_2019)</span></code></pre></div>
+<p>Using the same dataset as above, let’s plot temperature in Melbourne in 2019.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="basic-modelling-in-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a>MEL_temp_chart <span class="ot">&lt;-</span> </span>
+<span id="cb16-2"><a href="basic-modelling-in-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MEL_weather_2019)<span class="sc">+</span></span>
+<span id="cb16-3"><a href="basic-modelling-in-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Day_number, <span class="at">y =</span> Max_temp)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="basic-modelling-in-r.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Melbourne temperature profile&#39;</span>,</span>
+<span id="cb16-5"><a href="basic-modelling-in-r.html#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="st">&#39;Daily maximum temperature recorded in Melbourne in 2019&#39;</span>,</span>
+<span id="cb16-6"><a href="basic-modelling-in-r.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Data: Bureau of Meteorology 2020&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="basic-modelling-in-r.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Day of the year&quot;</span>)<span class="sc">+</span></span>
+<span id="cb16-8"><a href="basic-modelling-in-r.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Temperature&quot;</span>)<span class="sc">+</span></span>
+<span id="cb16-9"><a href="basic-modelling-in-r.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()                    </span>
+<span id="cb16-10"><a href="basic-modelling-in-r.html#cb16-10" aria-hidden="true" tabindex="-1"></a>                </span>
+<span id="cb16-11"><a href="basic-modelling-in-r.html#cb16-11" aria-hidden="true" tabindex="-1"></a>MEL_temp_chart</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>We can see we’ll need a non-linear model to fit this data.</p>
+<p>Below we create a few different models. We start with a normal straight line model, then add an x² and x³ model. We then use these models and the ‘predict’ function to see what temperatures they forecast based on the input data.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="basic-modelling-in-r.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a straight line estimate to fit the data</span></span>
+<span id="cb17-2"><a href="basic-modelling-in-r.html#cb17-2" aria-hidden="true" tabindex="-1"></a>poly1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Max_temp <span class="sc">~</span> <span class="fu">poly</span>(Day_number,<span class="dv">1</span>,<span class="at">raw=</span><span class="cn">TRUE</span>),</span>
+<span id="cb17-3"><a href="basic-modelling-in-r.html#cb17-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MEL_weather_2019)</span>
+<span id="cb17-4"><a href="basic-modelling-in-r.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poly1)</span>
+<span id="cb17-5"><a href="basic-modelling-in-r.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a polynominal of order 2 to fit this data</span></span>
+<span id="cb17-6"><a href="basic-modelling-in-r.html#cb17-6" aria-hidden="true" tabindex="-1"></a>poly2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Max_temp <span class="sc">~</span> <span class="fu">poly</span>(Day_number,<span class="dv">2</span>,<span class="at">raw=</span><span class="cn">TRUE</span>),</span>
+<span id="cb17-7"><a href="basic-modelling-in-r.html#cb17-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MEL_weather_2019)</span>
+<span id="cb17-8"><a href="basic-modelling-in-r.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poly2)</span>
+<span id="cb17-9"><a href="basic-modelling-in-r.html#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a polynominal of order 3 to fit this data</span></span>
+<span id="cb17-10"><a href="basic-modelling-in-r.html#cb17-10" aria-hidden="true" tabindex="-1"></a>poly3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Max_temp <span class="sc">~</span> <span class="fu">poly</span>(Day_number,<span class="dv">3</span>,<span class="at">raw=</span><span class="cn">TRUE</span>),</span>
+<span id="cb17-11"><a href="basic-modelling-in-r.html#cb17-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>MEL_weather_2019)</span>
+<span id="cb17-12"><a href="basic-modelling-in-r.html#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poly3)</span>
+<span id="cb17-13"><a href="basic-modelling-in-r.html#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="basic-modelling-in-r.html#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Use these models to predict</span></span>
+<span id="cb17-15"><a href="basic-modelling-in-r.html#cb17-15" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb17-16"><a href="basic-modelling-in-r.html#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">poly1values=</span><span class="fu">predict</span>(poly1,<span class="at">newdata=</span>MEL_weather_2019))<span class="sc">%&gt;%</span></span>
+<span id="cb17-17"><a href="basic-modelling-in-r.html#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">poly2values=</span><span class="fu">predict</span>(poly2,<span class="at">newdata=</span>MEL_weather_2019))<span class="sc">%&gt;%</span></span>
+<span id="cb17-18"><a href="basic-modelling-in-r.html#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">poly3values=</span><span class="fu">predict</span>(poly3,<span class="at">newdata=</span>MEL_weather_2019))</span>
+<span id="cb17-19"><a href="basic-modelling-in-r.html#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="basic-modelling-in-r.html#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MEL_weather_2019)</span></code></pre></div>
+<p>In the table above we can see the estimates for that data point from the various models.</p>
+<p>To see how well the models did graphically, we can plot the original data series with the polynominal models overlaid.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="basic-modelling-in-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot a chart with all models on it</span></span>
+<span id="cb18-2"><a href="basic-modelling-in-r.html#cb18-2" aria-hidden="true" tabindex="-1"></a>MEL_weather_model_chart <span class="ot">&lt;-</span> </span>
+<span id="cb18-3"><a href="basic-modelling-in-r.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MEL_weather_2019)<span class="sc">+</span></span>
+<span id="cb18-4"><a href="basic-modelling-in-r.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span> Max_temp),<span class="at">col=</span><span class="st">&quot;grey&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-5"><a href="basic-modelling-in-r.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span> poly1values),<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="basic-modelling-in-r.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span> poly2values),<span class="at">col=</span><span class="st">&quot;green&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-7"><a href="basic-modelling-in-r.html#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span> poly3values),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-8"><a href="basic-modelling-in-r.html#cb18-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-9"><a href="basic-modelling-in-r.html#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Add text annotations</span></span>
+<span id="cb18-10"><a href="basic-modelling-in-r.html#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">x=</span><span class="dv">10</span>,<span class="at">y=</span><span class="dv">18</span>,<span class="at">label=</span><span class="st">&quot;data series&quot;</span>,<span class="at">col=</span><span class="st">&quot;grey&quot;</span>,<span class="at">hjust=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb18-11"><a href="basic-modelling-in-r.html#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">x=</span><span class="dv">10</span>,<span class="at">y=</span><span class="dv">16</span>,<span class="at">label=</span><span class="st">&quot;linear&quot;</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">hjust=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb18-12"><a href="basic-modelling-in-r.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">x=</span><span class="dv">10</span>,<span class="at">y=</span><span class="dv">13</span>,<span class="at">label=</span><span class="fu">parse</span>(<span class="at">text=</span><span class="st">&quot;x^2&quot;</span>),<span class="at">col=</span><span class="st">&quot;green&quot;</span>,<span class="at">hjust=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb18-13"><a href="basic-modelling-in-r.html#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">x=</span><span class="dv">10</span>,<span class="at">y=</span><span class="dv">10</span>,<span class="at">label=</span><span class="fu">parse</span>(<span class="at">text=</span><span class="st">&quot;x^3&quot;</span>),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">hjust=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb18-14"><a href="basic-modelling-in-r.html#cb18-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-15"><a href="basic-modelling-in-r.html#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Estimating Melbourne&#39;s temperature&quot;</span>,</span>
+<span id="cb18-16"><a href="basic-modelling-in-r.html#cb18-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&#39;Daily maximum temperature recorded in Melbourne in 2019&#39;</span>,</span>
+<span id="cb18-17"><a href="basic-modelling-in-r.html#cb18-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Data: Bureau of Meteorology 2020&quot;</span>) <span class="sc">+</span></span>
+<span id="cb18-18"><a href="basic-modelling-in-r.html#cb18-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-19"><a href="basic-modelling-in-r.html#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">366</span>)<span class="sc">+</span></span>
+<span id="cb18-20"><a href="basic-modelling-in-r.html#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">10</span>,<span class="dv">45</span>)<span class="sc">+</span></span>
+<span id="cb18-21"><a href="basic-modelling-in-r.html#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span></span>
+<span id="cb18-22"><a href="basic-modelling-in-r.html#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">45</span>,<span class="dv">75</span>,<span class="dv">105</span>,<span class="dv">135</span>,<span class="dv">165</span>,<span class="dv">195</span>,<span class="dv">225</span>,<span class="dv">255</span>,<span class="dv">285</span>,<span class="dv">315</span>,<span class="dv">345</span>),</span>
+<span id="cb18-23"><a href="basic-modelling-in-r.html#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Feb&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;May&quot;</span>, <span class="st">&quot;Jun&quot;</span>, <span class="st">&quot;Jul&quot;</span>, <span class="st">&quot;Aug&quot;</span>, <span class="st">&quot;Sep&quot;</span>, <span class="st">&quot;Oct&quot;</span>, <span class="st">&quot;Nov&quot;</span>, <span class="st">&quot;Dec&quot;</span>),</span>
+<span id="cb18-24"><a href="basic-modelling-in-r.html#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb18-25"><a href="basic-modelling-in-r.html#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">366</span>)) <span class="sc">+</span></span>
+<span id="cb18-26"><a href="basic-modelling-in-r.html#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>)) <span class="sc">+</span></span>
+<span id="cb18-27"><a href="basic-modelling-in-r.html#cb18-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-28"><a href="basic-modelling-in-r.html#cb18-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;°C&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-29"><a href="basic-modelling-in-r.html#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb18-30"><a href="basic-modelling-in-r.html#cb18-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb18-31"><a href="basic-modelling-in-r.html#cb18-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb18-32"><a href="basic-modelling-in-r.html#cb18-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-33"><a href="basic-modelling-in-r.html#cb18-33" aria-hidden="true" tabindex="-1"></a>MEL_weather_model_chart</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>We can see in the chart above the polynomial models do much better at fitting the data. However, they are still highly variant.</p>
+<p>Just how variant are they? We can look at the residuals to find out. The residuals is the gap between the observed data point (i.e. the grey line) and our model.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="basic-modelling-in-r.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the residuals for poly1</span></span>
+<span id="cb19-2"><a href="basic-modelling-in-r.html#cb19-2" aria-hidden="true" tabindex="-1"></a>residuals_poly1 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="basic-modelling-in-r.html#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_residuals</span>(poly1)</span>
+<span id="cb19-4"><a href="basic-modelling-in-r.html#cb19-4" aria-hidden="true" tabindex="-1"></a>residuals_poly1_chart <span class="ot">&lt;-</span> </span>
+<span id="cb19-5"><a href="basic-modelling-in-r.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>residuals_poly1,<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span>resid))<span class="sc">+</span></span>
+<span id="cb19-6"><a href="basic-modelling-in-r.html#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ref_line</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">colour=</span><span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb19-7"><a href="basic-modelling-in-r.html#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb19-8"><a href="basic-modelling-in-r.html#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb19-9"><a href="basic-modelling-in-r.html#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;°C&quot;</span>)<span class="sc">+</span></span>
+<span id="cb19-10"><a href="basic-modelling-in-r.html#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb19-11"><a href="basic-modelling-in-r.html#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb19-12"><a href="basic-modelling-in-r.html#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb19-13"><a href="basic-modelling-in-r.html#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.x=</span><span class="fu">element_blank</span>())</span>
+<span id="cb19-14"><a href="basic-modelling-in-r.html#cb19-14" aria-hidden="true" tabindex="-1"></a>residuals_poly1_chart</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="basic-modelling-in-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the residuals for poly2</span></span>
+<span id="cb20-2"><a href="basic-modelling-in-r.html#cb20-2" aria-hidden="true" tabindex="-1"></a>residuals_poly2 <span class="ot">&lt;-</span> MEL_weather_2019<span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="basic-modelling-in-r.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_residuals</span>(poly2)</span>
+<span id="cb20-4"><a href="basic-modelling-in-r.html#cb20-4" aria-hidden="true" tabindex="-1"></a>residuals_poly2_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>residuals_poly2,<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span>resid))<span class="sc">+</span></span>
+<span id="cb20-5"><a href="basic-modelling-in-r.html#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ref_line</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">colour=</span><span class="st">&quot;green&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb20-6"><a href="basic-modelling-in-r.html#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb20-7"><a href="basic-modelling-in-r.html#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb20-8"><a href="basic-modelling-in-r.html#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;°C&quot;</span>)<span class="sc">+</span></span>
+<span id="cb20-9"><a href="basic-modelling-in-r.html#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb20-10"><a href="basic-modelling-in-r.html#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb20-11"><a href="basic-modelling-in-r.html#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb20-12"><a href="basic-modelling-in-r.html#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.x=</span><span class="fu">element_blank</span>())</span>
+<span id="cb20-13"><a href="basic-modelling-in-r.html#cb20-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-14"><a href="basic-modelling-in-r.html#cb20-14" aria-hidden="true" tabindex="-1"></a>residuals_poly2_chart</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="basic-modelling-in-r.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the residuals for poly3</span></span>
+<span id="cb21-2"><a href="basic-modelling-in-r.html#cb21-2" aria-hidden="true" tabindex="-1"></a>residuals_poly3 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="basic-modelling-in-r.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_residuals</span>(poly3)</span>
+<span id="cb21-4"><a href="basic-modelling-in-r.html#cb21-4" aria-hidden="true" tabindex="-1"></a>residuals_poly3_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>residuals_poly3,<span class="fu">aes</span>(<span class="at">x=</span>Day_number, <span class="at">y=</span>resid))<span class="sc">+</span></span>
+<span id="cb21-5"><a href="basic-modelling-in-r.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ref_line</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">colour=</span><span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb21-6"><a href="basic-modelling-in-r.html#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb21-7"><a href="basic-modelling-in-r.html#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb21-8"><a href="basic-modelling-in-r.html#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb21-9"><a href="basic-modelling-in-r.html#cb21-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span></span>
+<span id="cb21-10"><a href="basic-modelling-in-r.html#cb21-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">45</span>,<span class="dv">75</span>,<span class="dv">105</span>,<span class="dv">135</span>,<span class="dv">165</span>,<span class="dv">195</span>,<span class="dv">225</span>,<span class="dv">255</span>,<span class="dv">285</span>,<span class="dv">315</span>,<span class="dv">345</span>),</span>
+<span id="cb21-11"><a href="basic-modelling-in-r.html#cb21-11" aria-hidden="true" tabindex="-1"></a> <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Feb&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Apr&quot;</span>, <span class="st">&quot;May&quot;</span>, <span class="st">&quot;Jun&quot;</span>, <span class="st">&quot;Jul&quot;</span>, <span class="st">&quot;Aug&quot;</span>, <span class="st">&quot;Sep&quot;</span>, <span class="st">&quot;Oct&quot;</span>, <span class="st">&quot;Nov&quot;</span>, <span class="st">&quot;Dec&quot;</span>),</span>
+<span id="cb21-12"><a href="basic-modelling-in-r.html#cb21-12" aria-hidden="true" tabindex="-1"></a> <span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb21-13"><a href="basic-modelling-in-r.html#cb21-13" aria-hidden="true" tabindex="-1"></a> <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">366</span>))<span class="sc">+</span></span>
+<span id="cb21-14"><a href="basic-modelling-in-r.html#cb21-14" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb21-15"><a href="basic-modelling-in-r.html#cb21-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">&quot;°C&quot;</span>)</span>
+<span id="cb21-16"><a href="basic-modelling-in-r.html#cb21-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-17"><a href="basic-modelling-in-r.html#cb21-17" aria-hidden="true" tabindex="-1"></a>residuals_poly3_chart</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-19-3.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="basic-modelling-in-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a>three_charts_single_page <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
+<span id="cb22-2"><a href="basic-modelling-in-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  residuals_poly1_chart, </span>
+<span id="cb22-3"><a href="basic-modelling-in-r.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  residuals_poly2_chart, </span>
+<span id="cb22-4"><a href="basic-modelling-in-r.html#cb22-4" aria-hidden="true" tabindex="-1"></a>  residuals_poly3_chart,</span>
+<span id="cb22-5"><a href="basic-modelling-in-r.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">1</span>,<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">label_size=</span><span class="dv">16</span>)</span>
+<span id="cb22-6"><a href="basic-modelling-in-r.html#cb22-6" aria-hidden="true" tabindex="-1"></a>three_charts_single_page</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-19-4.png" width="672" /></p>
+<p>As we move from a linear, to a x², to a x³ model, we see the residuals decrease in volatility.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="write.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jules32/bookdown-tutorial/edit/master/03-basic-modelling-in-R.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

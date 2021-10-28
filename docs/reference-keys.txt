@@ -7,3 +7,11 @@ turn-bookdown-tutorial-into-awesome-book
 publish-awesome-book
 moving-forward
 write
+basic-modelling-in-r
+source-format-and-plot-data
+build-a-linear-model
+analyse-the-model-fit
+compare-the-predicted-values-with-the-actual-values
+analyse-the-residuals
+linear-regression-with-more-than-one-variable
+fitting-a-polynomial-regression
