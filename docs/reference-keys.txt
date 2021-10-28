@@ -1,5 +1,8 @@
-welcome
-learn-all-about-bookdown
+introduction
+usage
+additional-resources
+limitations
+about-the-author
 setup
 get-bookdown-tutorial-going-on-your-local-computer
 create-your-awesome-book-github-repo
@@ -15,3 +18,14 @@ compare-the-predicted-values-with-the-actual-values
 analyse-the-residuals
 linear-regression-with-more-than-one-variable
 fitting-a-polynomial-regression
+section
+hypothesis-testing
+a-quick-refresher
+t-testing-our-first-hypothesis
+tailed-tests
+correlation-and-working-with-normal-distributions
+confidence-intervals-mean
+confidence-intervals-model
+forecasting
+background
+arima-models
