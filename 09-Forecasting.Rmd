@@ -1,0 +1,153 @@
+# Forecasting
+
+## Background
+
+So we've got a time series dataset... but what is a reasonable forecast for how it might behave in the future? Sure we can do a confidence interval (as we learned in the previous chapter) - but what about forecasting for multiple periods into the future.
+
+That's where we need to build some models.
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+# Load in packages
+library(ggridges)
+library(ggplot2)
+library(forecast)
+library(ggrepel)
+library(viridis)
+library(readxl)
+library(hrbrthemes)
+library(dplyr)
+library(stringr)
+library(reshape)
+library(tidyr)
+library(lubridate)
+library(gapminder)
+library(grattantheme)
+library(ggalt)
+library(purrr)
+library(scales)
+library(purrr)
+library(aTSA)
+library(readrba)
+```
+
+We'll start with some pre-loaded time series data. The `ggplot2` includes a data set called 'economics' that contains US economic indicators from the 1960's to 2015.
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+
+econ_data <- economics %>% dplyr::select(c("date", "uempmed"))
+econ_data <- econ_data %>% dplyr::filter((date >= as.Date("1970-01-01") 
+                                          & date <= as.Date("1999-12-31")))
+```
+
+As a side note: We can also get Australian unemployment rate data using the `readrba` function.
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+
+aus_unemp_rate <- read_rba(series_id = "GLFSURSA") 
+head(aus_unemp_rate)
+
+```
+
+Let's plot the data to see what we are working with.
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+
+ggplot(econ_data)+
+      geom_point(aes(x = date, y = uempmed), col = "grey", alpha=0.5)+
+      geom_smooth(aes(x = date, y = uempmed), col = "blue")+
+
+      labs(title="Unemployment rate",
+      caption = "Data: ggplot2::economics",
+      x="",
+      y="") + 
+  
+      theme_minimal() +
+      theme(legend.position="bottom")+
+      theme(plot.title=element_text(face="bold",size=12))+
+      theme(plot.subtitle=element_text(size=11))+
+      theme(plot.caption=element_text(size=8))+
+      theme(axis.text=element_text(size=8))+
+      theme(panel.grid.minor = element_blank())+
+      theme(panel.grid.major.x = element_blank()) +
+      theme(axis.title.y = 
+            element_text(margin = ggplot2::margin(t = 0, r = 3, b = 0, l = 0)))+
+  
+      theme(axis.text.y = element_text(vjust = -0.5, 
+                          margin = ggplot2::margin(l = 20, r = -10)))+
+  
+      theme(plot.title = element_text(margin=ggplot2::margin(0,0,25,0))) +
+  
+      theme(axis.line.x = 
+            element_line(colour ="black",size=0.4))+
+  
+      theme(axis.ticks.x = element_line(colour ="black",size=0.4))
+
+```
+
+## ARIMA models
+
+**AutoRegressive Integrated Moving Average (ARIMA)** models are a handy tool to have in the toolbox. An auto regressive model is one where Yt depends on its own lags. A moving average (MA only) model is one where Yt depends only on the lagged forecast errors. We combine these together (technically we integrate them) and get ARIMA.
+
+First order of business, we may need to 'difference' our series to make it stationary. Let's check if it is stationary using the augmented Dickey-Fuller test. The null hypothesis assumes that the series is non-stationary. A series is said to be stationary when its mean, variance, and autocovariance don't change much over time.
+
+```{r}
+
+# Test for stationarity
+aTSA::adf.test(econ_data$uempmed)
+
+# See the auto correlation
+acf(econ_data$uempmed)
+
+# Identify patial auto correlation
+Pacf(econ_data$uempmed)
+
+# Take the first differences of the series
+econ_data <- econ_data %>% mutate(diff = uempmed-lag(uempmed))
+
+ggplot(econ_data)+
+      geom_point(aes(x = date, y = diff), col = "grey", alpha=0.5)+
+      geom_smooth(aes(x = date, y = diff), col = "blue")+
+
+      labs(title="1st difference (Unemployment rate)",
+      caption = "Data: ggplot2::economics",
+      x="",
+      y="") + 
+  
+      theme_minimal() +
+      theme(legend.position="bottom")+
+      theme(plot.title=element_text(face="bold",size=12))+
+      theme(plot.subtitle=element_text(size=11))+
+      theme(plot.caption=element_text(size=8))+
+      theme(axis.text=element_text(size=8))+
+      theme(panel.grid.minor = element_blank())+
+      theme(panel.grid.major.x = element_blank()) +
+      theme(axis.title.y = 
+            element_text(margin = ggplot2::margin(t = 0, r = 3, b = 0, l = 0)))+
+  
+      theme(axis.text.y = element_text(vjust = -0.5, 
+                          margin = ggplot2::margin(l = 20, r = -10)))+
+  
+      theme(plot.title = element_text(margin=ggplot2::margin(0,0,25,0))) +
+  
+      theme(axis.line.x = 
+            element_line(colour ="black",size=0.4))+
+  
+      theme(axis.ticks.x = element_line(colour ="black",size=0.4))
+
+
+```
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+
+ARIMA_model = forecast::auto.arima(econ_data$uempmed)
+
+ARIMA_model
+summary(ARIMA_model)
+checkresiduals(ARIMA_model)
+
+# Forecast for the next 10 time units
+ARIMA_forecast <- forecast::forecast(ARIMA_model, newdata=econ_data$uempmed,h = 36,level=c(95))
+
+# Plot forecasts
+plot((ARIMA_forecast))
+```

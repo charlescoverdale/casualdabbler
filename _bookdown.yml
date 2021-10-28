@@ -6,7 +6,9 @@ rmd_files: [
   "index.Rmd",
   "setup.Rmd",
   "write.Rmd",
-  "03-basic-modelling-in-R.Rmd"
+  "03-basic-modelling-in-R.Rmd", 
+  "08-Hypothesis-testing.Rmd",
+  "09-Forecasting.Rmd"
   ]
 delete_merged_file: true 
 output_dir: "docs"

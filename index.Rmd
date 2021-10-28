@@ -1,6 +1,6 @@
 --- 
-title: "Making free books with RStudio’s RMarkdown & Bookdown"
-author: "Julie Lowndes"
+title: "R cookbook for the casual dabbler"
+author: "Charles Coverdale"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 # output: bookdown::gitbook
@@ -12,34 +12,48 @@ github-repo: openscapes/series
 description: "A mini bookdown tutorial book on how to make bookdown books."
 ---
 
-# Welcome {#welcome}
+# Introduction
 
-hi
+G'day and welcome to *R cookbook for the casual dabbler.*
 
-It's possible to create beautiful books for free using [RStudio's R Markdown](http://rmarkdown.rstudio.com/) and Yihui Xie's [bookdown](https://bookdown.org/yihui/bookdown/) and hosting them on [Github](http://github.com). This is pretty new and incredibly cool. It is a really powerful way to communicate science using the same reproducible workflow you use for your analyses and collaborations.
+**Some history:** I use R a lot for work and for side projects. Over the years I've collated a bunch of useful scripts, from macroeconomic analysis to quick hacks for making map legends format properly.
 
-This tutorial borrows heavily from a lot of great tutorials and resources you should check out too -- there are links throughout. It also parallels a previous tutorial [Making free websites with RStudio’s R Markdown](https://jules32.github.io/rmarkdown-website-tutorial/).
+Historically my code has been stored in random Rpubs documents, medium articles, and a bunch of .Rmd files on my hardrive. Occasionally I feel like doing things properly - and upload code to a repository on github.
 
-The best way to learn is to follow along with your own laptop, but all are welcome. We'll spend half the time with the tutorial and half the time for you to work on your own website and get help. If you bring your laptop please do this beforehand: 
+It doesn't take a genius to realize this isn't a very sustainable solution - and it also isn't very useful for sharing code with others. It turns out 2-years of lockdown in Melbourne was enough incentive to sit down and collate my best and most useful code into a single place. In the spirit of open source, a book seemed like the most logical format. The following is a *very rough* book written in **markdown** - R's very own publishing language.
 
-1. install [RStudio](https://www.rstudio.com/products/rstudio/download/)
-1. create a [GitHub]((http://github.com)) account ([advice](http://happygitwithr.com/github-acct.html))
-1. set up your computer to talk to GitHub
-    - have RStudio linked directly (highly recommended) ([instructions sections 8-14](http://happygitwithr.com/hello-git.html))
-    - or install the [Desktop App](https://desktop.github.com/)
-    - or be familiar with git commands for the command line ([tutorial](https://try.github.io/levels/1/challenges/1))
+## Usage
+
+In each chapter I've written up the background, methodology and code for a separate piece of analysis.
+
+Most of this code will not be extraordinary to the seasoned R aficionado. The vast majority can be found elsewhere if you dig around on stackexchange or read some of Hadley's books.
+
+However I find that in classic Pareto style \~20% of my code contributes to the **vast** majority of my work output. Having this on hand will hopefully be useful to both myself and others.
+
+## Additional resources
+
+The R community is continually writing new books and package documentation with great worked examples. Some of my favourites (which all happen to be written in the R markdown language) are:
+
+-   [Geocomputation with R](https://bookdown.org/robinlovelace/geocompr/)
+
+-   [R Markdown: The Definite Guide](https://bookdown.org/yihui/rmarkdown/)
+
+-   [R Cookbook, 2nd Edition](R%20Cookbook,%202nd%20Edition)
+
+-   [R for Data Science](https://r4ds.had.co.nz/)
+
+-   [Data Science in Education using R](https://datascienceineducation.com/)
+
+-   [Introduction to R: Walter and Eliza Hall Institute](https://bookdown.org/ansellbr/WEHI_tidyR_course_book/)
+
+-   [PhD lectures notes in environmental economics and data science (University of Oregon)](https://github.com/uo-ec607/lectures)
+
+## Limitations
+
+I'll be honest with you - there's bound to be bugs galore in this. If you find one (along with spelling errors etc) please email me at charlesfcoverdale\@gmail.com with the subject line 'R cookbook for the casual dabbler'.
 
 ----
 
+## About the author
 
-**Examples:**
-
-We have been using bookdown for the Ocean Health Index:  [**ohi-science.org/data-science-training**](http://ohi-science.org/data-science-training) and Openscapes: [**openscapes.org/series**](https://openscapes.org/series).  
-And R Markdown is much more than books and websites -- here's a [**one-minute video about R Markdown**](http://rmarkdown.rstudio.com/lesson-1.html) to get you excited. 
-
-----
-
-## Learn all about Bookdown
-
-The best way to learn more about bookdown is from Yihui Xie himself. You can read his book [bookdown: Authoring Books and Technical Documents with R Markdown](https://bookdown.org/yihui/bookdown/) or watch his webinar [introducing bookdown](https://www.rstudio.com/resources/webinars/introducing-bookdown/).
-
+Charles Coverdale is an economist based in Melbourne, Australia. He is passionate about economics, climate science, and building talented teams. You can get in touch with Charles [on twitter](https://twitter.com/cfcoverdale) to hear more about his current projects.
