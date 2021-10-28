@@ -7,9 +7,9 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Mini Bookdown Tutorial</a></li>
+        <li><a href="./">R Cookbook for the Casual Dabbler<</a></li>
       after: |
-        <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+        <li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
     edit: https://github.com/jules32/bookdown-tutorial/edit/master/%s
     download: ["pdf"]
 #bookdown::pdf_book:

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Working with raster data in R | R cookbook for the casual dabbler</title>
+  <meta name="description" content="A practical user guide for R in advisory." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Working with raster data in R | R cookbook for the casual dabbler" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A practical user guide for R in advisory." />
+  <meta name="github-repo" content="openscapes/series" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Working with raster data in R | R cookbook for the casual dabbler" />
+  
+  <meta name="twitter:description" content="A practical user guide for R in advisory." />
+  
+
+<meta name="author" content="Charles Coverdale" />
+
+
+<meta name="date" content="2021-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-modelling-in-r.html"/>
+<link rel="next" href="election-data-in-r.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.19.1/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Cookbook for the Casual Dabbler<</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#additional-resources"><i class="fa fa-check"></i><b>1.2</b> Additional resources</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#limitations"><i class="fa fa-check"></i><b>1.3</b> Limitations</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i><b>1.4</b> About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html"><i class="fa fa-check"></i><b>2</b> Making beautiful maps in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#why-use-a-map"><i class="fa fa-check"></i><b>2.1</b> Why use a map</a></li>
+<li class="chapter" data-level="2.2" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#getting-started"><i class="fa fa-check"></i><b>2.2</b> Getting started</a></li>
+<li class="chapter" data-level="2.3" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#making-your-first-map"><i class="fa fa-check"></i><b>2.3</b> Making your first map</a></li>
+<li class="chapter" data-level="2.4" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-okay-to-good"><i class="fa fa-check"></i><b>2.4</b> From okay to good</a></li>
+<li class="chapter" data-level="2.5" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-good-to-great"><i class="fa fa-check"></i><b>2.5</b> From good to great</a></li>
+<li class="chapter" data-level="2.6" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-great-to-fantastic"><i class="fa fa-check"></i><b>2.6</b> From great to fantastic</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html"><i class="fa fa-check"></i><b>3</b> Basic modelling in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#source-format-and-plot-data"><i class="fa fa-check"></i><b>3.1</b> Source, format, and plot data</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#build-a-linear-model"><i class="fa fa-check"></i><b>3.2</b> Build a linear model</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-model-fit"><i class="fa fa-check"></i><b>3.3</b> Analyse the model fit</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#compare-the-predicted-values-with-the-actual-values"><i class="fa fa-check"></i><b>3.4</b> Compare the predicted values with the actual values</a></li>
+<li class="chapter" data-level="3.5" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-residuals"><i class="fa fa-check"></i><b>3.5</b> Analyse the residuals</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#linear-regression-with-more-than-one-variable"><i class="fa fa-check"></i><b>3.6</b> Linear regression with more than one variable</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#fitting-a-polynomial-regression"><i class="fa fa-check"></i><b>3.7</b> Fitting a polynomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html"><i class="fa fa-check"></i><b>4</b> Working with raster data in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#getting-started-1"><i class="fa fa-check"></i><b>4.1</b> Getting started</a></li>
+<li class="chapter" data-level="4.2" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#import-data"><i class="fa fa-check"></i><b>4.2</b> Import data</a></li>
+<li class="chapter" data-level="4.3" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#data-wrangling"><i class="fa fa-check"></i><b>4.3</b> Data Wrangling</a></li>
+<li class="chapter" data-level="4.4" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#working-with-raster-data"><i class="fa fa-check"></i><b>4.4</b> Working with raster data</a></li>
+<li class="chapter" data-level="4.5" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#making-an-interactive-map"><i class="fa fa-check"></i><b>4.5</b> Making an interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="election-data-in-r.html"><a href="election-data-in-r.html"><i class="fa fa-check"></i><b>5</b> Election data in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="election-data-in-r.html"><a href="election-data-in-r.html#getting-started-2"><i class="fa fa-check"></i><b>5.1</b> Getting started</a></li>
+<li class="chapter" data-level="5.2" data-path="election-data-in-r.html"><a href="election-data-in-r.html#working-with-election-maps"><i class="fa fa-check"></i><b>5.2</b> Working with election maps</a></li>
+<li class="chapter" data-level="5.3" data-path="election-data-in-r.html"><a href="election-data-in-r.html#answering-some-simple-questions"><i class="fa fa-check"></i><b>5.3</b> Answering some simple questions</a></li>
+<li class="chapter" data-level="5.4" data-path="election-data-in-r.html"><a href="election-data-in-r.html#demographic-analysis-of-voting-trends"><i class="fa fa-check"></i><b>5.4</b> Demographic analysis of voting trends</a></li>
+<li class="chapter" data-level="5.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>5.5</b> Exploring booth level data</a></li>
+<li class="chapter" data-level="5.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#winners-and-losers-at-each-booth"><i class="fa fa-check"></i><b>5.6</b> Winners and losers at each booth</a></li>
+<li class="chapter" data-level="5.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>5.7</b> Donkeys, dicks, and other informalities</a></li>
+<li class="chapter" data-level="5.8" data-path="election-data-in-r.html"><a href="election-data-in-r.html#section"><i class="fa fa-check"></i><b>5.8</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>6</b> Charts</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="charts.html"><a href="charts.html#getting-started-3"><i class="fa fa-check"></i><b>6.1</b> Getting started</a></li>
+<li class="chapter" data-level="6.2" data-path="charts.html"><a href="charts.html#make-the-data-tidy"><i class="fa fa-check"></i><b>6.2</b> Make the data tidy</a></li>
+<li class="chapter" data-level="6.3" data-path="charts.html"><a href="charts.html#line-plot"><i class="fa fa-check"></i><b>6.3</b> Line plot</a></li>
+<li class="chapter" data-level="6.4" data-path="charts.html"><a href="charts.html#scatter-and-trend-plot"><i class="fa fa-check"></i><b>6.4</b> Scatter and trend plot</a></li>
+<li class="chapter" data-level="6.5" data-path="charts.html"><a href="charts.html#shading-areas-on-plots"><i class="fa fa-check"></i><b>6.5</b> Shading areas on plots</a></li>
+<li class="chapter" data-level="6.6" data-path="charts.html"><a href="charts.html#bar-chart-numercial"><i class="fa fa-check"></i><b>6.6</b> Bar chart (numercial)</a></li>
+<li class="chapter" data-level="6.7" data-path="charts.html"><a href="charts.html#stacked-bar-chart"><i class="fa fa-check"></i><b>6.7</b> Stacked bar chart</a></li>
+<li class="chapter" data-level="6.8" data-path="charts.html"><a href="charts.html#histogram"><i class="fa fa-check"></i><b>6.8</b> Histogram</a></li>
+<li class="chapter" data-level="6.9" data-path="charts.html"><a href="charts.html#ridge-chart"><i class="fa fa-check"></i><b>6.9</b> Ridge chart</a></li>
+<li class="chapter" data-level="6.10" data-path="charts.html"><a href="charts.html#bbc-style-bar-charts-categorical"><i class="fa fa-check"></i><b>6.10</b> BBC style: Bar charts (categorical)</a></li>
+<li class="chapter" data-level="6.11" data-path="charts.html"><a href="charts.html#bbc-style-dumbbell-charts"><i class="fa fa-check"></i><b>6.11</b> BBC style: Dumbbell charts</a></li>
+<li class="chapter" data-level="6.12" data-path="charts.html"><a href="charts.html#facet-wraps"><i class="fa fa-check"></i><b>6.12</b> Facet wraps</a></li>
+<li class="chapter" data-level="6.13" data-path="charts.html"><a href="charts.html#pie-chart"><i class="fa fa-check"></i><b>6.13</b> Pie chart</a></li>
+<li class="chapter" data-level="6.14" data-path="charts.html"><a href="charts.html#patchwork"><i class="fa fa-check"></i><b>6.14</b> Patchwork</a></li>
+<li class="chapter" data-level="6.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>6.15</b> Saving to powerpoint</a></li>
+<li class="chapter" data-level="6.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>6.16</b> Automating chart creation</a></li>
+<li class="chapter" data-level="6.17" data-path="charts.html"><a href="charts.html#section-1"><i class="fa fa-check"></i><b>6.17</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>7.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="7.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>7.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="7.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>7.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="7.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>7.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="7.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="7.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>7.6</b> Confidence intervals (model)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>8</b> Forecasting</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="forecasting.html"><a href="forecasting.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for the casual dabbler</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="working-with-raster-data-in-r" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Working with raster data in R</h1>
+<p>Raster data (sometimes referred to as gridded data) is a type of spatial data that is stored in a grid rather than a polygon. Imagine a chessboard of individuals squares covering the Australian landmass compared to 8 different shapes covering each state and territory. The nice thing about gridded data is that all the cells in the grid are the same size - making calculations much easier.</p>
+<div id="getting-started-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Getting started</h2>
+<p>First up we need to load some spatial and data crunching packages.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="working-with-raster-data-in-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load packages</span></span>
+<span id="cb28-2"><a href="working-with-raster-data-in-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
+<span id="cb28-3"><a href="working-with-raster-data-in-r.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb28-4"><a href="working-with-raster-data-in-r.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb28-5"><a href="working-with-raster-data-in-r.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb28-6"><a href="working-with-raster-data-in-r.html#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb28-7"><a href="working-with-raster-data-in-r.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb28-8"><a href="working-with-raster-data-in-r.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(absmapsdata)</span>
+<span id="cb28-9"><a href="working-with-raster-data-in-r.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb28-10"><a href="working-with-raster-data-in-r.html#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rasterVis)</span>
+<span id="cb28-11"><a href="working-with-raster-data-in-r.html#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb28-12"><a href="working-with-raster-data-in-r.html#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb28-13"><a href="working-with-raster-data-in-r.html#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb28-14"><a href="working-with-raster-data-in-r.html#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb28-15"><a href="working-with-raster-data-in-r.html#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
+<span id="cb28-16"><a href="working-with-raster-data-in-r.html#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vctrs)</span>
+<span id="cb28-17"><a href="working-with-raster-data-in-r.html#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb28-18"><a href="working-with-raster-data-in-r.html#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb28-19"><a href="working-with-raster-data-in-r.html#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span>
+<span id="cb28-20"><a href="working-with-raster-data-in-r.html#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb28-21"><a href="working-with-raster-data-in-r.html#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="cb28-22"><a href="working-with-raster-data-in-r.html#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rlang)</span>
+<span id="cb28-23"><a href="working-with-raster-data-in-r.html#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb28-24"><a href="working-with-raster-data-in-r.html#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="import-data" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Import data</h2>
+<p>Next, we want to import annual rainfall data from github (original source available from the Bureau of Meterology)</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="working-with-raster-data-in-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a>rainfall <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;https://raw.github.com/charlescoverdale/ERF/master/rainan.txt&quot;</span>)</span>
+<span id="cb29-2"><a href="working-with-raster-data-in-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="working-with-raster-data-in-r.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rainfall)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Straight away we see this is for the whole of Australia (and then some). We’re only interested in what’s going on in QLD… so let’s crop the data down to scale. For this we’ll need to import a shapefile for QLD.</p>
+<p>The easiest way to do this is using the absmapsdata package - importing a shapefile of Australia then filtering for only Queensland.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="working-with-raster-data-in-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import a polygon for the state of Queensland</span></span>
+<span id="cb30-2"><a href="working-with-raster-data-in-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a>QLD_shape <span class="ot">&lt;-</span> state2016 <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="working-with-raster-data-in-r.html#cb30-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">filter</span>(state_name_2016<span class="sc">==</span><span class="st">&quot;Queensland&quot;</span>)</span></code></pre></div>
+</div>
+<div id="data-wrangling" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Data Wrangling</h2>
+<p>We have raster data for the entirety of Australia (and then some as it’s pulled from one of the BOMs satellites). This is a bit messy to work with - so let’s crop the rainfall data from the entire Australian continent to just Queensland.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="working-with-raster-data-in-r.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop data</span></span>
+<span id="cb31-2"><a href="working-with-raster-data-in-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">crop</span>(rainfall,<span class="fu">extent</span>(QLD_shape))</span>
+<span id="cb31-3"><a href="working-with-raster-data-in-r.html#cb31-3" aria-hidden="true" tabindex="-1"></a>r3 <span class="ot">&lt;-</span> <span class="fu">mask</span>(r2,QLD_shape)</span>
+<span id="cb31-4"><a href="working-with-raster-data-in-r.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r3)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Great. That looks like it worked well. Next up, let’s transform the cropped raster (i.e. gridded data) into a data frame (df) that we can use in the ggplot package.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="working-with-raster-data-in-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a>r3_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(r3,<span class="at">xy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb32-2"><a href="working-with-raster-data-in-r.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="working-with-raster-data-in-r.html#cb32-3" aria-hidden="true" tabindex="-1"></a>r3_df <span class="ot">&lt;-</span> r3_df <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="working-with-raster-data-in-r.html#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">filter</span>(rainan<span class="sc">!=</span><span class="st">&quot;NA&quot;</span>)</span>
+<span id="cb32-5"><a href="working-with-raster-data-in-r.html#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="working-with-raster-data-in-r.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb32-7"><a href="working-with-raster-data-in-r.html#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">data=</span>r3_df, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">fill=</span>rainan)) <span class="sc">+</span> </span>
+<span id="cb32-8"><a href="working-with-raster-data-in-r.html#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>() <span class="sc">+</span></span>
+<span id="cb32-9"><a href="working-with-raster-data-in-r.html#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb32-10"><a href="working-with-raster-data-in-r.html#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-11"><a href="working-with-raster-data-in-r.html#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.width=</span><span class="fu">unit</span>(<span class="fl">1.2</span>, <span class="st">&quot;cm&quot;</span>))<span class="sc">+</span></span>
+<span id="cb32-12"><a href="working-with-raster-data-in-r.html#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Rainfall in QLD&quot;</span>,</span>
+<span id="cb32-13"><a href="working-with-raster-data-in-r.html#cb32-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">subtitle =</span> <span class="st">&quot;Analysis from the Bureau of Meterology&quot;</span>,</span>
+<span id="cb32-14"><a href="working-with-raster-data-in-r.html#cb32-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Data: BOM 2021&quot;</span>,</span>
+<span id="cb32-15"><a href="working-with-raster-data-in-r.html#cb32-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">x=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb32-16"><a href="working-with-raster-data-in-r.html#cb32-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb32-17"><a href="working-with-raster-data-in-r.html#cb32-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="st">&quot;(mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb32-18"><a href="working-with-raster-data-in-r.html#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb32-19"><a href="working-with-raster-data-in-r.html#cb32-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb32-20"><a href="working-with-raster-data-in-r.html#cb32-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb32-21"><a href="working-with-raster-data-in-r.html#cb32-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb32-22"><a href="working-with-raster-data-in-r.html#cb32-22" aria-hidden="true" tabindex="-1"></a>            <span class="co">#theme(legend.position = &quot;bottom&quot;)+</span></span>
+<span id="cb32-23"><a href="working-with-raster-data-in-r.html#cb32-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb32-24"><a href="working-with-raster-data-in-r.html#cb32-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
+<span id="cb32-25"><a href="working-with-raster-data-in-r.html#cb32-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><br />
+Excellent, we’ve got a working map of rainfall in Queensland using the ggplot package. We’ll tidy up the map also and add a title and some better colours.</p>
+</div>
+<div id="working-with-raster-data" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Working with raster data</h2>
+<p>For our first piece of data analysis, we’re going to look at areas with less than 600mm of annual rainfall. How many of our data points will have less than 600mm of rain? Let’s take a look at the data distribution and find out.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="working-with-raster-data-in-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(r3_df) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="working-with-raster-data-in-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(rainan),<span class="at">binwidth=</span><span class="dv">1</span>,<span class="at">col=</span><span class="st">&quot;darkblue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-3"><a href="working-with-raster-data-in-r.html#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of annual rainfall in QLD&quot;</span>,</span>
+<span id="cb33-4"><a href="working-with-raster-data-in-r.html#cb33-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subtitle =</span> <span class="st">&quot;Data using a 5x5km grid&quot;</span>,</span>
+<span id="cb33-5"><a href="working-with-raster-data-in-r.html#cb33-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Data: Bureau of Meterology 2021&quot;</span>,</span>
+<span id="cb33-6"><a href="working-with-raster-data-in-r.html#cb33-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">x=</span><span class="st">&quot;Rainfall (mm)&quot;</span>,</span>
+<span id="cb33-7"><a href="working-with-raster-data-in-r.html#cb33-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb33-8"><a href="working-with-raster-data-in-r.html#cb33-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="st">&quot;(mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb33-9"><a href="working-with-raster-data-in-r.html#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb33-10"><a href="working-with-raster-data-in-r.html#cb33-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb33-11"><a href="working-with-raster-data-in-r.html#cb33-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-12"><a href="working-with-raster-data-in-r.html#cb33-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb33-13"><a href="working-with-raster-data-in-r.html#cb33-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
+<span id="cb33-14"><a href="working-with-raster-data-in-r.html#cb33-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>Interesting. The data is heavily right tailed skewed (the mean will be much higher than the median)… and most of the data looks to be between 0-1000mm (this makes sense).</p>
+<p>Let’s create a ‘flag’ column of 0’s and 1’s that shows when a data point is less than 600mm.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="working-with-raster-data-in-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a>r3_df <span class="ot">&lt;-</span> r3_df <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="working-with-raster-data-in-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">flag_600mm =</span> <span class="fu">ifelse</span>(rainan<span class="sc">&lt;=</span><span class="dv">600</span>,<span class="dv">1</span>,<span class="dv">0</span>))</span>
+<span id="cb34-3"><a href="working-with-raster-data-in-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="working-with-raster-data-in-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a>flagcolours<span class="ot">&lt;-</span>(<span class="fu">c</span>(<span class="st">&quot;grey&quot;</span>, <span class="st">&quot;#2FB300&quot;</span>))</span>
+<span id="cb34-5"><a href="working-with-raster-data-in-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="working-with-raster-data-in-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="working-with-raster-data-in-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span>  </span>
+<span id="cb34-8"><a href="working-with-raster-data-in-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">data=</span>r3_df, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">fill=</span><span class="fu">as.factor</span>(flag_600mm))) <span class="sc">+</span> </span>
+<span id="cb34-9"><a href="working-with-raster-data-in-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>flagcolours)<span class="sc">+</span></span>
+<span id="cb34-10"><a href="working-with-raster-data-in-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb34-11"><a href="working-with-raster-data-in-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb34-12"><a href="working-with-raster-data-in-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.width=</span><span class="fu">unit</span>(<span class="fl">1.2</span>, <span class="st">&quot;cm&quot;</span>))<span class="sc">+</span></span>
+<span id="cb34-13"><a href="working-with-raster-data-in-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Areas with less than 600mm of annual rainfall in QLD&quot;</span>,</span>
+<span id="cb34-14"><a href="working-with-raster-data-in-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">subtitle =</span> <span class="st">&quot;Identifying suitable land parcels for ERF plantings&quot;</span>,</span>
+<span id="cb34-15"><a href="working-with-raster-data-in-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">&quot;Data: Bureau of Meterology 2021&quot;</span>,</span>
+<span id="cb34-16"><a href="working-with-raster-data-in-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">x=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb34-17"><a href="working-with-raster-data-in-r.html#cb34-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">y=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb34-18"><a href="working-with-raster-data-in-r.html#cb34-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="st">&quot;(mm)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb34-19"><a href="working-with-raster-data-in-r.html#cb34-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb34-20"><a href="working-with-raster-data-in-r.html#cb34-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb34-21"><a href="working-with-raster-data-in-r.html#cb34-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb34-22"><a href="working-with-raster-data-in-r.html#cb34-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb34-23"><a href="working-with-raster-data-in-r.html#cb34-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)<span class="sc">+</span></span>
+<span id="cb34-24"><a href="working-with-raster-data-in-r.html#cb34-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb34-25"><a href="working-with-raster-data-in-r.html#cb34-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
+<span id="cb34-26"><a href="working-with-raster-data-in-r.html#cb34-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-raster-data-in-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;C:/06 R_code/ERF_600_mm_rainfall.png&quot;,units=&quot;cm&quot;,dpi=200, device=&quot;png&quot;)</span></span></code></pre></div>
+</div>
+<div id="making-an-interactive-map" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Making an interactive map</h2>
+<p>The static map above is good… but an interactive visual (ideally with place names below) is better.</p>
+<p>To to this we’ll need to convert our data frame back to a raster layer, then plot it using the tmap package.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="working-with-raster-data-in-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># r4_df &lt;- subset(r3_df,select= -c(rainan))</span></span>
+<span id="cb36-2"><a href="working-with-raster-data-in-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb36-3"><a href="working-with-raster-data-in-r.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># coordinates(r4_df) &lt;- ~ x + y  </span></span>
+<span id="cb36-4"><a href="working-with-raster-data-in-r.html#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># gridded(r4_df) &lt;- TRUE</span></span>
+<span id="cb36-5"><a href="working-with-raster-data-in-r.html#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># r5 &lt;- raster(r4_df)</span></span>
+<span id="cb36-6"><a href="working-with-raster-data-in-r.html#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb36-7"><a href="working-with-raster-data-in-r.html#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># tmap_mode(&quot;view&quot;)</span></span>
+<span id="cb36-8"><a href="working-with-raster-data-in-r.html#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co">#       tm_shape(r5)+</span></span>
+<span id="cb36-9"><a href="working-with-raster-data-in-r.html#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co">#         tm_raster(style=&quot;cont&quot;,alpha=0.5)</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-modelling-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="election-data-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jules32/bookdown-tutorial/edit/master/04-Raster-data-in-R.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

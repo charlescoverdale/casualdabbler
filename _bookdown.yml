@@ -4,9 +4,11 @@ language:
     chapter_name: "Chapter "
 rmd_files: [
   "index.Rmd",
-  "setup.Rmd",
-  "write.Rmd",
+  "02-making-maps-beautiful.Rmd",
   "03-basic-modelling-in-R.Rmd", 
+  "04-Raster-data-in-R.Rmd", 
+  "05-Election-data-in-R.Rmd",
+  "06-Charts.Rmd",
   "08-Hypothesis-testing.Rmd",
   "09-Forecasting.Rmd"
   ]
