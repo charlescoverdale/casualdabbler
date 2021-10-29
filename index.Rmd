@@ -1,5 +1,5 @@
 --- 
-title: "R cookbook for the casual dabbler"
+title: "R cookbook for the casual dabbler "
 author: "Charles Coverdale"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
