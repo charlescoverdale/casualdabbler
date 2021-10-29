@@ -3,7 +3,9 @@ title: "R cookbook for the casual dabbler "
 author: "Charles Coverdale"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-# output: bookdown::gitbook
+output:
+  bookdown::html_book:
+    theme: united
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
