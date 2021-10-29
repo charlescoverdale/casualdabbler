@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-10-29" />
+<meta name="date" content="2021-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -262,13 +262,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-9"><a href="basic-modelling-in-r.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
 <p>I’ve put together a csv file of weather observations in Melbourne in 2019. We begin our model by downloading the data from Github.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="basic-modelling-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
-<span id="cb7-2"><a href="basic-modelling-in-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">&quot;https://raw.githubusercontent.com/charlescoverdale/predicttemperature/master/MEL_weather_2019.csv&quot;</span></span>
+<span id="cb7-2"><a href="basic-modelling-in-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">&quot;data/MEL_weather_2019.csv&quot;</span></span>
 <span id="cb7-3"><a href="basic-modelling-in-r.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="basic-modelling-in-r.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#We&#39;ll read this data in as a dataframe. The &#39;check.names&#39; function set to false means the funny units that the BOM use for column names won&#39;t affect the import.</span></span>
-<span id="cb7-5"><a href="basic-modelling-in-r.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="basic-modelling-in-r.html#cb7-6" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url, <span class="at">check.names =</span> F)</span>
-<span id="cb7-7"><a href="basic-modelling-in-r.html#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="basic-modelling-in-r.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MEL_weather_2019)</span></code></pre></div>
+<span id="cb7-4"><a href="basic-modelling-in-r.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We&#39;ll read this data in as a dataframe</span></span>
+<span id="cb7-5"><a href="basic-modelling-in-r.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The &#39;check.names&#39; function set to false means the funny units that the BOM use for column names won&#39;t affect the import.</span></span>
+<span id="cb7-6"><a href="basic-modelling-in-r.html#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="basic-modelling-in-r.html#cb7-7" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(link, <span class="at">check.names =</span> F)</span>
+<span id="cb7-8"><a href="basic-modelling-in-r.html#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="basic-modelling-in-r.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(MEL_weather_2019)</span></code></pre></div>
 <p>This data is relatively clean. One handy change to make is to make the date into a dynamic format (to easily switch between months, years, etc).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="basic-modelling-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add a proper date column</span></span>
 <span id="cb8-2"><a href="basic-modelling-in-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a>MEL_weather_2019 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>

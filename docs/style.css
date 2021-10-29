@@ -10,3 +10,13 @@
 .book .book-summary ul.summary li.divider {
     height: 0px;
 }
+
+/* Fix code chunks spacing */
+
+.sourceCode pre {
+  margin: 0 !important; /* makes space above and below symmetrical*/
+}
+
+.sourceCode {
+  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
+}
