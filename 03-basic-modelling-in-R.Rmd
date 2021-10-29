@@ -22,16 +22,15 @@ library(cowplot)
 I've put together a csv file of weather observations in Melbourne in 2019. We begin our model by downloading the data from Github.
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
-
 #Input data
-url <-"https://raw.githubusercontent.com/charlescoverdale/predicttemperature/master/MEL_weather_2019.csv"
+link <- "data/MEL_weather_2019.csv"
 
-#We'll read this data in as a dataframe. The 'check.names' function set to false means the funny units that the BOM use for column names won't affect the import.
+# We'll read this data in as a dataframe
+# The 'check.names' function set to false means the funny units that the BOM use for column names won't affect the import.
 
-MEL_weather_2019 <- read.csv(url, check.names = F)
+MEL_weather_2019 <- read.csv(link, check.names = F)
 
 head(MEL_weather_2019)
-
 ```
 
 This data is relatively clean. One handy change to make is to make the date into a dynamic format (to easily switch between months, years, etc).
@@ -242,7 +241,6 @@ However we can expect that temperature follows a non-linear pattern throughout t
 For simplicity, we will introduce a new variable (Day_number) which is the day of the year (e.g. 1 January is \#1, 31 December is \#366).
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
-
 MEL_weather_2019 <- MEL_weather_2019 %>%
     mutate(Day_number=row_number())
 head(MEL_weather_2019)
@@ -251,7 +249,6 @@ head(MEL_weather_2019)
 Using the same dataset as above, let's plot temperature in Melbourne in 2019.
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
-
 MEL_temp_chart <- 
 ggplot(MEL_weather_2019)+
   geom_line(aes(x = Day_number, y = Max_temp)) +
@@ -270,7 +267,6 @@ We can see we'll need a non-linear model to fit this data.
 Below we create a few different models. We start with a normal straight line model, then add an x² and x³ model. We then use these models and the 'predict' function to see what temperatures they forecast based on the input data.
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
-
 #Create a straight line estimate to fit the data
 poly1 <- lm(Max_temp ~ poly(Day_number,1,raw=TRUE),
          data=MEL_weather_2019)
