@@ -53,6 +53,14 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.19.1/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -179,6 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>5.5</b> Exploring booth level data</a></li>
 <li class="chapter" data-level="5.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#winners-and-losers-at-each-booth"><i class="fa fa-check"></i><b>5.6</b> Winners and losers at each booth</a></li>
 <li class="chapter" data-level="5.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>5.7</b> Donkeys, dicks, and other informalities</a></li>
+<li class="chapter" data-level="5.8" data-path="election-data-in-r.html"><a href="election-data-in-r.html#section"><i class="fa fa-check"></i><b>5.8</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>6</b> Charts</a>
 <ul>
@@ -207,6 +216,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="machine-learning.html"><a href="machine-learning.html#build-a-classification-model"><i class="fa fa-check"></i><b>7.4</b> Build a classification model</a></li>
 <li class="chapter" data-level="7.5" data-path="machine-learning.html"><a href="machine-learning.html#compare-different-ml-models"><i class="fa fa-check"></i><b>7.5</b> Compare different ML models</a></li>
 <li class="chapter" data-level="7.6" data-path="machine-learning.html"><a href="machine-learning.html#building-a-predictive-ml-model"><i class="fa fa-check"></i><b>7.6</b> Building a predictive ML model</a></li>
+<li class="chapter" data-level="7.7" data-path="machine-learning.html"><a href="machine-learning.html#section-1"><i class="fa fa-check"></i><b>7.7</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis testing</a>
 <ul>
@@ -263,21 +273,21 @@ Prabhakaran</a></p></li>
 Splines</a></p></li>
 </ul>
 <p>We’ll start our journey by loading some packages</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="machine-learning.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in packages</span></span>
-<span id="cb1-2"><a href="machine-learning.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="machine-learning.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb1-4"><a href="machine-learning.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb1-5"><a href="machine-learning.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RANN)</span>
-<span id="cb1-6"><a href="machine-learning.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb1-7"><a href="machine-learning.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastAdaboost)</span>
-<span id="cb1-8"><a href="machine-learning.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
-<span id="cb1-9"><a href="machine-learning.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xgboost)</span>
-<span id="cb1-10"><a href="machine-learning.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caretEnsemble)</span>
-<span id="cb1-11"><a href="machine-learning.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(C50)</span>
-<span id="cb1-12"><a href="machine-learning.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(earth)</span>
-<span id="cb1-13"><a href="machine-learning.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb1-14"><a href="machine-learning.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cumSeg)</span>
-<span id="cb1-15"><a href="machine-learning.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="machine-learning.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in packages</span></span>
+<span id="cb87-2"><a href="machine-learning.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb87-3"><a href="machine-learning.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb87-4"><a href="machine-learning.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb87-5"><a href="machine-learning.html#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RANN)</span>
+<span id="cb87-6"><a href="machine-learning.html#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb87-7"><a href="machine-learning.html#cb87-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastAdaboost)</span>
+<span id="cb87-8"><a href="machine-learning.html#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
+<span id="cb87-9"><a href="machine-learning.html#cb87-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xgboost)</span>
+<span id="cb87-10"><a href="machine-learning.html#cb87-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caretEnsemble)</span>
+<span id="cb87-11"><a href="machine-learning.html#cb87-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(C50)</span>
+<span id="cb87-12"><a href="machine-learning.html#cb87-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(earth)</span>
+<span id="cb87-13"><a href="machine-learning.html#cb87-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb87-14"><a href="machine-learning.html#cb87-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cumSeg)</span>
+<span id="cb87-15"><a href="machine-learning.html#cb87-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caTools)</span></code></pre></div>
 </div>
 <div id="beyond-regressions" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Beyond regressions</h2>
@@ -294,69 +304,69 @@ format:<br />
 <p>To make predictions using mod on the original data, we can call the
 predict() function:</p>
 <p><code>predict_data &lt;- predict(linear_model, dataset)</code></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="machine-learning.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s use the mtcars dataset as an example</span></span>
-<span id="cb2-2"><a href="machine-learning.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="machine-learning.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a model to the mtcars data</span></span>
-<span id="cb2-4"><a href="machine-learning.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb2-5"><a href="machine-learning.html#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="machine-learning.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a linear model to explain mpg using hp</span></span>
-<span id="cb2-7"><a href="machine-learning.html#cb2-7" aria-hidden="true" tabindex="-1"></a>mtcars_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, mtcars)</span>
-<span id="cb2-8"><a href="machine-learning.html#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="machine-learning.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the model over the data</span></span>
-<span id="cb2-10"><a href="machine-learning.html#cb2-10" aria-hidden="true" tabindex="-1"></a>mtcars_model_estimates <span class="ot">&lt;-</span> <span class="fu">predict</span>(mtcars_model,mtcars)</span>
-<span id="cb2-11"><a href="machine-learning.html#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="machine-learning.html#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind the original figures for mpg with the predicted figures for mpg</span></span>
-<span id="cb2-13"><a href="machine-learning.html#cb2-13" aria-hidden="true" tabindex="-1"></a>mtcars_model_outputs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">Actual_mpg=</span>mtcars<span class="sc">$</span>mpg,</span>
-<span id="cb2-14"><a href="machine-learning.html#cb2-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Actual_hp=</span>mtcars<span class="sc">$</span>hp,</span>
-<span id="cb2-15"><a href="machine-learning.html#cb2-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Predicted_mpg=</span>mtcars_model_estimates,</span>
-<span id="cb2-16"><a href="machine-learning.html#cb2-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Residuals=</span><span class="fu">resid</span>(mtcars_model),</span>
-<span id="cb2-17"><a href="machine-learning.html#cb2-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Fitted=</span><span class="fu">fitted</span>(mtcars_model))</span>
-<span id="cb2-18"><a href="machine-learning.html#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="machine-learning.html#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure the outputs are a df</span></span>
-<span id="cb2-20"><a href="machine-learning.html#cb2-20" aria-hidden="true" tabindex="-1"></a>mtcars_model_outputs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mtcars_model_outputs)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="machine-learning.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s use the mtcars dataset as an example</span></span>
+<span id="cb88-2"><a href="machine-learning.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="machine-learning.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a model to the mtcars data</span></span>
+<span id="cb88-4"><a href="machine-learning.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb88-5"><a href="machine-learning.html#cb88-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-6"><a href="machine-learning.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a linear model to explain mpg using hp</span></span>
+<span id="cb88-7"><a href="machine-learning.html#cb88-7" aria-hidden="true" tabindex="-1"></a>mtcars_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> hp, mtcars)</span>
+<span id="cb88-8"><a href="machine-learning.html#cb88-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="machine-learning.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the model over the data</span></span>
+<span id="cb88-10"><a href="machine-learning.html#cb88-10" aria-hidden="true" tabindex="-1"></a>mtcars_model_estimates <span class="ot">&lt;-</span> <span class="fu">predict</span>(mtcars_model,mtcars)</span>
+<span id="cb88-11"><a href="machine-learning.html#cb88-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-12"><a href="machine-learning.html#cb88-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind the original figures for mpg with the predicted figures for mpg</span></span>
+<span id="cb88-13"><a href="machine-learning.html#cb88-13" aria-hidden="true" tabindex="-1"></a>mtcars_model_outputs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">Actual_mpg=</span>mtcars<span class="sc">$</span>mpg,</span>
+<span id="cb88-14"><a href="machine-learning.html#cb88-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Actual_hp=</span>mtcars<span class="sc">$</span>hp,</span>
+<span id="cb88-15"><a href="machine-learning.html#cb88-15" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Predicted_mpg=</span>mtcars_model_estimates,</span>
+<span id="cb88-16"><a href="machine-learning.html#cb88-16" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Residuals=</span><span class="fu">resid</span>(mtcars_model),</span>
+<span id="cb88-17"><a href="machine-learning.html#cb88-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">Fitted=</span><span class="fu">fitted</span>(mtcars_model))</span>
+<span id="cb88-18"><a href="machine-learning.html#cb88-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-19"><a href="machine-learning.html#cb88-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure the outputs are a df</span></span>
+<span id="cb88-20"><a href="machine-learning.html#cb88-20" aria-hidden="true" tabindex="-1"></a>mtcars_model_outputs <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mtcars_model_outputs)</span></code></pre></div>
 <p>We can see how well this model estimated the dataset by looking at the
 residuals on a plot.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="machine-learning.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars_model_outputs)<span class="sc">+</span></span>
-<span id="cb3-2"><a href="machine-learning.html#cb3-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Actual_hp, <span class="at">y =</span> Predicted_mpg), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
-<span id="cb3-3"><a href="machine-learning.html#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Actual_hp, <span class="at">y =</span> Actual_mpg), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb3-4"><a href="machine-learning.html#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> Actual_hp, <span class="at">y =</span> Actual_mpg,</span>
-<span id="cb3-5"><a href="machine-learning.html#cb3-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> Actual_hp, <span class="at">yend =</span> Fitted),<span class="at">col=</span><span class="st">&quot;black&quot;</span>,<span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">linetype=</span><span class="st">&quot;dotted&quot;</span>)<span class="sc">+</span></span>
-<span id="cb3-6"><a href="machine-learning.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="machine-learning.html#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Building a regression model&quot;</span>,</span>
-<span id="cb3-8"><a href="machine-learning.html#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">&quot;Higher horsepower cars get less miles to the gallon&quot;</span>,</span>
-<span id="cb3-9"><a href="machine-learning.html#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Data: mtcars dataset&quot;</span>,</span>
-<span id="cb3-10"><a href="machine-learning.html#cb3-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x=</span><span class="st">&quot;Horsepower&quot;</span>,</span>
-<span id="cb3-11"><a href="machine-learning.html#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;Miles per gallon&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb3-12"><a href="machine-learning.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-13"><a href="machine-learning.html#cb3-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb3-14"><a href="machine-learning.html#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
-<span id="cb3-15"><a href="machine-learning.html#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
-<span id="cb3-16"><a href="machine-learning.html#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
-<span id="cb3-17"><a href="machine-learning.html#cb3-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))<span class="sc">+</span></span>
-<span id="cb3-18"><a href="machine-learning.html#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))<span class="sc">+</span></span>
-<span id="cb3-19"><a href="machine-learning.html#cb3-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
-<span id="cb3-20"><a href="machine-learning.html#cb3-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb3-21"><a href="machine-learning.html#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.y =</span> </span>
-<span id="cb3-22"><a href="machine-learning.html#cb3-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_text</span>(<span class="at">margin =</span> ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)))<span class="sc">+</span></span>
-<span id="cb3-23"><a href="machine-learning.html#cb3-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-24"><a href="machine-learning.html#cb3-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, </span>
-<span id="cb3-25"><a href="machine-learning.html#cb3-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">margin =</span> ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="at">l =</span> <span class="dv">20</span>, <span class="at">r =</span> <span class="sc">-</span><span class="dv">10</span>)))<span class="sc">+</span></span>
-<span id="cb3-26"><a href="machine-learning.html#cb3-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-27"><a href="machine-learning.html#cb3-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
-<span id="cb3-28"><a href="machine-learning.html#cb3-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-29"><a href="machine-learning.html#cb3-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.line.x =</span> </span>
-<span id="cb3-30"><a href="machine-learning.html#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))<span class="sc">+</span></span>
-<span id="cb3-31"><a href="machine-learning.html#cb3-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-32"><a href="machine-learning.html#cb3-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="machine-learning.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars_model_outputs)<span class="sc">+</span></span>
+<span id="cb89-2"><a href="machine-learning.html#cb89-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Actual_hp, <span class="at">y =</span> Predicted_mpg), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb89-3"><a href="machine-learning.html#cb89-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Actual_hp, <span class="at">y =</span> Actual_mpg), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb89-4"><a href="machine-learning.html#cb89-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> Actual_hp, <span class="at">y =</span> Actual_mpg,</span>
+<span id="cb89-5"><a href="machine-learning.html#cb89-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> Actual_hp, <span class="at">yend =</span> Fitted),<span class="at">col=</span><span class="st">&quot;black&quot;</span>,<span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">linetype=</span><span class="st">&quot;dotted&quot;</span>)<span class="sc">+</span></span>
+<span id="cb89-6"><a href="machine-learning.html#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-7"><a href="machine-learning.html#cb89-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Building a regression model&quot;</span>,</span>
+<span id="cb89-8"><a href="machine-learning.html#cb89-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">&quot;Higher horsepower cars get less miles to the gallon&quot;</span>,</span>
+<span id="cb89-9"><a href="machine-learning.html#cb89-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Data: mtcars dataset&quot;</span>,</span>
+<span id="cb89-10"><a href="machine-learning.html#cb89-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x=</span><span class="st">&quot;Horsepower&quot;</span>,</span>
+<span id="cb89-11"><a href="machine-learning.html#cb89-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">y=</span><span class="st">&quot;Miles per gallon&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb89-12"><a href="machine-learning.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-13"><a href="machine-learning.html#cb89-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb89-14"><a href="machine-learning.html#cb89-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
+<span id="cb89-15"><a href="machine-learning.html#cb89-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb89-16"><a href="machine-learning.html#cb89-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
+<span id="cb89-17"><a href="machine-learning.html#cb89-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))<span class="sc">+</span></span>
+<span id="cb89-18"><a href="machine-learning.html#cb89-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))<span class="sc">+</span></span>
+<span id="cb89-19"><a href="machine-learning.html#cb89-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())<span class="sc">+</span></span>
+<span id="cb89-20"><a href="machine-learning.html#cb89-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb89-21"><a href="machine-learning.html#cb89-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.y =</span> </span>
+<span id="cb89-22"><a href="machine-learning.html#cb89-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_text</span>(<span class="at">margin =</span> ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">3</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)))<span class="sc">+</span></span>
+<span id="cb89-23"><a href="machine-learning.html#cb89-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-24"><a href="machine-learning.html#cb89-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, </span>
+<span id="cb89-25"><a href="machine-learning.html#cb89-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">margin =</span> ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="at">l =</span> <span class="dv">20</span>, <span class="at">r =</span> <span class="sc">-</span><span class="dv">10</span>)))<span class="sc">+</span></span>
+<span id="cb89-26"><a href="machine-learning.html#cb89-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-27"><a href="machine-learning.html#cb89-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb89-28"><a href="machine-learning.html#cb89-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-29"><a href="machine-learning.html#cb89-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.line.x =</span> </span>
+<span id="cb89-30"><a href="machine-learning.html#cb89-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))<span class="sc">+</span></span>
+<span id="cb89-31"><a href="machine-learning.html#cb89-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb89-32"><a href="machine-learning.html#cb89-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>To quantify the model fit in a single number, we can use the Root Mean
 Square Error (RMSE).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="machine-learning.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Root Mean Square Error (RMSE) manually</span></span>
-<span id="cb4-2"><a href="machine-learning.html#cb4-2" aria-hidden="true" tabindex="-1"></a>error <span class="ot">&lt;-</span> mtcars_model_estimates <span class="sc">-</span> mtcars[[<span class="st">&quot;mpg&quot;</span>]]</span>
-<span id="cb4-3"><a href="machine-learning.html#cb4-3" aria-hidden="true" tabindex="-1"></a>mtcars_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(error <span class="sc">^</span> <span class="dv">2</span>))</span>
-<span id="cb4-4"><a href="machine-learning.html#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="machine-learning.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can also simply use the residuals that are plotted on the chart above</span></span>
-<span id="cb4-6"><a href="machine-learning.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(mtcars_model_outputs<span class="sc">$</span>Residuals<span class="sc">^</span> <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="machine-learning.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Root Mean Square Error (RMSE) manually</span></span>
+<span id="cb90-2"><a href="machine-learning.html#cb90-2" aria-hidden="true" tabindex="-1"></a>error <span class="ot">&lt;-</span> mtcars_model_estimates <span class="sc">-</span> mtcars[[<span class="st">&quot;mpg&quot;</span>]]</span>
+<span id="cb90-3"><a href="machine-learning.html#cb90-3" aria-hidden="true" tabindex="-1"></a>mtcars_rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(error <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb90-4"><a href="machine-learning.html#cb90-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-5"><a href="machine-learning.html#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can also simply use the residuals that are plotted on the chart above</span></span>
+<span id="cb90-6"><a href="machine-learning.html#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(mtcars_model_outputs<span class="sc">$</span>Residuals<span class="sc">^</span> <span class="dv">2</span>))</span></code></pre></div>
 <p>So in very rough terms, we can say that the model predicts miles per
 gallon for a given level of horsepower with around 4 mpg of error.<br />
 </p>
@@ -373,14 +383,14 @@ based on some retail and demographic data. The original data set is
 called <a href="https://rdrr.io/cran/ISLR/man/OJ.html">OJ: Orange Juice Data</a>
 from <strong><em>Introduction to Statistical Learning in R (1998).</em></strong></p>
 <p>Let’s take a look at the set</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="machine-learning.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
-<span id="cb5-2"><a href="machine-learning.html#cb5-2" aria-hidden="true" tabindex="-1"></a>orange <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/selva86/datasets/master/orange_juice_withmissing.csv&#39;</span>)</span>
-<span id="cb5-3"><a href="machine-learning.html#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="machine-learning.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of the dataframe</span></span>
-<span id="cb5-5"><a href="machine-learning.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(orange)</span>
-<span id="cb5-6"><a href="machine-learning.html#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="machine-learning.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Have a look</span></span>
-<span id="cb5-8"><a href="machine-learning.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(orange[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="machine-learning.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dataset</span></span>
+<span id="cb91-2"><a href="machine-learning.html#cb91-2" aria-hidden="true" tabindex="-1"></a>orange <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/selva86/datasets/master/orange_juice_withmissing.csv&#39;</span>)</span>
+<span id="cb91-3"><a href="machine-learning.html#cb91-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="machine-learning.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure of the dataframe</span></span>
+<span id="cb91-5"><a href="machine-learning.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(orange)</span>
+<span id="cb91-6"><a href="machine-learning.html#cb91-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-7"><a href="machine-learning.html#cb91-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Have a look</span></span>
+<span id="cb91-8"><a href="machine-learning.html#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(orange[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
 <p>First things first - we need to split our data into ‘train’ and ‘test’
 sets. Why? Well We want to have a model where we can input an x value
 into an algorithm and it will know the value for y. If we give our model
@@ -389,23 +399,23 @@ model on, since it will already be incorporating those the ‘test’ data
 relationships into the model itself. It’s a bit like getting the answer
 sheet to the exam as you’re walking in - the exam result it probably
 going to be a little biased.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="machine-learning.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed so R knows how to randomise</span></span>
-<span id="cb6-2"><a href="machine-learning.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb6-3"><a href="machine-learning.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="machine-learning.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Get row numbers for the training data</span></span>
-<span id="cb6-5"><a href="machine-learning.html#cb6-5" aria-hidden="true" tabindex="-1"></a>trainRowNumbers <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">createDataPartition</span>(orange<span class="sc">$</span>Purchase, <span class="at">p=</span><span class="fl">0.8</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
-<span id="cb6-6"><a href="machine-learning.html#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="machine-learning.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create the training  dataset</span></span>
-<span id="cb6-8"><a href="machine-learning.html#cb6-8" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> orange[trainRowNumbers,]</span>
-<span id="cb6-9"><a href="machine-learning.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="machine-learning.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Create the test dataset</span></span>
-<span id="cb6-11"><a href="machine-learning.html#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="machine-learning.html#cb6-12" aria-hidden="true" tabindex="-1"></a>testData <span class="ot">&lt;-</span> orange[<span class="sc">-</span>trainRowNumbers,]</span>
-<span id="cb6-13"><a href="machine-learning.html#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="machine-learning.html#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Store X and Y for later use. </span></span>
-<span id="cb6-15"><a href="machine-learning.html#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># X are our predictor variables, Y is out prediction variable.</span></span>
-<span id="cb6-16"><a href="machine-learning.html#cb6-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> trainData[, <span class="dv">2</span><span class="sc">:</span><span class="dv">18</span>]</span>
-<span id="cb6-17"><a href="machine-learning.html#cb6-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> trainData<span class="sc">$</span>Purchase</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="machine-learning.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed so R knows how to randomise</span></span>
+<span id="cb92-2"><a href="machine-learning.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb92-3"><a href="machine-learning.html#cb92-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="machine-learning.html#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Get row numbers for the training data</span></span>
+<span id="cb92-5"><a href="machine-learning.html#cb92-5" aria-hidden="true" tabindex="-1"></a>trainRowNumbers <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">createDataPartition</span>(orange<span class="sc">$</span>Purchase, <span class="at">p=</span><span class="fl">0.8</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
+<span id="cb92-6"><a href="machine-learning.html#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="machine-learning.html#cb92-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create the training  dataset</span></span>
+<span id="cb92-8"><a href="machine-learning.html#cb92-8" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> orange[trainRowNumbers,]</span>
+<span id="cb92-9"><a href="machine-learning.html#cb92-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-10"><a href="machine-learning.html#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Create the test dataset</span></span>
+<span id="cb92-11"><a href="machine-learning.html#cb92-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-12"><a href="machine-learning.html#cb92-12" aria-hidden="true" tabindex="-1"></a>testData <span class="ot">&lt;-</span> orange[<span class="sc">-</span>trainRowNumbers,]</span>
+<span id="cb92-13"><a href="machine-learning.html#cb92-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-14"><a href="machine-learning.html#cb92-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Store X and Y for later use. </span></span>
+<span id="cb92-15"><a href="machine-learning.html#cb92-15" aria-hidden="true" tabindex="-1"></a><span class="co"># X are our predictor variables, Y is out prediction variable.</span></span>
+<span id="cb92-16"><a href="machine-learning.html#cb92-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> trainData[, <span class="dv">2</span><span class="sc">:</span><span class="dv">18</span>]</span>
+<span id="cb92-17"><a href="machine-learning.html#cb92-17" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> trainData<span class="sc">$</span>Purchase</span></code></pre></div>
 <p>Alas we don’t live in a perfect world, and there’s going to be missing
 data in our set. Luckily, <code>caret</code> actually has a way of guessing the
 middle values (a machine learning application itself).</p>
@@ -415,45 +425,45 @@ modeled data to a model. It’s not best practice, and a more robust
 approach would be to get a large enough data set that you can just
 remove the rows containing any NA’s. Regardless, here’s how to use ‘k
 nearest number’ estimates to fill in gaps in data sets.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="machine-learning.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check what data is missing using the skmir package</span></span>
-<span id="cb7-2"><a href="machine-learning.html#cb7-2" aria-hidden="true" tabindex="-1"></a>skimmed <span class="ot">&lt;-</span> skimr<span class="sc">::</span><span class="fu">skim</span>(trainData)</span>
-<span id="cb7-3"><a href="machine-learning.html#cb7-3" aria-hidden="true" tabindex="-1"></a>skimmed</span>
-<span id="cb7-4"><a href="machine-learning.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="machine-learning.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the knn imputation model on the training data</span></span>
-<span id="cb7-6"><a href="machine-learning.html#cb7-6" aria-hidden="true" tabindex="-1"></a>preProcess_missingdata_model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">preProcess</span>(trainData, <span class="at">method=</span><span class="st">&#39;knnImpute&#39;</span>)</span>
-<span id="cb7-7"><a href="machine-learning.html#cb7-7" aria-hidden="true" tabindex="-1"></a>preProcess_missingdata_model</span>
-<span id="cb7-8"><a href="machine-learning.html#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="machine-learning.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the imputation model to predict the values of missing data points</span></span>
-<span id="cb7-10"><a href="machine-learning.html#cb7-10" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_missingdata_model, <span class="at">newdata =</span> trainData)</span>
-<span id="cb7-11"><a href="machine-learning.html#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(trainData)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="machine-learning.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check what data is missing using the skmir package</span></span>
+<span id="cb93-2"><a href="machine-learning.html#cb93-2" aria-hidden="true" tabindex="-1"></a>skimmed <span class="ot">&lt;-</span> skimr<span class="sc">::</span><span class="fu">skim</span>(trainData)</span>
+<span id="cb93-3"><a href="machine-learning.html#cb93-3" aria-hidden="true" tabindex="-1"></a>skimmed</span>
+<span id="cb93-4"><a href="machine-learning.html#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="machine-learning.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the knn imputation model on the training data</span></span>
+<span id="cb93-6"><a href="machine-learning.html#cb93-6" aria-hidden="true" tabindex="-1"></a>preProcess_missingdata_model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">preProcess</span>(trainData, <span class="at">method=</span><span class="st">&#39;knnImpute&#39;</span>)</span>
+<span id="cb93-7"><a href="machine-learning.html#cb93-7" aria-hidden="true" tabindex="-1"></a>preProcess_missingdata_model</span>
+<span id="cb93-8"><a href="machine-learning.html#cb93-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-9"><a href="machine-learning.html#cb93-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the imputation model to predict the values of missing data points</span></span>
+<span id="cb93-10"><a href="machine-learning.html#cb93-10" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_missingdata_model, <span class="at">newdata =</span> trainData)</span>
+<span id="cb93-11"><a href="machine-learning.html#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(trainData)</span></code></pre></div>
 <p>One more pesky data thing - categorical variables don’t sit well with ML
 algorithms. It’s much better to have tidy-ish columns with binary (0 and
 1) flags as to whether a variable is true or false. There’s a simple way
 of converting categorical to dummy variables in R using the <code>dummyVars</code>
 function.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="machine-learning.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables is converting a categorical variable to as many binary variables as here are categories.</span></span>
-<span id="cb8-2"><a href="machine-learning.html#cb8-2" aria-hidden="true" tabindex="-1"></a>dummies_model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">dummyVars</span>(Purchase <span class="sc">~</span> ., <span class="at">data=</span>trainData)</span>
-<span id="cb8-3"><a href="machine-learning.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="machine-learning.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dummy variables using predict. The Y variable (Purchase) will not be present in trainData_mat.</span></span>
-<span id="cb8-5"><a href="machine-learning.html#cb8-5" aria-hidden="true" tabindex="-1"></a>trainData_mat <span class="ot">&lt;-</span> <span class="fu">predict</span>(dummies_model, <span class="at">newdata =</span> trainData)</span>
-<span id="cb8-6"><a href="machine-learning.html#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="machine-learning.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # Convert to dataframe</span></span>
-<span id="cb8-8"><a href="machine-learning.html#cb8-8" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(trainData_mat)</span>
-<span id="cb8-9"><a href="machine-learning.html#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="machine-learning.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># # See the structure of the new dataset</span></span>
-<span id="cb8-11"><a href="machine-learning.html#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(trainData)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="machine-learning.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating dummy variables is converting a categorical variable to as many binary variables as here are categories.</span></span>
+<span id="cb94-2"><a href="machine-learning.html#cb94-2" aria-hidden="true" tabindex="-1"></a>dummies_model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">dummyVars</span>(Purchase <span class="sc">~</span> ., <span class="at">data=</span>trainData)</span>
+<span id="cb94-3"><a href="machine-learning.html#cb94-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="machine-learning.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dummy variables using predict. The Y variable (Purchase) will not be present in trainData_mat.</span></span>
+<span id="cb94-5"><a href="machine-learning.html#cb94-5" aria-hidden="true" tabindex="-1"></a>trainData_mat <span class="ot">&lt;-</span> <span class="fu">predict</span>(dummies_model, <span class="at">newdata =</span> trainData)</span>
+<span id="cb94-6"><a href="machine-learning.html#cb94-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-7"><a href="machine-learning.html#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # Convert to dataframe</span></span>
+<span id="cb94-8"><a href="machine-learning.html#cb94-8" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(trainData_mat)</span>
+<span id="cb94-9"><a href="machine-learning.html#cb94-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-10"><a href="machine-learning.html#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="co"># # See the structure of the new dataset</span></span>
+<span id="cb94-11"><a href="machine-learning.html#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(trainData)</span></code></pre></div>
 <p>There’s a bunch of numeric variables here that are hard to algorithms to
 work with - as it’s the relative levels between the numbers that really
 matters. To solve for this issue, let’s convert all numbers to a scale
 between zero and 1. The <code>caret</code> package has a nice function called
 <code>preProcess</code> to do this.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="machine-learning.html#cb9-1" aria-hidden="true" tabindex="-1"></a>preProcess_range_model <span class="ot">&lt;-</span> <span class="fu">preProcess</span>(trainData, <span class="at">method=</span><span class="st">&#39;range&#39;</span>)</span>
-<span id="cb9-2"><a href="machine-learning.html#cb9-2" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_range_model, <span class="at">newdata =</span> trainData)</span>
-<span id="cb9-3"><a href="machine-learning.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="machine-learning.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Append the Y variable</span></span>
-<span id="cb9-5"><a href="machine-learning.html#cb9-5" aria-hidden="true" tabindex="-1"></a>trainData<span class="sc">$</span>Purchase <span class="ot">&lt;-</span> y</span>
-<span id="cb9-6"><a href="machine-learning.html#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="machine-learning.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(trainData[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="dv">2</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">c</span>(<span class="st">&#39;min&#39;</span><span class="ot">=</span><span class="fu">min</span>(x), <span class="st">&#39;max&#39;</span><span class="ot">=</span><span class="fu">max</span>(x))})</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="machine-learning.html#cb95-1" aria-hidden="true" tabindex="-1"></a>preProcess_range_model <span class="ot">&lt;-</span> <span class="fu">preProcess</span>(trainData, <span class="at">method=</span><span class="st">&#39;range&#39;</span>)</span>
+<span id="cb95-2"><a href="machine-learning.html#cb95-2" aria-hidden="true" tabindex="-1"></a>trainData <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_range_model, <span class="at">newdata =</span> trainData)</span>
+<span id="cb95-3"><a href="machine-learning.html#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="machine-learning.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Append the Y variable</span></span>
+<span id="cb95-5"><a href="machine-learning.html#cb95-5" aria-hidden="true" tabindex="-1"></a>trainData<span class="sc">$</span>Purchase <span class="ot">&lt;-</span> y</span>
+<span id="cb95-6"><a href="machine-learning.html#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-7"><a href="machine-learning.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(trainData[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="dv">2</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">c</span>(<span class="st">&#39;min&#39;</span><span class="ot">=</span><span class="fu">min</span>(x), <span class="st">&#39;max&#39;</span><span class="ot">=</span><span class="fu">max</span>(x))})</span></code></pre></div>
 <p>Great! Now all our variables are between 0 and 1 in size.</p>
 </div>
 <div id="build-a-classification-model" class="section level2" number="7.4">
@@ -465,45 +475,45 @@ explaining is included in the <code>earth</code> R package.</p>
 <p>Let’s run the model on the trainData set - and also use the <code>varImp</code> to
 see what variables the model found most important in predicting the
 variable Purchase.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="machine-learning.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed for reproducibility</span></span>
-<span id="cb10-2"><a href="machine-learning.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb10-3"><a href="machine-learning.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="machine-learning.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using randomForest and predict on the training data itself.</span></span>
-<span id="cb10-5"><a href="machine-learning.html#cb10-5" aria-hidden="true" tabindex="-1"></a>model_mars <span class="ot">=</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> ., <span class="at">data=</span>trainData, <span class="at">method=</span><span class="st">&#39;earth&#39;</span>)</span>
-<span id="cb10-6"><a href="machine-learning.html#cb10-6" aria-hidden="true" tabindex="-1"></a>fitted <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mars)</span>
-<span id="cb10-7"><a href="machine-learning.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="machine-learning.html#cb10-8" aria-hidden="true" tabindex="-1"></a>model_mars</span>
-<span id="cb10-9"><a href="machine-learning.html#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="machine-learning.html#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_mars, <span class="at">main=</span><span class="st">&quot;Model Accuracies with MARS&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="machine-learning.html#cb11-1" aria-hidden="true" tabindex="-1"></a>varimp_mars <span class="ot">&lt;-</span> <span class="fu">varImp</span>(model_mars)</span>
-<span id="cb11-2"><a href="machine-learning.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(varimp_mars, <span class="at">main=</span><span class="st">&quot;Variable Importance with MARS&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="machine-learning.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed for reproducibility</span></span>
+<span id="cb96-2"><a href="machine-learning.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb96-3"><a href="machine-learning.html#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="machine-learning.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using randomForest and predict on the training data itself.</span></span>
+<span id="cb96-5"><a href="machine-learning.html#cb96-5" aria-hidden="true" tabindex="-1"></a>model_mars <span class="ot">=</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> ., <span class="at">data=</span>trainData, <span class="at">method=</span><span class="st">&#39;earth&#39;</span>)</span>
+<span id="cb96-6"><a href="machine-learning.html#cb96-6" aria-hidden="true" tabindex="-1"></a>fitted <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mars)</span>
+<span id="cb96-7"><a href="machine-learning.html#cb96-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-8"><a href="machine-learning.html#cb96-8" aria-hidden="true" tabindex="-1"></a>model_mars</span>
+<span id="cb96-9"><a href="machine-learning.html#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-10"><a href="machine-learning.html#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_mars, <span class="at">main=</span><span class="st">&quot;Model Accuracies with MARS&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="machine-learning.html#cb97-1" aria-hidden="true" tabindex="-1"></a>varimp_mars <span class="ot">&lt;-</span> <span class="fu">varImp</span>(model_mars)</span>
+<span id="cb97-2"><a href="machine-learning.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(varimp_mars, <span class="at">main=</span><span class="st">&quot;Variable Importance with MARS&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-76-2.png" width="672" /></p>
 <p>Looks good! Now we’ll see how well the model does with test data</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="machine-learning.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Impute missing values </span></span>
-<span id="cb12-2"><a href="machine-learning.html#cb12-2" aria-hidden="true" tabindex="-1"></a>testData2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_missingdata_model, testData)  </span>
-<span id="cb12-3"><a href="machine-learning.html#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="machine-learning.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create one-hot encodings (dummy variables)</span></span>
-<span id="cb12-5"><a href="machine-learning.html#cb12-5" aria-hidden="true" tabindex="-1"></a>testData3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(dummies_model, testData2)</span>
-<span id="cb12-6"><a href="machine-learning.html#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="machine-learning.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Transform the features to range between 0 and 1</span></span>
-<span id="cb12-8"><a href="machine-learning.html#cb12-8" aria-hidden="true" tabindex="-1"></a>testData4 <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_range_model, testData3)</span>
-<span id="cb12-9"><a href="machine-learning.html#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="machine-learning.html#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View</span></span>
-<span id="cb12-11"><a href="machine-learning.html#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testData4[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
-<span id="cb12-12"><a href="machine-learning.html#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="machine-learning.html#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on testData</span></span>
-<span id="cb12-14"><a href="machine-learning.html#cb12-14" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mars, testData4)</span>
-<span id="cb12-15"><a href="machine-learning.html#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicted)</span>
-<span id="cb12-16"><a href="machine-learning.html#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="machine-learning.html#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Change the data type to a factor</span></span>
-<span id="cb12-18"><a href="machine-learning.html#cb12-18" aria-hidden="true" tabindex="-1"></a>testData<span class="sc">$</span>Purchase <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(testData<span class="sc">$</span>Purchase)</span>
-<span id="cb12-19"><a href="machine-learning.html#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="machine-learning.html#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the confusion matrix</span></span>
-<span id="cb12-21"><a href="machine-learning.html#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">reference =</span> testData<span class="sc">$</span>Purchase, </span>
-<span id="cb12-22"><a href="machine-learning.html#cb12-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> predicted, </span>
-<span id="cb12-23"><a href="machine-learning.html#cb12-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">mode=</span><span class="st">&#39;everything&#39;</span>, </span>
-<span id="cb12-24"><a href="machine-learning.html#cb12-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">positive=</span><span class="st">&#39;MM&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="machine-learning.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Impute missing values </span></span>
+<span id="cb98-2"><a href="machine-learning.html#cb98-2" aria-hidden="true" tabindex="-1"></a>testData2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_missingdata_model, testData)  </span>
+<span id="cb98-3"><a href="machine-learning.html#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-4"><a href="machine-learning.html#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create one-hot encodings (dummy variables)</span></span>
+<span id="cb98-5"><a href="machine-learning.html#cb98-5" aria-hidden="true" tabindex="-1"></a>testData3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(dummies_model, testData2)</span>
+<span id="cb98-6"><a href="machine-learning.html#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="machine-learning.html#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Transform the features to range between 0 and 1</span></span>
+<span id="cb98-8"><a href="machine-learning.html#cb98-8" aria-hidden="true" tabindex="-1"></a>testData4 <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_range_model, testData3)</span>
+<span id="cb98-9"><a href="machine-learning.html#cb98-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-10"><a href="machine-learning.html#cb98-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View</span></span>
+<span id="cb98-11"><a href="machine-learning.html#cb98-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(testData4[, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb98-12"><a href="machine-learning.html#cb98-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-13"><a href="machine-learning.html#cb98-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on testData</span></span>
+<span id="cb98-14"><a href="machine-learning.html#cb98-14" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_mars, testData4)</span>
+<span id="cb98-15"><a href="machine-learning.html#cb98-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicted)</span>
+<span id="cb98-16"><a href="machine-learning.html#cb98-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-17"><a href="machine-learning.html#cb98-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Change the data type to a factor</span></span>
+<span id="cb98-18"><a href="machine-learning.html#cb98-18" aria-hidden="true" tabindex="-1"></a>testData<span class="sc">$</span>Purchase <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(testData<span class="sc">$</span>Purchase)</span>
+<span id="cb98-19"><a href="machine-learning.html#cb98-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-20"><a href="machine-learning.html#cb98-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the confusion matrix</span></span>
+<span id="cb98-21"><a href="machine-learning.html#cb98-21" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(<span class="at">reference =</span> testData<span class="sc">$</span>Purchase, </span>
+<span id="cb98-22"><a href="machine-learning.html#cb98-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> predicted, </span>
+<span id="cb98-23"><a href="machine-learning.html#cb98-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">mode=</span><span class="st">&#39;everything&#39;</span>, </span>
+<span id="cb98-24"><a href="machine-learning.html#cb98-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">positive=</span><span class="st">&#39;MM&#39;</span>)</span></code></pre></div>
 <p>We see in the confusion matrix that the MARS model got the prediction
 correct around 80% of the time.</p>
 </div>
@@ -512,31 +522,31 @@ correct around 80% of the time.</p>
 <p>MARS isn’t the only ML model we can use in R - there’s a bunch of useful
 approaches. Let’s run a few.</p>
 <p>We’ll start with <strong><em>adaboost</em></strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="machine-learning.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb13-2"><a href="machine-learning.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="machine-learning.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using adaboost</span></span>
-<span id="cb13-4"><a href="machine-learning.html#cb13-4" aria-hidden="true" tabindex="-1"></a>model_adaboost <span class="ot">=</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> ., </span>
-<span id="cb13-5"><a href="machine-learning.html#cb13-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span>trainData, </span>
-<span id="cb13-6"><a href="machine-learning.html#cb13-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">method=</span><span class="st">&#39;adaboost&#39;</span>, </span>
-<span id="cb13-7"><a href="machine-learning.html#cb13-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">tuneLength=</span><span class="dv">2</span>)</span>
-<span id="cb13-8"><a href="machine-learning.html#cb13-8" aria-hidden="true" tabindex="-1"></a>model_adaboost</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="machine-learning.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb99-2"><a href="machine-learning.html#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="machine-learning.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using adaboost</span></span>
+<span id="cb99-4"><a href="machine-learning.html#cb99-4" aria-hidden="true" tabindex="-1"></a>model_adaboost <span class="ot">=</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> ., </span>
+<span id="cb99-5"><a href="machine-learning.html#cb99-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data=</span>trainData, </span>
+<span id="cb99-6"><a href="machine-learning.html#cb99-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">method=</span><span class="st">&#39;adaboost&#39;</span>, </span>
+<span id="cb99-7"><a href="machine-learning.html#cb99-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">tuneLength=</span><span class="dv">2</span>)</span>
+<span id="cb99-8"><a href="machine-learning.html#cb99-8" aria-hidden="true" tabindex="-1"></a>model_adaboost</span></code></pre></div>
 <p>Now let’s try <strong><em>random forest</em></strong></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="machine-learning.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb14-2"><a href="machine-learning.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="machine-learning.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using rf</span></span>
-<span id="cb14-4"><a href="machine-learning.html#cb14-4" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">=</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> ., </span>
-<span id="cb14-5"><a href="machine-learning.html#cb14-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>trainData, <span class="at">method=</span><span class="st">&#39;rf&#39;</span>, </span>
-<span id="cb14-6"><a href="machine-learning.html#cb14-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tuneLength=</span><span class="dv">5</span>)</span>
-<span id="cb14-7"><a href="machine-learning.html#cb14-7" aria-hidden="true" tabindex="-1"></a>model_rf</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="machine-learning.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb100-2"><a href="machine-learning.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="machine-learning.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using rf</span></span>
+<span id="cb100-4"><a href="machine-learning.html#cb100-4" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">=</span> <span class="fu">train</span>(Purchase <span class="sc">~</span> ., </span>
+<span id="cb100-5"><a href="machine-learning.html#cb100-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data=</span>trainData, <span class="at">method=</span><span class="st">&#39;rf&#39;</span>, </span>
+<span id="cb100-6"><a href="machine-learning.html#cb100-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">tuneLength=</span><span class="dv">5</span>)</span>
+<span id="cb100-7"><a href="machine-learning.html#cb100-7" aria-hidden="true" tabindex="-1"></a>model_rf</span></code></pre></div>
 <p>And we can compare how all these models faired compared to one another</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="machine-learning.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare model performances using resample()</span></span>
-<span id="cb15-2"><a href="machine-learning.html#cb15-2" aria-hidden="true" tabindex="-1"></a>models_compare <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">ADABOOST=</span>model_adaboost, <span class="at">RF=</span>model_rf, <span class="at">MARS=</span>model_mars))</span>
-<span id="cb15-3"><a href="machine-learning.html#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="machine-learning.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the models performances</span></span>
-<span id="cb15-5"><a href="machine-learning.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models_compare)</span>
-<span id="cb15-6"><a href="machine-learning.html#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="machine-learning.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(models_compare, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="machine-learning.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare model performances using resample()</span></span>
+<span id="cb101-2"><a href="machine-learning.html#cb101-2" aria-hidden="true" tabindex="-1"></a>models_compare <span class="ot">&lt;-</span> <span class="fu">resamples</span>(<span class="fu">list</span>(<span class="at">ADABOOST=</span>model_adaboost, <span class="at">RF=</span>model_rf, <span class="at">MARS=</span>model_mars))</span>
+<span id="cb101-3"><a href="machine-learning.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="machine-learning.html#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the models performances</span></span>
+<span id="cb101-5"><a href="machine-learning.html#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models_compare)</span>
+<span id="cb101-6"><a href="machine-learning.html#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="machine-learning.html#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(models_compare, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 <p>MARS seems to win out here - with the highest median and max accuracy.</p>
 </div>
 <div id="building-a-predictive-ml-model" class="section level2" number="7.6">
@@ -549,8 +559,8 @@ and examining the confusion matrix for each.</p>
 <p>My favorite package for computing ROC curves is caTools, which contains
 a function called colAUC(). This function is very user-friendly and can
 actually calculate ROC curves for multiple predictors at once.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="machine-learning.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make ROC curve</span></span>
-<span id="cb16-2"><a href="machine-learning.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colAUC(predicted, testData4, plotROC = TRUE)</span></span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="machine-learning.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make ROC curve</span></span>
+<span id="cb102-2"><a href="machine-learning.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colAUC(predicted, testData4, plotROC = TRUE)</span></span></code></pre></div>
 <p>The ROC curve is a very useful, single-number summary of a model’s
 ability to discriminate the positive from the negative class (e.g. mines
 from rocks). An AUC of 0.5 is no better than random guessing, an AUC of
@@ -561,6 +571,10 @@ their accuracy at a set threshold, as different models might require
 different calibration steps (looking at a confusion matrix at each step)
 to find the optimal classification threshold for that model.</p>
 
+</div>
+<div id="section-1" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> —</h2>
+<hr />
 </div>
 </div>
             </section>

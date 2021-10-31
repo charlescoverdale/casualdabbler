@@ -50,6 +50,13 @@ pie-chart
 patchwork
 saving-to-powerpoint
 automating-chart-creation
+machine-learning
+background
+beyond-regressions
+classification-models-using-caret
+build-a-classification-model
+compare-different-ml-models
+building-a-predictive-ml-model
 section-1
 hypothesis-testing
 a-quick-refresher
@@ -59,12 +66,5 @@ correlation-and-working-with-normal-distributions
 confidence-intervals-mean
 confidence-intervals-model
 forecasting
-background
-arima-models
-machine-learning
-beyond-regressions
-classification-models-using-caret
-build-a-classification-model
-compare-different-ml-models
-building-a-predictive-ml-model
 background-1
+arima-models
