@@ -61,3 +61,10 @@ confidence-intervals-model
 forecasting
 background
 arima-models
+machine-learning
+beyond-regressions
+classification-models-using-caret
+build-a-classification-model
+compare-different-ml-models
+building-a-predictive-ml-model
+background-1

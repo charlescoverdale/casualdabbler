@@ -9,6 +9,7 @@ rmd_files: [
   "04-Raster-data-in-R.Rmd", 
   "05-Election-data-in-R.Rmd",
   "06-Charts.Rmd",
+  "07-Machine-learning.Rmd",
   "08-Hypothesis-testing.Rmd",
   "09-Forecasting.Rmd"
   ]
