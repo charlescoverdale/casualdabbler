@@ -20,7 +20,7 @@ This repo contains the code use to produce the first edition of [R Cookbook for 
 
 **Limitations:**
 
--   All bugs and mistakes remain my own. Please open up an issue request or hit me up on twitter \@cfcoverdale
+-   All bugs and mistakes remain my own. Please open up an issue or hit me up on twitter \@cfcoverdale with things that need fixing.
 
 **How to cite this text:**
 
