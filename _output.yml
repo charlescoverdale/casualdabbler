@@ -1,6 +1,5 @@
 bookdown::gitbook:
-  css:
-    - /style.css
+  css: style.css
   includes:
   config:
     toc:
