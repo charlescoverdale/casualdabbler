@@ -27,10 +27,10 @@ making-an-interactive-map
 election-data-in-r
 getting-started-2
 working-with-election-maps
-answering-some-simple-questions
+answering-election-questions
 demographic-analysis-of-voting-trends
+mapping-booths
 exploring-booth-level-data
-winners-and-losers-at-each-booth
 donkeys-dicks-and-other-informalities
 section
 charts
@@ -68,3 +68,7 @@ confidence-intervals-model
 forecasting
 background-1
 arima-models
+web-scraping
+introduction-1
+anatomy-of-a-webpage
+scraping-a-table

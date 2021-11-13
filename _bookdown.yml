@@ -11,7 +11,8 @@ rmd_files: [
   "06-Charts.Rmd",
   "07-Machine-learning.Rmd",
   "08-Hypothesis-testing.Rmd",
-  "09-Forecasting.Rmd"
+  "09-Forecasting.Rmd", 
+  "10-Web-scraping.Rmd"
   ]
 delete_merged_file: true 
 output_dir: "docs"

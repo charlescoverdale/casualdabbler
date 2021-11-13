@@ -176,7 +176,7 @@ ggplot()+
 
 ```
 
-## Answering some simple questions
+## Answering election questions
 
 Let's start by answering a simple question: who won the election? For this we'll need to use the two-candidate preferred data set (to make sure we capture all the minor parties that won seats).
 
@@ -418,7 +418,7 @@ My main gripe with the above is that electorates are very different in size. The
 
 So here goes, let's run the analysis above, this time using all 7,000 voting booths (and their local demographic data) as the data set rather than just the 150 electorates.
 
-## Exploring booth level data
+## Mapping booths
 
 The AEC maintains a [handy spreadsheet](http://results.aec.gov.au/20499/Website/Downloads/GeneralPollingPlacesDownload-20499.csv) of booth locations for recent federal elections. You can search for your local booth location (probably a school, church, or community center) in the table below.
 
@@ -455,11 +455,15 @@ What do these booths look like on a map? Let's reuse the CED map above and plot 
             xlim(c(112,157)) + ylim(c(-44,-11))
 ```
 
-## Winners and losers at each booth
+## Exploring booth level data
 
-Election results are provided at the resolution of polling place, but must be downloaded using the functions `firstpref_pollingbooth_download`, `twoparty_pollingbooth_download` or `twocand_pollingbooth_download` (depending on the vote type). We can use this information to color the points. The two files need to be merged. Both have a unique ID for the polling place that can be used to match the records. The two party preferred vote, a measure of preference between only the Australian Labor Party (ALP) and the Liberal/National Coalition (LNP), is downloaded using `twoparty_pollingbooth_download`. The preferred party is the one with the higher percentage, and we use this to colour the points indicating polling places.
+Figuring out where a candidates votes come from ***within*** an electorate is fundamental to developing a campaign strategy. Even in small electorates (e.g. Wentworth), there are pockets of right leaning and left leaning districts. Once you factor in preference flows - this multi-variate calculus becomes important to winning or maintaining a seat.
 
-This gives a richer look at the party preferences across the country. You can see that although the big rural electorates vote for LNP overall, some polling places would elect the ALP, e.g. western NSW around Broken Hill. This data would look far more interesting if the data also contained the minority parties, because there must be some polling places where the majority vote would be for a minor party, since there are some minor party representatives in the House.
+In the `eechidna`package, election results are provided at the resolution of polling place. They nmust be downloaded using the functions `firstpref_pollingbooth_download`, `twoparty_pollingbooth_download` or `twocand_pollingbooth_download` (depending on the vote type).
+
+The two files need to be merged to be useful for analysis.. Both have a unique ID for the polling place that can be used to match the records. The two party preferred vote, a measure of preference between only the Australian Labor Party (ALP) and the Liberal/National Coalition (LNP), is downloaded using `twoparty_pollingbooth_download`. The preferred party is the one with the higher percentage, and we use this to colour the points indicating polling places.
+
+We see that within some big rural electorates (e.g. in Western NSW), there are pockets of ALP preference despite the seat going to the LNP. Note that this data set is on a tpp basis - so we can't see the booths that were won by minor parties (although it would be fascinating).
 
 ```{r tpp_map, fig.width=7, fig.height=5, message=FALSE, error = TRUE, warning=FALSE, echo=FALSE, tidy=TRUE}
 tpp_pp <- twoparty_pollingbooth_download()
@@ -497,20 +501,9 @@ ggplot(data=nat_data16, aes(map_id=id)) +
   theme_map() + coord_equal() + theme(legend.position="bottom")
 ```
 
-```{r}
-
-tcp_pp_winners
-
-tcp_pp_winners <- data.frame(booth_location = c(tcp_pp_winners$Longitude),
-                          x = tcp_pp_winners$Longitude,
-                          y = tcp_pp_winners$Latitude)
-class(tcp_pp_winners)
-tcp_pp_winners <- attr(tcp_pp_winners, "sf_column")
-                          
-tcp_pp_winners
-```
-
 ## Donkeys, dicks, and other informalities
+
+We're about to go off the deep end into a certain type of election data.
 
 In the 2016 Australian Federal Election, over 720,915 people (5.5% of all votes cast) voted informally. Of these, over half (377,585) had 'no clear first preference', meaning their vote did not contribute to the campaign of any candidate.
 
@@ -524,7 +517,7 @@ I'll be honest, informal votes absolutely ***fascinate*** me. Not only are there
 
 **If we want to get particular about it, I like to subcategorise these buckets into:**
 
-1.  Protest votes (voting against):
+1.  Protest votes (i.e. a person that thinks they are voting against):
 
     -   the democratic system,
 
@@ -536,7 +529,7 @@ I'll be honest, informal votes absolutely ***fascinate*** me. Not only are there
 
     -   filled in the form wrong but a clear preference was still made
 
-    -   stuffed up the form entirely and it wasn't counted
+    -   stuffed up the form entirely and it didn't contribute towards the tally for any candidtate
 
 **This is the good bit:**
 
