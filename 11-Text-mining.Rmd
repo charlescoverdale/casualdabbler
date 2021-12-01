@@ -1,0 +1,45 @@
+---
+---
+---
+
+# Text-mining
+
+## Power with words
+
+Numbers are great... but words literally tell a story. Analysing text (e.g. books, tweets, survey responses) in a quantitative format is naturally challenging - however there's a few tricks which can simplify the process.
+
+This chapter outlines the process for inputting text data, and running some simple analysis. The notes and code loosely follow the fabulous book [*Text Mining with R*](https://www.bookdepository.com/Text-Mining-with-R-Julia-Silge/9781491981658) by Julia Silge and David Robinson.
+
+First up, let's load some packages.
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(tidytext)
+```
+
+## Frequency analysis
+
+There's a online depository called [Project Gutenberg](https://www.gutenberg.org/) which catalogue texts that have lost their copyright (mostly because it expires over time). These can be called with the R package called [`gutenbergr`](https://cran.r-project.org/web/packages/gutenbergr/vignettes/intro.html)
+
+It just so happens that [The Bible](https://www.gutenberg.org/ebooks/30) is on this list. Let's check out the most frequent words.
+
+```{r,results='hide', warning=FALSE,message=FALSE}
+
+library(gutenbergr)
+
+bible <- gutenberg_download(30)
+
+bible_tidy <- bible %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+
+#Find the most common words
+
+bible_tidy %>%
+  count(word, sort=TRUE)
+```
+
+Somewhat unsurprisingly - "lord" wins it by a country mile.

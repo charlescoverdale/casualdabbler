@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R cookbook for the casual dabbler</title>
+  <title>Chapter 11 Text-mining | R cookbook for the casual dabbler</title>
   <meta name="description" content="A practical user guide for R in advisory." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R cookbook for the casual dabbler" />
+  <meta property="og:title" content="Chapter 11 Text-mining | R cookbook for the casual dabbler" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="openscapes/series" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R cookbook for the casual dabbler" />
+  <meta name="twitter:title" content="Chapter 11 Text-mining | R cookbook for the casual dabbler" />
   
   <meta name="twitter:description" content="A practical user guide for R in advisory." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="web-scraping.html"/>
 
-<link rel="next" href="making-beautiful-maps-in-r.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -265,44 +265,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R cookbook for the casual dabbler</h1>
-<p class="author"><em>Charles Coverdale</em></p>
-<p class="date"><em>2021-12-01</em></p>
+<div id="text-mining" class="section level1" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Text-mining</h1>
+<div id="power-with-words" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Power with words</h2>
+<p>Numbers are great… but words literally tell a story. Analysing text (e.g. books, tweets, survey responses) in a quantitative format is naturally challenging - however there’s a few tricks which can simplify the process.</p>
+<p>This chapter outlines the process for inputting text data, and running some simple analysis. The notes and code loosely follow the fabulous book <a href="https://www.bookdepository.com/Text-Mining-with-R-Julia-Silge/9781491981658"><em>Text Mining with R</em></a> by Julia Silge and David Robinson.</p>
+<p>First up, let’s load some packages.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="text-mining.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb138-2"><a href="text-mining.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb138-3"><a href="text-mining.html#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb138-4"><a href="text-mining.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code></pre></div>
 </div>
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>G’day and welcome to <em>R cookbook for the casual dabbler.</em></p>
-<p><strong>Some history:</strong> I use R a lot for work and for side projects. Over the years I’ve collated a bunch of useful scripts, from macroeconomic analysis to quick hacks for making map legends format properly.</p>
-<p>Historically my code has been stored in random Rpubs documents, medium articles, and a bunch of .Rmd files on my hardrive. Occasionally I feel like doing things properly - and upload code to a repository on github.</p>
-<p>It doesn’t take a genius to realize this isn’t a very sustainable solution - and it also isn’t very useful for sharing code with others. It turns out 2-years of lockdown in Melbourne was enough incentive to sit down and collate my best and most useful code into a single place. In the spirit of open source, a book seemed like the most logical format. The following is a <em>very rough</em> book written in <strong>markdown</strong> - R’s very own publishing language.</p>
-<div id="usage" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Usage</h2>
-<p>In each chapter I’ve written up the background, methodology and code for a separate piece of analysis.</p>
-<p>Most of this code will not be extraordinary to the seasoned R aficionado. The vast majority can be found elsewhere if you dig around on stackexchange or read some of Hadley’s books.</p>
-<p>However I find that in classic Pareto style ~20% of my code contributes to the <strong>vast</strong> majority of my work output. Having this on hand will hopefully be useful to both myself and others.</p>
-</div>
-<div id="additional-resources" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Additional resources</h2>
-<p>The R community is continually writing new books and package documentation with great worked examples. Some of my favourites (which all happen to be written in the R markdown language) are:</p>
-<ul>
-<li><p><a href="https://bookdown.org/robinlovelace/geocompr/">Geocomputation with R</a></p></li>
-<li><p><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definite Guide</a></p></li>
-<li><p><a href="R%20Cookbook,%202nd%20Edition">R Cookbook, 2nd Edition</a></p></li>
-<li><p><a href="https://r4ds.had.co.nz/">R for Data Science</a></p></li>
-<li><p><a href="https://datascienceineducation.com/">Data Science in Education using R</a></p></li>
-<li><p><a href="https://bookdown.org/ansellbr/WEHI_tidyR_course_book/">Introduction to R: Walter and Eliza Hall Institute</a></p></li>
-<li><p><a href="https://github.com/uo-ec607/lectures">PhD lectures notes in environmental economics and data science (University of Oregon)</a></p></li>
-</ul>
-</div>
-<div id="limitations" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Limitations</h2>
-<p>I’ll be honest with you - there’s bound to be bugs galore in this. If you find one (along with spelling errors etc) please email me at charlesfcoverdale@gmail.com with the subject line ‘R cookbook for the casual dabbler.’</p>
-<hr />
-</div>
-<div id="about-the-author" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> About the author</h2>
-<p>Charles Coverdale is an economist based in Melbourne, Australia. He is passionate about economics, climate science, and building talented teams. You can get in touch with Charles <a href="https://twitter.com/cfcoverdale">on twitter</a> to hear more about his current projects.</p>
+<div id="frequency-analysis" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Frequency analysis</h2>
+<p>There’s a online depository called <a href="https://www.gutenberg.org/">Project Gutenberg</a> which catalogue texts that have lost their copyright (mostly because it expires over time). These can be called with the R package called <a href="https://cran.r-project.org/web/packages/gutenbergr/vignettes/intro.html"><code>gutenbergr</code></a></p>
+<p>It just so happens that <a href="https://www.gutenberg.org/ebooks/30">The Bible</a> is on this list. Let’s check out the most frequent words.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="text-mining.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
+<span id="cb139-2"><a href="text-mining.html#cb139-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="text-mining.html#cb139-3" aria-hidden="true" tabindex="-1"></a>bible <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(<span class="dv">30</span>)</span>
+<span id="cb139-4"><a href="text-mining.html#cb139-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-5"><a href="text-mining.html#cb139-5" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="ot">&lt;-</span> bible <span class="sc">%&gt;%</span></span>
+<span id="cb139-6"><a href="text-mining.html#cb139-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
+<span id="cb139-7"><a href="text-mining.html#cb139-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb139-8"><a href="text-mining.html#cb139-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-9"><a href="text-mining.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the most common words</span></span>
+<span id="cb139-10"><a href="text-mining.html#cb139-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-11"><a href="text-mining.html#cb139-11" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb139-12"><a href="text-mining.html#cb139-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Somewhat unsurprisingly - “lord” wins it by a country mile.</p>
 
 </div>
 </div>
@@ -311,8 +302,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="web-scraping.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="making-beautiful-maps-in-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -343,7 +334,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/charlescoverdale/casualdabbler/edit/master/index.Rmd",
+"link": "https://github.com/charlescoverdale/casualdabbler/edit/master/11-Text-mining.Rmd",
 "text": "Edit"
 },
 "history": {

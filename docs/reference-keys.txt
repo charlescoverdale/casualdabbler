@@ -72,3 +72,7 @@ web-scraping
 introduction-1
 anatomy-of-a-webpage
 scraping-a-table
+section-2
+text-mining
+power-with-words
+frequency-analysis
