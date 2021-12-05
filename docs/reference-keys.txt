@@ -76,3 +76,4 @@ section-2
 text-mining
 power-with-words
 frequency-analysis
+sentiment-analysis

@@ -12,12 +12,13 @@ This chapter outlines the process for inputting text data, and running some simp
 
 First up, let's load some packages.
 
-```{r,results='hide', warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE}
 
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
 library(tidytext)
+library(textdata)
 ```
 
 ## Frequency analysis
@@ -26,7 +27,7 @@ There's a online depository called [Project Gutenberg](https://www.gutenberg.org
 
 It just so happens that [The Bible](https://www.gutenberg.org/ebooks/30) is on this list. Let's check out the most frequent words.
 
-```{r,results='hide', warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE}
 
 library(gutenbergr)
 
@@ -43,3 +44,22 @@ bible_tidy %>%
 ```
 
 Somewhat unsurprisingly - "lord" wins it by a country mile.
+
+## Sentiment analysis
+
+Just like a frequency analysis, we can do a 'vibe' analysis (i.e. sentiment of a text) using a clever thesaurus matching technique. In the tidytext package are lexicons which include the general sentiment of words (e.g. the emotion you can use to describe that word).
+
+Let's see the count of words most associated with 'joy' in the bible.
+
+```{r, warning=FALSE,message=FALSE}
+
+#Download sentiment list
+nrcjoy <- get_sentiments("nrc") %>%
+  filter(sentiment == "joy")
+
+#Join bible words with sentiment list
+bible_tidy %>%
+  inner_join(nrcjoy) %>%
+  count(word, sort=TRUE)
+
+```
