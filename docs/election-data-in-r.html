@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -446,7 +446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb41-34"><a href="election-data-in-r.html#cb41-34" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">&quot;ON&quot;</span> <span class="ot">=</span> <span class="st">&quot;#fdc086&quot;</span>, </span>
 <span id="cb41-35"><a href="election-data-in-r.html#cb41-35" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">&quot;KAP&quot;</span> <span class="ot">=</span> <span class="st">&quot;#ffff99&quot;</span>, </span>
 <span id="cb41-36"><a href="election-data-in-r.html#cb41-36" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">&quot;IND&quot;</span> <span class="ot">=</span> <span class="st">&quot;grey25&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 </div>
 <div id="answering-election-questions" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Answering election questions</h2>
@@ -972,7 +972,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For the people that care about statistical fit and endogenous variables, you may have concerns (and rightly so) with the above approach. It’s pretty rough. Let’s run a basic check to see if the residuals are normally distributed.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="election-data-in-r.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(election_model<span class="sc">$</span>residuals, <span class="at">col=</span><span class="st">&quot;bisque&quot;</span>, <span class="at">freq=</span><span class="cn">FALSE</span>, <span class="at">main=</span><span class="cn">NA</span>)</span>
 <span id="cb52-2"><a href="election-data-in-r.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(election_model<span class="sc">$</span>residuals), <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <p>Hmm… that’s actually not too bad. Onwards.</p>
 <p>We see now that only a handful of these variables in the table above are statistically significant. Running an updated (and leaner) model gives:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="election-data-in-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a>election_model_lean <span class="ot">&lt;-</span> <span class="fu">lm</span>(LNP_Percent<span class="sc">~</span></span>

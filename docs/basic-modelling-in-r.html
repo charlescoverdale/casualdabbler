@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -316,7 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-11"><a href="basic-modelling-in-r.html#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
 <span id="cb10-12"><a href="basic-modelling-in-r.html#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-13"><a href="basic-modelling-in-r.html#cb10-13" aria-hidden="true" tabindex="-1"></a>MEL_temp_investigate</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Eyeballing the chart above, there seems to be a correlation between the two data sets. We’ll do one more quick plot to analyse the data. What is the distribution of temperature?</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="basic-modelling-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MEL_weather_2019, <span class="fu">aes</span>(<span class="at">x=</span>Max_temp)) <span class="sc">+</span> </span>
 <span id="cb11-2"><a href="basic-modelling-in-r.html#cb11-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">fill=</span><span class="st">&quot;lightblue&quot;</span>)<span class="sc">+</span></span>
@@ -330,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-10"><a href="basic-modelling-in-r.html#cb11-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
 <span id="cb11-11"><a href="basic-modelling-in-r.html#cb11-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
 <span id="cb11-12"><a href="basic-modelling-in-r.html#cb11-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>We can see here the data is right skewed (i.e. the mean will be greater than the median). We’ll need to keep this in mind. Let’s start building a model.</p>
 </div>
 <div id="build-a-linear-model" class="section level2" number="3.2">
@@ -391,7 +391,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-26"><a href="basic-modelling-in-r.html#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
 <span id="cb15-27"><a href="basic-modelling-in-r.html#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-28"><a href="basic-modelling-in-r.html#cb15-28" aria-hidden="true" tabindex="-1"></a>MEL_temp_predicted</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>This chart includes the model (blue line), confidence interval (grey band around the blue line), and a prediction interval (red dotted line). A prediction interval reflects the uncertainty around a single value (put simple: what is the reasonable upper and lower bound that this data point could be estimated at?). A confidence interval reflects the uncertainty around the mean prediction values (put simply: what is a reasonable upper and lower bound for the blue line at this x value?). Therefore, a prediction interval will be generally much wider than a confidence interval for the same value.</p>
 </div>
 <div id="analyse-the-residuals" class="section level2" number="3.5">
@@ -416,7 +416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb17-14"><a href="basic-modelling-in-r.html#cb17-14" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-15"><a href="basic-modelling-in-r.html#cb17-15" aria-hidden="true" tabindex="-1"></a>         <span class="fu">scale_x_continuous</span>(<span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
 <span id="cb17-16"><a href="basic-modelling-in-r.html#cb17-16" aria-hidden="true" tabindex="-1"></a>residuals_temp_predict_chart</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 </div>
 <div id="linear-regression-with-more-than-one-variable" class="section level2" number="3.6">
 <h2><span class="header-section-number">3.6</span> Linear regression with more than one variable</h2>
@@ -454,7 +454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb21-9"><a href="basic-modelling-in-r.html#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()                    </span>
 <span id="cb21-10"><a href="basic-modelling-in-r.html#cb21-10" aria-hidden="true" tabindex="-1"></a>                </span>
 <span id="cb21-11"><a href="basic-modelling-in-r.html#cb21-11" aria-hidden="true" tabindex="-1"></a>MEL_temp_chart</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>We can see we’ll need a non-linear model to fit this data.</p>
 <p>Below we create a few different models. We start with a normal straight line model, then add an x² and x³ model. We then use these models and the ‘predict’ function to see what temperatures they forecast based on the input data.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="basic-modelling-in-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a straight line estimate to fit the data</span></span>
@@ -512,7 +512,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-31"><a href="basic-modelling-in-r.html#cb23-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
 <span id="cb23-32"><a href="basic-modelling-in-r.html#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-33"><a href="basic-modelling-in-r.html#cb23-33" aria-hidden="true" tabindex="-1"></a>MEL_weather_model_chart</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>We can see in the chart above the polynomial models do much better at fitting the data. However, they are still highly variant.</p>
 <p>Just how variant are they? We can look at the residuals to find out. The residuals is the gap between the observed data point (i.e. the grey line) and our model.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="basic-modelling-in-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the residuals for poly1</span></span>
@@ -529,7 +529,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb24-12"><a href="basic-modelling-in-r.html#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb24-13"><a href="basic-modelling-in-r.html#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.x=</span><span class="fu">element_blank</span>())</span>
 <span id="cb24-14"><a href="basic-modelling-in-r.html#cb24-14" aria-hidden="true" tabindex="-1"></a>residuals_poly1_chart</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basic-modelling-in-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the residuals for poly2</span></span>
 <span id="cb25-2"><a href="basic-modelling-in-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a>residuals_poly2 <span class="ot">&lt;-</span> MEL_weather_2019<span class="sc">%&gt;%</span></span>
 <span id="cb25-3"><a href="basic-modelling-in-r.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_residuals</span>(poly2)</span>
@@ -544,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-12"><a href="basic-modelling-in-r.html#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.x=</span><span class="fu">element_blank</span>())</span>
 <span id="cb25-13"><a href="basic-modelling-in-r.html#cb25-13" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb25-14"><a href="basic-modelling-in-r.html#cb25-14" aria-hidden="true" tabindex="-1"></a>residuals_poly2_chart</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-24-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-25-2.png" width="672" /></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basic-modelling-in-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the residuals for poly3</span></span>
 <span id="cb26-2"><a href="basic-modelling-in-r.html#cb26-2" aria-hidden="true" tabindex="-1"></a>residuals_poly3 <span class="ot">&lt;-</span> MEL_weather_2019 <span class="sc">%&gt;%</span></span>
 <span id="cb26-3"><a href="basic-modelling-in-r.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_residuals</span>(poly3)</span>
@@ -562,14 +562,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-15"><a href="basic-modelling-in-r.html#cb26-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">&quot;°C&quot;</span>)</span>
 <span id="cb26-16"><a href="basic-modelling-in-r.html#cb26-16" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb26-17"><a href="basic-modelling-in-r.html#cb26-17" aria-hidden="true" tabindex="-1"></a>residuals_poly3_chart</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-24-3.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-25-3.png" width="672" /></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="basic-modelling-in-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a>three_charts_single_page <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
 <span id="cb27-2"><a href="basic-modelling-in-r.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  residuals_poly1_chart, </span>
 <span id="cb27-3"><a href="basic-modelling-in-r.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  residuals_poly2_chart, </span>
 <span id="cb27-4"><a href="basic-modelling-in-r.html#cb27-4" aria-hidden="true" tabindex="-1"></a>  residuals_poly3_chart,</span>
 <span id="cb27-5"><a href="basic-modelling-in-r.html#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol=</span><span class="dv">1</span>,<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">label_size=</span><span class="dv">16</span>)</span>
 <span id="cb27-6"><a href="basic-modelling-in-r.html#cb27-6" aria-hidden="true" tabindex="-1"></a>three_charts_single_page</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-24-4.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-25-4.png" width="672" /></p>
 <p>As we move from a linear, to a x², to a x³ model, we see the residuals decrease in volatility.</p>
 
 </div>

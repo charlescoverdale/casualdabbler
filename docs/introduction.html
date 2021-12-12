@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introduction | R cookbook for the casual dabbler</title>
+  <meta name="description" content="A practical user guide for R in advisory." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introduction | R cookbook for the casual dabbler" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A practical user guide for R in advisory." />
+  <meta name="github-repo" content="openscapes/series" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introduction | R cookbook for the casual dabbler" />
+  
+  <meta name="twitter:description" content="A practical user guide for R in advisory." />
+  
+
+<meta name="author" content="Charles Coverdale" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="making-beautiful-maps-in-r.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.19.1/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Cookbook for the Casual Dabbler</a></li> 
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Cover</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#usage"><i class="fa fa-check"></i><b>2.1</b> Usage</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#additional-resources"><i class="fa fa-check"></i><b>2.2</b> Additional resources</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#limitations"><i class="fa fa-check"></i><b>2.3</b> Limitations</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#about-the-author"><i class="fa fa-check"></i><b>2.4</b> About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html"><i class="fa fa-check"></i><b>3</b> Making beautiful maps in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#why-use-a-map"><i class="fa fa-check"></i><b>3.1</b> Why use a map</a></li>
+<li class="chapter" data-level="3.2" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#getting-started"><i class="fa fa-check"></i><b>3.2</b> Getting started</a></li>
+<li class="chapter" data-level="3.3" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#making-your-first-map"><i class="fa fa-check"></i><b>3.3</b> Making your first map</a></li>
+<li class="chapter" data-level="3.4" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-okay-to-good"><i class="fa fa-check"></i><b>3.4</b> From okay to good</a></li>
+<li class="chapter" data-level="3.5" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-good-to-great"><i class="fa fa-check"></i><b>3.5</b> From good to great</a></li>
+<li class="chapter" data-level="3.6" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-great-to-fantastic"><i class="fa fa-check"></i><b>3.6</b> From great to fantastic</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html"><i class="fa fa-check"></i><b>4</b> Basic modelling in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#source-format-and-plot-data"><i class="fa fa-check"></i><b>4.1</b> Source, format, and plot data</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#build-a-linear-model"><i class="fa fa-check"></i><b>4.2</b> Build a linear model</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-model-fit"><i class="fa fa-check"></i><b>4.3</b> Analyse the model fit</a></li>
+<li class="chapter" data-level="4.4" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#compare-the-predicted-values-with-the-actual-values"><i class="fa fa-check"></i><b>4.4</b> Compare the predicted values with the actual values</a></li>
+<li class="chapter" data-level="4.5" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-residuals"><i class="fa fa-check"></i><b>4.5</b> Analyse the residuals</a></li>
+<li class="chapter" data-level="4.6" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#linear-regression-with-more-than-one-variable"><i class="fa fa-check"></i><b>4.6</b> Linear regression with more than one variable</a></li>
+<li class="chapter" data-level="4.7" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#fitting-a-polynomial-regression"><i class="fa fa-check"></i><b>4.7</b> Fitting a polynomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html"><i class="fa fa-check"></i><b>5</b> Working with raster data in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#getting-started-1"><i class="fa fa-check"></i><b>5.1</b> Getting started</a></li>
+<li class="chapter" data-level="5.2" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#import-data"><i class="fa fa-check"></i><b>5.2</b> Import data</a></li>
+<li class="chapter" data-level="5.3" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#data-wrangling"><i class="fa fa-check"></i><b>5.3</b> Data Wrangling</a></li>
+<li class="chapter" data-level="5.4" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#working-with-raster-data"><i class="fa fa-check"></i><b>5.4</b> Working with raster data</a></li>
+<li class="chapter" data-level="5.5" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#making-an-interactive-map"><i class="fa fa-check"></i><b>5.5</b> Making an interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="election-data-in-r.html"><a href="election-data-in-r.html"><i class="fa fa-check"></i><b>6</b> Election data in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="election-data-in-r.html"><a href="election-data-in-r.html#getting-started-2"><i class="fa fa-check"></i><b>6.1</b> Getting started</a></li>
+<li class="chapter" data-level="6.2" data-path="election-data-in-r.html"><a href="election-data-in-r.html#working-with-election-maps"><i class="fa fa-check"></i><b>6.2</b> Working with election maps</a></li>
+<li class="chapter" data-level="6.3" data-path="election-data-in-r.html"><a href="election-data-in-r.html#answering-election-questions"><i class="fa fa-check"></i><b>6.3</b> Answering election questions</a></li>
+<li class="chapter" data-level="6.4" data-path="election-data-in-r.html"><a href="election-data-in-r.html#demographic-analysis-of-voting-trends"><i class="fa fa-check"></i><b>6.4</b> Demographic analysis of voting trends</a></li>
+<li class="chapter" data-level="6.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#mapping-booths"><i class="fa fa-check"></i><b>6.5</b> Mapping booths</a></li>
+<li class="chapter" data-level="6.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>6.6</b> Exploring booth level data</a></li>
+<li class="chapter" data-level="6.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>6.7</b> Donkeys, dicks, and other informalities</a></li>
+<li class="chapter" data-level="6.8" data-path="election-data-in-r.html"><a href="election-data-in-r.html#section"><i class="fa fa-check"></i><b>6.8</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>7</b> Charts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="charts.html"><a href="charts.html#getting-started-3"><i class="fa fa-check"></i><b>7.1</b> Getting started</a></li>
+<li class="chapter" data-level="7.2" data-path="charts.html"><a href="charts.html#make-the-data-tidy"><i class="fa fa-check"></i><b>7.2</b> Make the data tidy</a></li>
+<li class="chapter" data-level="7.3" data-path="charts.html"><a href="charts.html#line-plot"><i class="fa fa-check"></i><b>7.3</b> Line plot</a></li>
+<li class="chapter" data-level="7.4" data-path="charts.html"><a href="charts.html#scatter-and-trend-plot"><i class="fa fa-check"></i><b>7.4</b> Scatter and trend plot</a></li>
+<li class="chapter" data-level="7.5" data-path="charts.html"><a href="charts.html#shading-areas-on-plots"><i class="fa fa-check"></i><b>7.5</b> Shading areas on plots</a></li>
+<li class="chapter" data-level="7.6" data-path="charts.html"><a href="charts.html#bar-chart-numercial"><i class="fa fa-check"></i><b>7.6</b> Bar chart (numercial)</a></li>
+<li class="chapter" data-level="7.7" data-path="charts.html"><a href="charts.html#stacked-bar-chart"><i class="fa fa-check"></i><b>7.7</b> Stacked bar chart</a></li>
+<li class="chapter" data-level="7.8" data-path="charts.html"><a href="charts.html#histogram"><i class="fa fa-check"></i><b>7.8</b> Histogram</a></li>
+<li class="chapter" data-level="7.9" data-path="charts.html"><a href="charts.html#ridge-chart"><i class="fa fa-check"></i><b>7.9</b> Ridge chart</a></li>
+<li class="chapter" data-level="7.10" data-path="charts.html"><a href="charts.html#bbc-style-bar-charts-categorical"><i class="fa fa-check"></i><b>7.10</b> BBC style: Bar charts (categorical)</a></li>
+<li class="chapter" data-level="7.11" data-path="charts.html"><a href="charts.html#bbc-style-dumbbell-charts"><i class="fa fa-check"></i><b>7.11</b> BBC style: Dumbbell charts</a></li>
+<li class="chapter" data-level="7.12" data-path="charts.html"><a href="charts.html#facet-wraps"><i class="fa fa-check"></i><b>7.12</b> Facet wraps</a></li>
+<li class="chapter" data-level="7.13" data-path="charts.html"><a href="charts.html#pie-chart"><i class="fa fa-check"></i><b>7.13</b> Pie chart</a></li>
+<li class="chapter" data-level="7.14" data-path="charts.html"><a href="charts.html#patchwork"><i class="fa fa-check"></i><b>7.14</b> Patchwork</a></li>
+<li class="chapter" data-level="7.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>7.15</b> Saving to powerpoint</a></li>
+<li class="chapter" data-level="7.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>7.16</b> Automating chart creation</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>8</b> Machine Learning</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="machine-learning.html"><a href="machine-learning.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="machine-learning.html"><a href="machine-learning.html#beyond-regressions"><i class="fa fa-check"></i><b>8.2</b> Beyond regressions</a></li>
+<li class="chapter" data-level="8.3" data-path="machine-learning.html"><a href="machine-learning.html#classification-models-using-caret"><i class="fa fa-check"></i><b>8.3</b> Classification models using <code>Caret</code></a></li>
+<li class="chapter" data-level="8.4" data-path="machine-learning.html"><a href="machine-learning.html#build-a-classification-model"><i class="fa fa-check"></i><b>8.4</b> Build a classification model</a></li>
+<li class="chapter" data-level="8.5" data-path="machine-learning.html"><a href="machine-learning.html#compare-different-ml-models"><i class="fa fa-check"></i><b>8.5</b> Compare different ML models</a></li>
+<li class="chapter" data-level="8.6" data-path="machine-learning.html"><a href="machine-learning.html#building-a-predictive-ml-model"><i class="fa fa-check"></i><b>8.6</b> Building a predictive ML model</a></li>
+<li class="chapter" data-level="8.7" data-path="machine-learning.html"><a href="machine-learning.html#section-1"><i class="fa fa-check"></i><b>8.7</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>9</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>9.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="9.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>9.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="9.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>9.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="9.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>9.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="9.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>9.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="9.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>9.6</b> Confidence intervals (model)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>10</b> Forecasting</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="forecasting.html"><a href="forecasting.html#background-1"><i class="fa fa-check"></i><b>10.1</b> Background</a></li>
+<li class="chapter" data-level="10.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>10.2</b> ARIMA models</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="web-scraping.html"><a href="web-scraping.html"><i class="fa fa-check"></i><b>11</b> Web-scraping</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="web-scraping.html"><a href="web-scraping.html#introduction-1"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="web-scraping.html"><a href="web-scraping.html#anatomy-of-a-webpage"><i class="fa fa-check"></i><b>11.2</b> Anatomy of a webpage</a></li>
+<li class="chapter" data-level="11.3" data-path="web-scraping.html"><a href="web-scraping.html#scraping-a-table"><i class="fa fa-check"></i><b>11.3</b> Scraping a table</a></li>
+<li class="chapter" data-level="11.4" data-path="web-scraping.html"><a href="web-scraping.html#section-2"><i class="fa fa-check"></i><b>11.4</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>12</b> Text-mining</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>12.1</b> Power with words</a></li>
+<li class="chapter" data-level="12.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>12.2</b> Frequency analysis</a></li>
+<li class="chapter" data-level="12.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>12.3</b> Sentiment analysis</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
+<li><a href="https://github.com/charlescoverdale/casualdabbler" target="blank">Get the code on github</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for the casual dabbler</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
+<p>G’day and welcome to <em>R cookbook for the casual dabbler.</em></p>
+<p><strong>Some history:</strong> I use R a lot for work and for side projects. Over the years I’ve collated a bunch of useful scripts, from macroeconomic analysis to quick hacks for making map legends format properly.</p>
+<p>Historically my code has been stored in random Rpubs documents, medium articles, and a bunch of .Rmd files on my hardrive. Occasionally I feel like doing things properly - and upload code to a repository on github.</p>
+<p>It doesn’t take a genius to realize this isn’t a very sustainable solution - and it also isn’t very useful for sharing code with others. It turns out 2-years of lockdown in Melbourne was enough incentive to sit down and collate my best and most useful code into a single place. In the spirit of open source, a book seemed like the most logical format. The following is a <em>very rough</em> book written in <strong>markdown</strong> - R’s very own publishing language.</p>
+<div id="usage" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Usage</h2>
+<p>In each chapter I’ve written up the background, methodology and code for a separate piece of analysis.</p>
+<p>Most of this code will not be extraordinary to the seasoned R aficionado. The vast majority can be found elsewhere if you dig around on stackexchange or read some of Hadley’s books.</p>
+<p>However I find that in classic Pareto style ~20% of my code contributes to the <strong>vast</strong> majority of my work output. Having this on hand will hopefully be useful to both myself and others.</p>
+</div>
+<div id="additional-resources" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Additional resources</h2>
+<p>The R community is continually writing new books and package documentation with great worked examples. Some of my favourites (which all happen to be written in the R markdown language) are:</p>
+<ul>
+<li><p><a href="https://bookdown.org/robinlovelace/geocompr/">Geocomputation with R</a></p></li>
+<li><p><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definite Guide</a></p></li>
+<li><p><a href="R%20Cookbook,%202nd%20Edition">R Cookbook, 2nd Edition</a></p></li>
+<li><p><a href="https://r4ds.had.co.nz/">R for Data Science</a></p></li>
+<li><p><a href="https://datascienceineducation.com/">Data Science in Education using R</a></p></li>
+<li><p><a href="https://bookdown.org/ansellbr/WEHI_tidyR_course_book/">Introduction to R: Walter and Eliza Hall Institute</a></p></li>
+<li><p><a href="https://github.com/uo-ec607/lectures">PhD lectures notes in environmental economics and data science (University of Oregon)</a></p></li>
+</ul>
+</div>
+<div id="limitations" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Limitations</h2>
+<p>I’ll be honest with you - there’s bound to be bugs galore in this. If you find one (along with spelling errors etc) please email me at charlesfcoverdale@gmail.com with the subject line ‘R cookbook for the casual dabbler.’</p>
+<hr />
+</div>
+<div id="about-the-author" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> About the author</h2>
+<p>Charles Coverdale is an economist based in Melbourne, Australia. He is passionate about economics, climate science, and building talented teams. You can get in touch with Charles <a href="https://twitter.com/cfcoverdale">on twitter</a> to hear more about his current projects.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="making-beautiful-maps-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/charlescoverdale/casualdabbler/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

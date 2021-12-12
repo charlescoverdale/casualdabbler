@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -377,7 +377,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb60-43"><a href="charts.html#cb60-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-44"><a href="charts.html#cb60-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-45"><a href="charts.html#cb60-45" aria-hidden="true" tabindex="-1"></a>plot_MEL_temp</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 </div>
 <div id="scatter-and-trend-plot" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> Scatter and trend plot</h2>
@@ -424,7 +424,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-41"><a href="charts.html#cb61-41" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb61-42"><a href="charts.html#cb61-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">&#39;text&#39;</span>,<span class="at">x=</span><span class="fu">as.Date</span>(<span class="st">&#39;2019-01-16&#39;</span>),<span class="at">y=</span><span class="fl">37.5</span>,</span>
 <span id="cb61-43"><a href="charts.html#cb61-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">label=</span><span class="st">&quot;January saw some extreme temperatures&quot;</span>,<span class="at">size=</span><span class="fl">3.2</span>,<span class="at">col=</span><span class="st">&quot;#575757&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 </div>
 <div id="shading-areas-on-plots" class="section level2" number="6.5">
 <h2><span class="header-section-number">6.5</span> Shading areas on plots</h2>
@@ -450,7 +450,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb62-18"><a href="charts.html#cb62-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">xmax =</span> <span class="cn">Inf</span>, <span class="at">ymin =</span> threshold, <span class="at">ymax =</span> <span class="cn">Inf</span>),</span>
 <span id="cb62-19"><a href="charts.html#cb62-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>,</span>
 <span id="cb62-20"><a href="charts.html#cb62-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="charts.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Example 2</span></span>
 <span id="cb63-2"><a href="charts.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Now to add colour either way of a model line</span></span>
 <span id="cb63-3"><a href="charts.html#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -515,7 +515,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-62"><a href="charts.html#cb63-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb63-63"><a href="charts.html#cb63-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb63-64"><a href="charts.html#cb63-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-54-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-55-2.png" width="672" /></p>
 </div>
 <div id="bar-chart-numercial" class="section level2" number="6.6">
 <h2><span class="header-section-number">6.6</span> Bar chart (numercial)</h2>
@@ -557,7 +557,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb64-36"><a href="charts.html#cb64-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb64-37"><a href="charts.html#cb64-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb64-38"><a href="charts.html#cb64-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="charts.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(plot=last_plot(),</span></span>
 <span id="cb65-2"><a href="charts.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co">#        width=10,</span></span>
 <span id="cb65-3"><a href="charts.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co">#        height=10,</span></span>
@@ -627,7 +627,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb66-58"><a href="charts.html#cb66-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb66-59"><a href="charts.html#cb66-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb66-60"><a href="charts.html#cb66-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>())</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 </div>
 <div id="histogram" class="section level2" number="6.8">
 <h2><span class="header-section-number">6.8</span> Histogram</h2>
@@ -667,7 +667,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb69-31"><a href="charts.html#cb69-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb69-32"><a href="charts.html#cb69-32" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb69-33"><a href="charts.html#cb69-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 </div>
 <div id="ridge-chart" class="section level2" number="6.9">
 <h2><span class="header-section-number">6.9</span> Ridge chart</h2>
@@ -701,7 +701,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-27"><a href="charts.html#cb70-27" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">xlab</span>(<span class="st">&quot; &quot;</span>)<span class="sc">+</span></span>
 <span id="cb70-28"><a href="charts.html#cb70-28" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">ylab</span>(<span class="st">&quot; &quot;</span>)<span class="sc">+</span></span>
 <span id="cb70-29"><a href="charts.html#cb70-29" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">theme_ridges</span>(<span class="at">font_size =</span> <span class="dv">13</span>, <span class="at">grid =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 <div id="bbc-style-bar-charts-categorical" class="section level2" number="6.10">
 <h2><span class="header-section-number">6.10</span> BBC style: Bar charts (categorical)</h2>
@@ -867,7 +867,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb73-97"><a href="charts.html#cb73-97" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb73-98"><a href="charts.html#cb73-98" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb73-99"><a href="charts.html#cb73-99" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 </div>
 <div id="pie-chart" class="section level2" number="6.13">
 <h2><span class="header-section-number">6.13</span> Pie chart</h2>
@@ -911,7 +911,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb74-37"><a href="charts.html#cb74-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb74-38"><a href="charts.html#cb74-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">margin=</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb74-39"><a href="charts.html#cb74-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="charts.html#cb75-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ggsave(plot=last_plot(),</span></span>
 <span id="cb75-2"><a href="charts.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      width=10,</span></span>
 <span id="cb75-3"><a href="charts.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      height=10,</span></span>
@@ -933,10 +933,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb76-9"><a href="charts.html#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-10"><a href="charts.html#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Example of side by side charts</span></span>
 <span id="cb76-11"><a href="charts.html#cb76-11" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="charts.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Add in a table next to the plot</span></span>
 <span id="cb77-2"><a href="charts.html#cb77-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> gridExtra<span class="sc">::</span><span class="fu">tableGrob</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">c</span>(<span class="st">&#39;mpg&#39;</span>, <span class="st">&#39;disp&#39;</span>)])</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-63-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-64-2.png" width="672" /></p>
 </div>
 <div id="saving-to-powerpoint" class="section level2" number="6.15">
 <h2><span class="header-section-number">6.15</span> Saving to powerpoint</h2>
@@ -1026,7 +1026,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb79-63"><a href="charts.html#cb79-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb79-64"><a href="charts.html#cb79-64" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="fu">colnames</span>(bar_data_multiple)[<span class="fu">colnames</span>(bar_data_multiple) <span class="sc">!=</span> <span class="st">&quot;Year&quot;</span>], loop)</span>
 <span id="cb79-65"><a href="charts.html#cb79-65" aria-hidden="true" tabindex="-1"></a>plots</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-65-1.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-65-2.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-65-3.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-66-1.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-66-2.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-66-3.png" width="672" /></p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="charts.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cowplot::plot_grid(plotlist = plots)</span></span></code></pre></div>
 
 </div>

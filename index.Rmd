@@ -1,18 +1,28 @@
---- 
+---
 title: "R cookbook for the casual dabbler"
 author: "Charles Coverdale"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-
+output: pdf_document
 documentclass: book
-bibliography: [book.bib, packages.bib]
+bibliography:
+- book.bib
+- packages.bib
 biblio-style: apalike
 link-citations: yes
 github-repo: openscapes/series
-description: "A practical user guide for R in advisory."
+description: A practical user guide for R in advisory.
+site: bookdown::bookdown_site
 ---
 
 # Introduction
+
+```{r, echo=FALSE}
+
+knitr::include_graphics("cover/cover_image.jpg")
+
+```
+
+
 
 G'day and welcome to *R cookbook for the casual dabbler.*
 
@@ -52,7 +62,7 @@ The R community is continually writing new books and package documentation with 
 
 I'll be honest with you - there's bound to be bugs galore in this. If you find one (along with spelling errors etc) please email me at charlesfcoverdale\@gmail.com with the subject line 'R cookbook for the casual dabbler'.
 
-----
+------------------------------------------------------------------------
 
 ## About the author
 

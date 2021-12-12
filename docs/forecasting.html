@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -330,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb119-27"><a href="forecasting.html#cb119-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))<span class="sc">+</span></span>
 <span id="cb119-28"><a href="forecasting.html#cb119-28" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb119-29"><a href="forecasting.html#cb119-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 </div>
 <div id="arima-models" class="section level2" number="9.2">
 <h2><span class="header-section-number">9.2</span> ARIMA models</h2>
@@ -369,10 +369,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Note: in fact, p.value = 0.01 means p.value &lt;= 0.01</code></pre>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="forecasting.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See the auto correlation</span></span>
 <span id="cb122-2"><a href="forecasting.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(econ_data<span class="sc">$</span>uempmed)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="forecasting.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify patial auto correlation</span></span>
 <span id="cb123-2"><a href="forecasting.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Pacf</span>(econ_data<span class="sc">$</span>uempmed)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-103-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="forecasting.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the first differences of the series</span></span>
 <span id="cb124-2"><a href="forecasting.html#cb124-2" aria-hidden="true" tabindex="-1"></a>econ_data <span class="ot">&lt;-</span> econ_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">diff =</span> uempmed<span class="sc">-</span><span class="fu">lag</span>(uempmed))</span>
 <span id="cb124-3"><a href="forecasting.html#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -408,19 +408,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <pre><code>## Warning: Removed 1 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-<p><img src="series_files/figure-html/unnamed-chunk-103-3.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-104-3.png" width="672" /></p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="forecasting.html#cb128-1" aria-hidden="true" tabindex="-1"></a>ARIMA_model <span class="ot">=</span> forecast<span class="sc">::</span><span class="fu">auto.arima</span>(econ_data<span class="sc">$</span>uempmed)</span>
 <span id="cb128-2"><a href="forecasting.html#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb128-3"><a href="forecasting.html#cb128-3" aria-hidden="true" tabindex="-1"></a>ARIMA_model</span>
 <span id="cb128-4"><a href="forecasting.html#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ARIMA_model)</span>
 <span id="cb128-5"><a href="forecasting.html#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(ARIMA_model)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="forecasting.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forecast for the next 10 time units</span></span>
 <span id="cb129-2"><a href="forecasting.html#cb129-2" aria-hidden="true" tabindex="-1"></a>ARIMA_forecast <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">forecast</span>(ARIMA_model, <span class="at">newdata=</span>econ_data<span class="sc">$</span>uempmed,<span class="at">h =</span> <span class="dv">36</span>,<span class="at">level=</span><span class="fu">c</span>(<span class="dv">95</span>))</span>
 <span id="cb129-3"><a href="forecasting.html#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb129-4"><a href="forecasting.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot forecasts</span></span>
 <span id="cb129-5"><a href="forecasting.html#cb129-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>((ARIMA_forecast))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-105-2.png" width="672" /></p>
 
 </div>
 </div>

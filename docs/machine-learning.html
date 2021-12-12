@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,7 +372,7 @@ residuals on a plot.</p>
 <span id="cb83-30"><a href="machine-learning.html#cb83-30" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))<span class="sc">+</span></span>
 <span id="cb83-31"><a href="machine-learning.html#cb83-31" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb83-32"><a href="machine-learning.html#cb83-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <p>To quantify the model fit in a single number, we can use the Root Mean
 Square Error (RMSE).</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="machine-learning.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Root Mean Square Error (RMSE) manually</span></span>
@@ -499,10 +499,10 @@ variable Purchase.</p>
 <span id="cb90-8"><a href="machine-learning.html#cb90-8" aria-hidden="true" tabindex="-1"></a>model_mars</span>
 <span id="cb90-9"><a href="machine-learning.html#cb90-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb90-10"><a href="machine-learning.html#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_mars, <span class="at">main=</span><span class="st">&quot;Model Accuracies with MARS&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="machine-learning.html#cb91-1" aria-hidden="true" tabindex="-1"></a>varimp_mars <span class="ot">&lt;-</span> <span class="fu">varImp</span>(model_mars)</span>
 <span id="cb91-2"><a href="machine-learning.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(varimp_mars, <span class="at">main=</span><span class="st">&quot;Variable Importance with MARS&quot;</span>)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-75-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-76-2.png" width="672" /></p>
 <p>Looks good! Now we’ll see how well the model does with test data</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="machine-learning.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Impute missing values </span></span>
 <span id="cb92-2"><a href="machine-learning.html#cb92-2" aria-hidden="true" tabindex="-1"></a>testData2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(preProcess_missingdata_model, testData)  </span>
@@ -560,7 +560,7 @@ approaches. Let’s run a few.</p>
 <span id="cb95-5"><a href="machine-learning.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(models_compare)</span>
 <span id="cb95-6"><a href="machine-learning.html#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-7"><a href="machine-learning.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(models_compare, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
 <p>MARS seems to win out here - with the highest median and max accuracy.</p>
 </div>
 <div id="building-a-predictive-ml-model" class="section level2" number="7.6">

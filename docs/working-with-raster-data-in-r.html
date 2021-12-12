@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="working-with-raster-data-in-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a>rainfall <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;https://raw.github.com/charlescoverdale/ERF/master/rainan.txt&quot;</span>)</span>
 <span id="cb29-2"><a href="working-with-raster-data-in-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="working-with-raster-data-in-r.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rainfall)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>Straight away we see this is for the whole of Australia (and then some). We’re only interested in what’s going on in QLD… so let’s crop the data down to scale. For this we’ll need to import a shapefile for QLD.</p>
 <p>The easiest way to do this is using the absmapsdata package - importing a shapefile of Australia then filtering for only Queensland.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="working-with-raster-data-in-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import a polygon for the state of Queensland</span></span>
@@ -317,7 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-2"><a href="working-with-raster-data-in-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">crop</span>(rainfall,<span class="fu">extent</span>(QLD_shape))</span>
 <span id="cb31-3"><a href="working-with-raster-data-in-r.html#cb31-3" aria-hidden="true" tabindex="-1"></a>r3 <span class="ot">&lt;-</span> <span class="fu">mask</span>(r2,QLD_shape)</span>
 <span id="cb31-4"><a href="working-with-raster-data-in-r.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r3)</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>Great. That looks like it worked well. Next up, let’s transform the cropped raster (i.e. gridded data) into a data frame (df) that we can use in the ggplot package.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="working-with-raster-data-in-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a>r3_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(r3,<span class="at">xy=</span><span class="cn">TRUE</span>)</span>
 <span id="cb32-2"><a href="working-with-raster-data-in-r.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -344,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb32-23"><a href="working-with-raster-data-in-r.html#cb32-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
 <span id="cb32-24"><a href="working-with-raster-data-in-r.html#cb32-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
 <span id="cb32-25"><a href="working-with-raster-data-in-r.html#cb32-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p><br />
 Excellent, we’ve got a working map of rainfall in Queensland using the ggplot package. We’ll tidy up the map also and add a title and some better colours.</p>
 </div>
@@ -365,7 +365,7 @@ Excellent, we’ve got a working map of rainfall in Queensland using the ggplot 
 <span id="cb33-12"><a href="working-with-raster-data-in-r.html#cb33-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
 <span id="cb33-13"><a href="working-with-raster-data-in-r.html#cb33-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
 <span id="cb33-14"><a href="working-with-raster-data-in-r.html#cb33-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>Interesting. The data is heavily right tailed skewed (the mean will be much higher than the median)… and most of the data looks to be between 0-1000mm (this makes sense).</p>
 <p>Let’s create a ‘flag’ column of 0’s and 1’s that shows when a data point is less than 600mm.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="working-with-raster-data-in-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a>r3_df <span class="ot">&lt;-</span> r3_df <span class="sc">%&gt;%</span></span>
@@ -394,7 +394,7 @@ Excellent, we’ve got a working map of rainfall in Queensland using the ggplot 
 <span id="cb34-24"><a href="working-with-raster-data-in-r.html#cb34-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">size=</span><span class="dv">12</span>))<span class="sc">+</span></span>
 <span id="cb34-25"><a href="working-with-raster-data-in-r.html#cb34-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>))<span class="sc">+</span></span>
 <span id="cb34-26"><a href="working-with-raster-data-in-r.html#cb34-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-raster-data-in-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;C:/06 R_code/ERF_600_mm_rainfall.png&quot;,units=&quot;cm&quot;,dpi=200, device=&quot;png&quot;)</span></span></code></pre></div>
 </div>
 <div id="making-an-interactive-map" class="section level2" number="4.5">

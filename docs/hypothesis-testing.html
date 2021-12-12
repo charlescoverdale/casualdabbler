@@ -24,7 +24,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -338,7 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb98-32"><a href="hypothesis-testing.html#cb98-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb98-33"><a href="hypothesis-testing.html#cb98-33" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb98-34"><a href="hypothesis-testing.html#cb98-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 <p>We know by default that the mean of dataset1 will be approximately zero… but let’s check anyway.</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="hypothesis-testing.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the mean of dataset1</span></span>
 <span id="cb99-2"><a href="hypothesis-testing.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dataset1<span class="sc">$</span>variable1)</span></code></pre></div>
@@ -404,7 +404,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb103-39"><a href="hypothesis-testing.html#cb103-39" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))<span class="sc">+</span></span>
 <span id="cb103-40"><a href="hypothesis-testing.html#cb103-40" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb103-41"><a href="hypothesis-testing.html#cb103-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <p>We can use the <code>cor.test</code> to tell us the correlation coefficient and the p-value of the correlation.</p>
 <p>We specify the method as ‘pearson’ for the Pearson correlation coefficient. But we remember this method only works well if both our variables are normally distributed.</p>
 <p>That’s worth checking - let’s plot a histogram for both hp and mpg.</p>
@@ -430,7 +430,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-19"><a href="hypothesis-testing.html#cb105-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb105-20"><a href="hypothesis-testing.html#cb105-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb105-21"><a href="hypothesis-testing.html#cb105-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="hypothesis-testing.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
 <span id="cb106-2"><a href="hypothesis-testing.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>mtcars<span class="sc">$</span>hp,<span class="at">y=</span>..density..),<span class="at">fill=</span><span class="st">&quot;blue&quot;</span>,<span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb106-3"><a href="hypothesis-testing.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, </span>
@@ -454,7 +454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb106-21"><a href="hypothesis-testing.html#cb106-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb106-22"><a href="hypothesis-testing.html#cb106-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb106-23"><a href="hypothesis-testing.html#cb106-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 <p>Crikey… they don’t look very normal at all.</p>
 <p>Let’s plot QQ plots of our variables and see what’s going on.</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="hypothesis-testing.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">sample =</span> mpg)) <span class="sc">+</span></span>
@@ -475,7 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb107-16"><a href="hypothesis-testing.html#cb107-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb107-17"><a href="hypothesis-testing.html#cb107-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb107-18"><a href="hypothesis-testing.html#cb107-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="hypothesis-testing.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">sample =</span> hp)) <span class="sc">+</span></span>
 <span id="cb108-2"><a href="hypothesis-testing.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq</span>()<span class="sc">+</span></span>
 <span id="cb108-3"><a href="hypothesis-testing.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_qq_line</span>()<span class="sc">+</span></span>
@@ -494,7 +494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-16"><a href="hypothesis-testing.html#cb108-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb108-17"><a href="hypothesis-testing.html#cb108-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb108-18"><a href="hypothesis-testing.html#cb108-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-91-2.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
 <p>Hmm okay, both series are a bit all over the shop.</p>
 <p>Let’s do a statistical test to confirm.</p>
 <p>The <strong>Shapiro-Wilk’s method</strong> is widely used for normality testing. The null hypothesis of this tests is that the sample distribution is normal. If the test is <strong>significant</strong>, the distribution is non-normal.</p>
@@ -559,7 +559,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb112-21"><a href="hypothesis-testing.html#cb112-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
 <span id="cb112-22"><a href="hypothesis-testing.html#cb112-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb112-23"><a href="hypothesis-testing.html#cb112-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 <p>Two things we note here: First, the distribution doesn’t look <strong><em>that</em></strong> normal. Second, geez that 95% confidence interval looks narrow as a result.</p>
 <p>Let’s do the same analysis with an actual normal distribution and see what happens.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="hypothesis-testing.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">404</span>)</span>
@@ -631,7 +631,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb113-67"><a href="hypothesis-testing.html#cb113-67" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">margin=</span>ggplot2<span class="sc">::</span><span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>))) <span class="sc">+</span></span>
 <span id="cb113-68"><a href="hypothesis-testing.html#cb113-68" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb113-69"><a href="hypothesis-testing.html#cb113-69" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <p>Great - we’ve got a more sensible looking plot, and greyed out the tails where our confidence interval excludes. We expect out observation to fall somewhere between the two purple lines (or more exactly between -2.1 and 2.1)</p>
 </div>
 <div id="confidence-intervals-model" class="section level2" number="8.6">
@@ -685,7 +685,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb115-39"><a href="hypothesis-testing.html#cb115-39" aria-hidden="true" tabindex="-1"></a>            <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))<span class="sc">+</span></span>
 <span id="cb115-40"><a href="hypothesis-testing.html#cb115-40" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb115-41"><a href="hypothesis-testing.html#cb115-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_line</span>(<span class="at">colour =</span><span class="st">&quot;black&quot;</span>,<span class="at">size=</span><span class="fl">0.4</span>))</span></code></pre></div>
-<p><img src="series_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="series_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <p>For a sanity check, let’s crank up the confidence level to 0.999 (meaning our interval should capture just about all the observations). We see the confidence interval band increases… but not by <em>that</em> much. Why? Well remember how the data isn’t a very good normal distribution? That means the confidence interval function won’t be super accurate - especially at the extremes.</p>
 
 </div>
