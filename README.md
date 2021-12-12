@@ -2,7 +2,7 @@
 
 *A practical guide for using R for analysis and visualisation*
 
-![R Cookbook for the Casual Dabbler](https://github.com/charlescoverdale/casualdabbler/blob/master/cover/cover_image.jpg?raw=true | height="50")
+![R Cookbook for the Casual Dabbler](https://github.com/charlescoverdale/casualdabbler/blob/master/cover/cover_image_v3.jpg?raw=true)
 
 This repo contains the code use to produce the first edition of [R Cookbook for the Casual Dabbler](https://charlescoverdale.github.io/casualdabbler/)
 

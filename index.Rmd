@@ -18,7 +18,7 @@ site: bookdown::bookdown_site
 
 ```{r, echo=FALSE}
 
-knitr::include_graphics("cover/cover_image.jpg")
+knitr::include_graphics("cover/cover_image_v3.jpg")
 
 ```
 
