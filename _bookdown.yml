@@ -9,11 +9,12 @@ rmd_files: [
   "04-Raster-data-in-R.Rmd", 
   "05-Election-data-in-R.Rmd",
   "06-Charts.Rmd",
-  "07-Machine-learning.Rmd",
   "08-Hypothesis-testing.Rmd",
   "09-Forecasting.Rmd", 
-  "10-Web-scraping.Rmd",
-  "11-Text-mining.Rmd"
+  "11-Text-mining.Rmd",
+  "12-Economic-indicators.Rmd",
+  "13-Geocoding.Rmd",
+  "14-Drivetime.Rmd"
   ]
 delete_merged_file: true 
 output_dir: "docs"

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Working with raster data in R | R cookbook for the casual dabbler</title>
   <meta name="description" content="A practical user guide for R in advisory." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Working with raster data in R | R cookbook for the casual dabbler" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical user guide for R in advisory." />
   <meta name="github-repo" content="openscapes/series" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2022-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="basic-modelling-in-r.html"/>
 <link rel="next" href="election-data-in-r.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,22 +49,39 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19.1/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -187,7 +202,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#mapping-booths"><i class="fa fa-check"></i><b>5.5</b> Mapping booths</a></li>
 <li class="chapter" data-level="5.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>5.6</b> Exploring booth level data</a></li>
 <li class="chapter" data-level="5.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>5.7</b> Donkeys, dicks, and other informalities</a></li>
-<li class="chapter" data-level="5.8" data-path="election-data-in-r.html"><a href="election-data-in-r.html#section"><i class="fa fa-check"></i><b>5.8</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>6</b> Charts</a>
 <ul>
@@ -208,42 +222,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>6.15</b> Saving to powerpoint</a></li>
 <li class="chapter" data-level="6.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>6.16</b> Automating chart creation</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>7</b> Machine Learning</a>
+<li class="chapter" data-level="7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Hypothesis testing</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="machine-learning.html"><a href="machine-learning.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
-<li class="chapter" data-level="7.2" data-path="machine-learning.html"><a href="machine-learning.html#beyond-regressions"><i class="fa fa-check"></i><b>7.2</b> Beyond regressions</a></li>
-<li class="chapter" data-level="7.3" data-path="machine-learning.html"><a href="machine-learning.html#classification-models-using-caret"><i class="fa fa-check"></i><b>7.3</b> Classification models using <code>Caret</code></a></li>
-<li class="chapter" data-level="7.4" data-path="machine-learning.html"><a href="machine-learning.html#build-a-classification-model"><i class="fa fa-check"></i><b>7.4</b> Build a classification model</a></li>
-<li class="chapter" data-level="7.5" data-path="machine-learning.html"><a href="machine-learning.html#compare-different-ml-models"><i class="fa fa-check"></i><b>7.5</b> Compare different ML models</a></li>
-<li class="chapter" data-level="7.6" data-path="machine-learning.html"><a href="machine-learning.html#building-a-predictive-ml-model"><i class="fa fa-check"></i><b>7.6</b> Building a predictive ML model</a></li>
-<li class="chapter" data-level="7.7" data-path="machine-learning.html"><a href="machine-learning.html#section-1"><i class="fa fa-check"></i><b>7.7</b> —</a></li>
+<li class="chapter" data-level="7.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>7.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="7.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>7.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="7.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>7.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="7.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>7.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="7.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="7.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>7.6</b> Confidence intervals (model)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis testing</a>
+<li class="chapter" data-level="8" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>8</b> Forecasting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>8.1</b> A quick refresher</a></li>
-<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>8.2</b> T-testing our first hypothesis</a></li>
-<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>8.3</b> Tailed tests</a></li>
-<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>8.4</b> Correlation (and working with normal distributions)</a></li>
-<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>8.5</b> Confidence intervals (mean)</a></li>
-<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>8.6</b> Confidence intervals (model)</a></li>
+<li class="chapter" data-level="8.1" data-path="forecasting.html"><a href="forecasting.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>9</b> Forecasting</a>
+<li class="chapter" data-level="9" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>9</b> Text-mining</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="forecasting.html"><a href="forecasting.html#background-1"><i class="fa fa-check"></i><b>9.1</b> Background</a></li>
-<li class="chapter" data-level="9.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>9.2</b> ARIMA models</a></li>
+<li class="chapter" data-level="9.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>9.1</b> Power with words</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>9.2</b> Frequency analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>9.3</b> Sentiment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="web-scraping.html"><a href="web-scraping.html"><i class="fa fa-check"></i><b>10</b> Web-scraping</a>
+<li class="chapter" data-level="10" data-path="economic-indicators.html"><a href="economic-indicators.html"><i class="fa fa-check"></i><b>10</b> Economic indicators</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="web-scraping.html"><a href="web-scraping.html#introduction-1"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="web-scraping.html"><a href="web-scraping.html#anatomy-of-a-webpage"><i class="fa fa-check"></i><b>10.2</b> Anatomy of a webpage</a></li>
-<li class="chapter" data-level="10.3" data-path="web-scraping.html"><a href="web-scraping.html#scraping-a-table"><i class="fa fa-check"></i><b>10.3</b> Scraping a table</a></li>
-<li class="chapter" data-level="10.4" data-path="web-scraping.html"><a href="web-scraping.html#section-2"><i class="fa fa-check"></i><b>10.4</b> —</a></li>
+<li class="chapter" data-level="10.1" data-path="economic-indicators.html"><a href="economic-indicators.html#overview"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="economic-indicators.html"><a href="economic-indicators.html#gross-domestic-product"><i class="fa fa-check"></i><b>10.2</b> Gross Domestic Product</a></li>
+<li class="chapter" data-level="10.3" data-path="economic-indicators.html"><a href="economic-indicators.html#unemployment-rate"><i class="fa fa-check"></i><b>10.3</b> Unemployment rate</a></li>
+<li class="chapter" data-level="10.4" data-path="economic-indicators.html"><a href="economic-indicators.html#inflation-cpi"><i class="fa fa-check"></i><b>10.4</b> Inflation (CPI)</a></li>
+<li class="chapter" data-level="10.5" data-path="economic-indicators.html"><a href="economic-indicators.html#wage-price-index"><i class="fa fa-check"></i><b>10.5</b> Wage Price Index</a></li>
+<li class="chapter" data-level="10.6" data-path="economic-indicators.html"><a href="economic-indicators.html#rba-cash-rate"><i class="fa fa-check"></i><b>10.6</b> RBA cash rate</a></li>
+<li class="chapter" data-level="10.7" data-path="economic-indicators.html"><a href="economic-indicators.html#aud-exchange-rate"><i class="fa fa-check"></i><b>10.7</b> AUD exchange rate</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>11</b> Text-mining</a>
+<li class="chapter" data-level="11" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html"><i class="fa fa-check"></i><b>11</b> Geocoding in R</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>11.1</b> Power with words</a></li>
-<li class="chapter" data-level="11.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>11.2</b> Frequency analysis</a></li>
-<li class="chapter" data-level="11.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>11.3</b> Sentiment analysis</a></li>
+<li class="chapter" data-level="11.1" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#about-geocoding"><i class="fa fa-check"></i><b>11.1</b> About geocoding</a></li>
+<li class="chapter" data-level="11.2" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#introducing-the-dataset"><i class="fa fa-check"></i><b>11.2</b> Introducing the dataset</a></li>
+<li class="chapter" data-level="11.3" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#data-cleaning"><i class="fa fa-check"></i><b>11.3</b> Data cleaning</a></li>
+<li class="chapter" data-level="11.4" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#running-the-geocode"><i class="fa fa-check"></i><b>11.4</b> Running the geocode</a></li>
+<li class="chapter" data-level="11.5" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#from-geocode-to-shapefile"><i class="fa fa-check"></i><b>11.5</b> From geocode to shapefile</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html"><i class="fa fa-check"></i><b>12</b> Drive time analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#background-on-drive-times"><i class="fa fa-check"></i><b>12.1</b> Background on drive times</a></li>
+<li class="chapter" data-level="12.2" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#method-1-osrm-package"><i class="fa fa-check"></i><b>12.2</b> Method 1: OSRM package</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
@@ -266,11 +286,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="working-with-raster-data-in-r" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Working with raster data in R</h1>
+<div id="working-with-raster-data-in-r" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Working with raster data in R<a href="working-with-raster-data-in-r.html#working-with-raster-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Raster data (sometimes referred to as gridded data) is a type of spatial data that is stored in a grid rather than a polygon. Imagine a chessboard of individuals squares covering the Australian landmass compared to 8 different shapes covering each state and territory. The nice thing about gridded data is that all the cells in the grid are the same size - making calculations much easier.</p>
-<div id="getting-started-1" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Getting started</h2>
+<div id="getting-started-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Getting started<a href="working-with-raster-data-in-r.html#getting-started-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First up we need to load some spatial and data crunching packages.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="working-with-raster-data-in-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load packages</span></span>
 <span id="cb28-2"><a href="working-with-raster-data-in-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ncdf4)</span>
@@ -297,8 +317,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb28-23"><a href="working-with-raster-data-in-r.html#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb28-24"><a href="working-with-raster-data-in-r.html#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 </div>
-<div id="import-data" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Import data</h2>
+<div id="import-data" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Import data<a href="working-with-raster-data-in-r.html#import-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Next, we want to import annual rainfall data from github (original source available from the Bureau of Meterology)</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="working-with-raster-data-in-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a>rainfall <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;https://raw.github.com/charlescoverdale/ERF/master/rainan.txt&quot;</span>)</span>
 <span id="cb29-2"><a href="working-with-raster-data-in-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -310,8 +330,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-2"><a href="working-with-raster-data-in-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a>QLD_shape <span class="ot">&lt;-</span> state2016 <span class="sc">%&gt;%</span></span>
 <span id="cb30-3"><a href="working-with-raster-data-in-r.html#cb30-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">filter</span>(state_name_2016<span class="sc">==</span><span class="st">&quot;Queensland&quot;</span>)</span></code></pre></div>
 </div>
-<div id="data-wrangling" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Data Wrangling</h2>
+<div id="data-wrangling" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Data Wrangling<a href="working-with-raster-data-in-r.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have raster data for the entirety of Australia (and then some as it’s pulled from one of the BOMs satellites). This is a bit messy to work with - so let’s crop the rainfall data from the entire Australian continent to just Queensland.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="working-with-raster-data-in-r.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop data</span></span>
 <span id="cb31-2"><a href="working-with-raster-data-in-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">crop</span>(rainfall,<span class="fu">extent</span>(QLD_shape))</span>
@@ -348,8 +368,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><br />
 Excellent, we’ve got a working map of rainfall in Queensland using the ggplot package. We’ll tidy up the map also and add a title and some better colours.</p>
 </div>
-<div id="working-with-raster-data" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Working with raster data</h2>
+<div id="working-with-raster-data" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Working with raster data<a href="working-with-raster-data-in-r.html#working-with-raster-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For our first piece of data analysis, we’re going to look at areas with less than 600mm of annual rainfall. How many of our data points will have less than 600mm of rain? Let’s take a look at the data distribution and find out.</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="working-with-raster-data-in-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(r3_df) <span class="sc">+</span></span>
 <span id="cb33-2"><a href="working-with-raster-data-in-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(rainan),<span class="at">binwidth=</span><span class="dv">1</span>,<span class="at">col=</span><span class="st">&quot;darkblue&quot;</span>)<span class="sc">+</span></span>
@@ -397,8 +417,8 @@ Excellent, we’ve got a working map of rainfall in Queensland using the ggplot 
 <p><img src="series_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="working-with-raster-data-in-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave(&quot;C:/06 R_code/ERF_600_mm_rainfall.png&quot;,units=&quot;cm&quot;,dpi=200, device=&quot;png&quot;)</span></span></code></pre></div>
 </div>
-<div id="making-an-interactive-map" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Making an interactive map</h2>
+<div id="making-an-interactive-map" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Making an interactive map<a href="working-with-raster-data-in-r.html#making-an-interactive-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The static map above is good… but an interactive visual (ideally with place names below) is better.</p>
 <p>To to this we’ll need to convert our data frame back to a raster layer, then plot it using the tmap package.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="working-with-raster-data-in-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># r4_df &lt;- subset(r3_df,select= -c(rainan))</span></span>
@@ -461,7 +481,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["series.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

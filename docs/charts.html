@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Charts | R cookbook for the casual dabbler</title>
   <meta name="description" content="A practical user guide for R in advisory." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Charts | R cookbook for the casual dabbler" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical user guide for R in advisory." />
   <meta name="github-repo" content="openscapes/series" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2022-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +31,7 @@
   
   
 <link rel="prev" href="election-data-in-r.html"/>
-<link rel="next" href="machine-learning.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="next" href="hypothesis-testing.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,22 +49,39 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19.1/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -187,7 +202,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#mapping-booths"><i class="fa fa-check"></i><b>5.5</b> Mapping booths</a></li>
 <li class="chapter" data-level="5.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>5.6</b> Exploring booth level data</a></li>
 <li class="chapter" data-level="5.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>5.7</b> Donkeys, dicks, and other informalities</a></li>
-<li class="chapter" data-level="5.8" data-path="election-data-in-r.html"><a href="election-data-in-r.html#section"><i class="fa fa-check"></i><b>5.8</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>6</b> Charts</a>
 <ul>
@@ -208,42 +222,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>6.15</b> Saving to powerpoint</a></li>
 <li class="chapter" data-level="6.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>6.16</b> Automating chart creation</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>7</b> Machine Learning</a>
+<li class="chapter" data-level="7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Hypothesis testing</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="machine-learning.html"><a href="machine-learning.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
-<li class="chapter" data-level="7.2" data-path="machine-learning.html"><a href="machine-learning.html#beyond-regressions"><i class="fa fa-check"></i><b>7.2</b> Beyond regressions</a></li>
-<li class="chapter" data-level="7.3" data-path="machine-learning.html"><a href="machine-learning.html#classification-models-using-caret"><i class="fa fa-check"></i><b>7.3</b> Classification models using <code>Caret</code></a></li>
-<li class="chapter" data-level="7.4" data-path="machine-learning.html"><a href="machine-learning.html#build-a-classification-model"><i class="fa fa-check"></i><b>7.4</b> Build a classification model</a></li>
-<li class="chapter" data-level="7.5" data-path="machine-learning.html"><a href="machine-learning.html#compare-different-ml-models"><i class="fa fa-check"></i><b>7.5</b> Compare different ML models</a></li>
-<li class="chapter" data-level="7.6" data-path="machine-learning.html"><a href="machine-learning.html#building-a-predictive-ml-model"><i class="fa fa-check"></i><b>7.6</b> Building a predictive ML model</a></li>
-<li class="chapter" data-level="7.7" data-path="machine-learning.html"><a href="machine-learning.html#section-1"><i class="fa fa-check"></i><b>7.7</b> —</a></li>
+<li class="chapter" data-level="7.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>7.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="7.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>7.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="7.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>7.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="7.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>7.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="7.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="7.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>7.6</b> Confidence intervals (model)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis testing</a>
+<li class="chapter" data-level="8" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>8</b> Forecasting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>8.1</b> A quick refresher</a></li>
-<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>8.2</b> T-testing our first hypothesis</a></li>
-<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>8.3</b> Tailed tests</a></li>
-<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>8.4</b> Correlation (and working with normal distributions)</a></li>
-<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>8.5</b> Confidence intervals (mean)</a></li>
-<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>8.6</b> Confidence intervals (model)</a></li>
+<li class="chapter" data-level="8.1" data-path="forecasting.html"><a href="forecasting.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>9</b> Forecasting</a>
+<li class="chapter" data-level="9" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>9</b> Text-mining</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="forecasting.html"><a href="forecasting.html#background-1"><i class="fa fa-check"></i><b>9.1</b> Background</a></li>
-<li class="chapter" data-level="9.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>9.2</b> ARIMA models</a></li>
+<li class="chapter" data-level="9.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>9.1</b> Power with words</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>9.2</b> Frequency analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>9.3</b> Sentiment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="web-scraping.html"><a href="web-scraping.html"><i class="fa fa-check"></i><b>10</b> Web-scraping</a>
+<li class="chapter" data-level="10" data-path="economic-indicators.html"><a href="economic-indicators.html"><i class="fa fa-check"></i><b>10</b> Economic indicators</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="web-scraping.html"><a href="web-scraping.html#introduction-1"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="web-scraping.html"><a href="web-scraping.html#anatomy-of-a-webpage"><i class="fa fa-check"></i><b>10.2</b> Anatomy of a webpage</a></li>
-<li class="chapter" data-level="10.3" data-path="web-scraping.html"><a href="web-scraping.html#scraping-a-table"><i class="fa fa-check"></i><b>10.3</b> Scraping a table</a></li>
-<li class="chapter" data-level="10.4" data-path="web-scraping.html"><a href="web-scraping.html#section-2"><i class="fa fa-check"></i><b>10.4</b> —</a></li>
+<li class="chapter" data-level="10.1" data-path="economic-indicators.html"><a href="economic-indicators.html#overview"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="economic-indicators.html"><a href="economic-indicators.html#gross-domestic-product"><i class="fa fa-check"></i><b>10.2</b> Gross Domestic Product</a></li>
+<li class="chapter" data-level="10.3" data-path="economic-indicators.html"><a href="economic-indicators.html#unemployment-rate"><i class="fa fa-check"></i><b>10.3</b> Unemployment rate</a></li>
+<li class="chapter" data-level="10.4" data-path="economic-indicators.html"><a href="economic-indicators.html#inflation-cpi"><i class="fa fa-check"></i><b>10.4</b> Inflation (CPI)</a></li>
+<li class="chapter" data-level="10.5" data-path="economic-indicators.html"><a href="economic-indicators.html#wage-price-index"><i class="fa fa-check"></i><b>10.5</b> Wage Price Index</a></li>
+<li class="chapter" data-level="10.6" data-path="economic-indicators.html"><a href="economic-indicators.html#rba-cash-rate"><i class="fa fa-check"></i><b>10.6</b> RBA cash rate</a></li>
+<li class="chapter" data-level="10.7" data-path="economic-indicators.html"><a href="economic-indicators.html#aud-exchange-rate"><i class="fa fa-check"></i><b>10.7</b> AUD exchange rate</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>11</b> Text-mining</a>
+<li class="chapter" data-level="11" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html"><i class="fa fa-check"></i><b>11</b> Geocoding in R</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>11.1</b> Power with words</a></li>
-<li class="chapter" data-level="11.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>11.2</b> Frequency analysis</a></li>
-<li class="chapter" data-level="11.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>11.3</b> Sentiment analysis</a></li>
+<li class="chapter" data-level="11.1" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#about-geocoding"><i class="fa fa-check"></i><b>11.1</b> About geocoding</a></li>
+<li class="chapter" data-level="11.2" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#introducing-the-dataset"><i class="fa fa-check"></i><b>11.2</b> Introducing the dataset</a></li>
+<li class="chapter" data-level="11.3" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#data-cleaning"><i class="fa fa-check"></i><b>11.3</b> Data cleaning</a></li>
+<li class="chapter" data-level="11.4" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#running-the-geocode"><i class="fa fa-check"></i><b>11.4</b> Running the geocode</a></li>
+<li class="chapter" data-level="11.5" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#from-geocode-to-shapefile"><i class="fa fa-check"></i><b>11.5</b> From geocode to shapefile</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html"><i class="fa fa-check"></i><b>12</b> Drive time analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#background-on-drive-times"><i class="fa fa-check"></i><b>12.1</b> Background on drive times</a></li>
+<li class="chapter" data-level="12.2" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#method-1-osrm-package"><i class="fa fa-check"></i><b>12.2</b> Method 1: OSRM package</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
@@ -266,10 +286,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="charts" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Charts</h1>
-<div id="getting-started-3" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Getting started</h2>
+<div id="charts" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Charts<a href="charts.html#charts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="getting-started-3" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Getting started<a href="charts.html#getting-started-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There’s exceptional resources online for using the <code>ggplot2</code> package to create production ready charts.</p>
 <p>The <a href="https://www.r-graph-gallery.com/index.html">R Graph Gallery is a great place to start</a>, as is the visual storytelling blogs of <a href="https://www.economist.com/graphic-detail">The Economist</a> and the <a href="https://bbc.github.io/rcookbook/#how_to_create_bbc_style_graphics">BBC</a>.</p>
 <p>This chapter contains the code for some of my most used charts and visualization techniques.</p>
@@ -286,15 +306,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-11"><a href="charts.html#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb58-12"><a href="charts.html#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb58-13"><a href="charts.html#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb58-14"><a href="charts.html#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grattantheme)</span>
-<span id="cb58-15"><a href="charts.html#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
-<span id="cb58-16"><a href="charts.html#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb58-17"><a href="charts.html#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb58-18"><a href="charts.html#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb58-14"><a href="charts.html#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
+<span id="cb58-15"><a href="charts.html#cb58-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb58-16"><a href="charts.html#cb58-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb58-17"><a href="charts.html#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb58-18"><a href="charts.html#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb58-19"><a href="charts.html#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="co">#library(bbplot)</span></span></code></pre></div>
 </div>
-<div id="make-the-data-tidy" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Make the data tidy</h2>
+<div id="make-the-data-tidy" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Make the data tidy<a href="charts.html#make-the-data-tidy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before making a chart ensure the data is “tidy” - meaning there is a new row for every changed variable. It also doesn’t hurt to remove NA’s for consistency (particularly in time series).</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="charts.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read in data</span></span>
 <span id="cb59-2"><a href="charts.html#cb59-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">&quot;https://raw.githubusercontent.com/charlescoverdale/ggridges/master/2019_MEL_max_temp_daily.xlsx&quot;</span></span>
@@ -330,8 +350,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-32"><a href="charts.html#cb59-32" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop NA&#39;s</span></span>
 <span id="cb59-33"><a href="charts.html#cb59-33" aria-hidden="true" tabindex="-1"></a><span class="co">#MEL_temp_daily &lt;- MEL_temp_daily %&gt;% drop_na()</span></span></code></pre></div>
 </div>
-<div id="line-plot" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Line plot</h2>
+<div id="line-plot" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Line plot<a href="charts.html#line-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="charts.html#cb60-1" aria-hidden="true" tabindex="-1"></a>plot_MEL_temp <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(MEL_temp_daily)<span class="sc">+</span></span>
 <span id="cb60-2"><a href="charts.html#cb60-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Temp), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)<span class="sc">+</span></span>
 <span id="cb60-3"><a href="charts.html#cb60-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Mean), <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)<span class="sc">+</span></span>
@@ -379,8 +399,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb60-45"><a href="charts.html#cb60-45" aria-hidden="true" tabindex="-1"></a>plot_MEL_temp</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 </div>
-<div id="scatter-and-trend-plot" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Scatter and trend plot</h2>
+<div id="scatter-and-trend-plot" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Scatter and trend plot<a href="charts.html#scatter-and-trend-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="charts.html#cb61-1" aria-hidden="true" tabindex="-1"></a>MEL_temp_Jan <span class="ot">&lt;-</span> MEL_temp_daily <span class="sc">%&gt;%</span> <span class="fu">filter</span>(MEL_temp_daily<span class="sc">$</span>Date<span class="sc">&lt;</span><span class="fu">as.Date</span>(<span class="st">&quot;2019-01-31&quot;</span>))</span>
 <span id="cb61-2"><a href="charts.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-3"><a href="charts.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MEL_temp_Jan)<span class="sc">+</span></span>
@@ -426,8 +446,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-43"><a href="charts.html#cb61-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">label=</span><span class="st">&quot;January saw some extreme temperatures&quot;</span>,<span class="at">size=</span><span class="fl">3.2</span>,<span class="at">col=</span><span class="st">&quot;#575757&quot;</span>)</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 </div>
-<div id="shading-areas-on-plots" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Shading areas on plots</h2>
+<div id="shading-areas-on-plots" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Shading areas on plots<a href="charts.html#shading-areas-on-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Adding shading behind a plot area is simple using <code>geom_rect.</code></p>
 <p>Adding shading under a particular model line? A little trickier. See both example below.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="charts.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Example 1</span></span>
@@ -517,8 +537,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-64"><a href="charts.html#cb63-64" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-55-2.png" width="672" /></p>
 </div>
-<div id="bar-chart-numercial" class="section level2" number="6.6">
-<h2><span class="header-section-number">6.6</span> Bar chart (numercial)</h2>
+<div id="bar-chart-numercial" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Bar chart (numercial)<a href="charts.html#bar-chart-numercial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="charts.html#cb64-1" aria-hidden="true" tabindex="-1"></a>Year <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;2018&quot;</span>, <span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2020&quot;</span>, <span class="st">&quot;2021&quot;</span>)</span>
 <span id="cb64-2"><a href="charts.html#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="charts.html#cb64-3" aria-hidden="true" tabindex="-1"></a>Value <span class="ot">=</span> (<span class="fu">c</span>(<span class="dv">1000000</span>,<span class="dv">3000000</span>, <span class="dv">2000000</span>, <span class="dv">5000000</span>))</span>
@@ -565,8 +585,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-5"><a href="charts.html#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="co">#        dpi = 600, </span></span>
 <span id="cb65-6"><a href="charts.html#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="co">#        filename = &quot;/Users/charlescoverdale/Desktop/test.png&quot;)</span></span></code></pre></div>
 </div>
-<div id="stacked-bar-chart" class="section level2" number="6.7">
-<h2><span class="header-section-number">6.7</span> Stacked bar chart</h2>
+<div id="stacked-bar-chart" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Stacked bar chart<a href="charts.html#stacked-bar-chart" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="charts.html#cb66-1" aria-hidden="true" tabindex="-1"></a>Year <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2020&quot;</span>, <span class="st">&quot;2020&quot;</span>, <span class="st">&quot;2020&quot;</span>, <span class="st">&quot;2020&quot;</span>)</span>
 <span id="cb66-2"><a href="charts.html#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-3"><a href="charts.html#cb66-3" aria-hidden="true" tabindex="-1"></a>Quarter <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Q1&quot;</span>,<span class="st">&quot;Q2&quot;</span>,<span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;Q4&quot;</span>,<span class="st">&quot;Q1&quot;</span>,<span class="st">&quot;Q2&quot;</span>,<span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;Q4&quot;</span>)</span>
@@ -629,8 +649,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb66-60"><a href="charts.html#cb66-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
 </div>
-<div id="histogram" class="section level2" number="6.8">
-<h2><span class="header-section-number">6.8</span> Histogram</h2>
+<div id="histogram" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Histogram<a href="charts.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Aka. a bar chart for a continuous variable where the bars are touching. Useful to show distribution of time series or ordinal variables.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="charts.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;0-20&quot;</span>, <span class="st">&quot;20-40&quot;</span>, <span class="st">&quot;40-60&quot;</span>, <span class="st">&quot;60-80&quot;</span>, <span class="st">&quot;80+&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;0-20&quot;  &quot;20-40&quot; &quot;40-60&quot; &quot;60-80&quot; &quot;80+&quot;</code></pre>
@@ -669,8 +689,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb69-33"><a href="charts.html#cb69-33" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 </div>
-<div id="ridge-chart" class="section level2" number="6.9">
-<h2><span class="header-section-number">6.9</span> Ridge chart</h2>
+<div id="ridge-chart" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> Ridge chart<a href="charts.html#ridge-chart" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Handy when working with climate variables. Particularly useful at showing the difference in range of multiples series (e.g. temperature by month).</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="charts.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data</span></span>
 <span id="cb70-2"><a href="charts.html#cb70-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span><span class="st">&quot;https://raw.githubusercontent.com/charlescoverdale/ggridges/master/2019_MEL_max_temp_daily.xlsx&quot;</span></span>
@@ -703,8 +723,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb70-29"><a href="charts.html#cb70-29" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">theme_ridges</span>(<span class="at">font_size =</span> <span class="dv">13</span>, <span class="at">grid =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
-<div id="bbc-style-bar-charts-categorical" class="section level2" number="6.10">
-<h2><span class="header-section-number">6.10</span> BBC style: Bar charts (categorical)</h2>
+<div id="bbc-style-bar-charts-categorical" class="section level2 hasAnchor" number="6.10">
+<h2><span class="header-section-number">6.10</span> BBC style: Bar charts (categorical)<a href="charts.html#bbc-style-bar-charts-categorical" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="charts.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #Prepare data</span></span>
 <span id="cb71-2"><a href="charts.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co"># bar_df &lt;- gapminder %&gt;%</span></span>
 <span id="cb71-3"><a href="charts.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(year == 2007 &amp; continent == &quot;Africa&quot;) %&gt;%</span></span>
@@ -741,8 +761,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-34"><a href="charts.html#cb71-34" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb71-35"><a href="charts.html#cb71-35" aria-hidden="true" tabindex="-1"></a><span class="co"># labelled.bars</span></span></code></pre></div>
 </div>
-<div id="bbc-style-dumbbell-charts" class="section level2" number="6.11">
-<h2><span class="header-section-number">6.11</span> BBC style: Dumbbell charts</h2>
+<div id="bbc-style-dumbbell-charts" class="section level2 hasAnchor" number="6.11">
+<h2><span class="header-section-number">6.11</span> BBC style: Dumbbell charts<a href="charts.html#bbc-style-dumbbell-charts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dumbbell charts are handy instead of using clustered column charts with janky thinkcell labels and arrows to show the difference between the columns. Note it relies on having a 4 variable input (variable_name, value1, value2, and gap).</p>
 <p>The <code>geom_dumbell</code>function lives inside the <code>ggalt</code> package rather than the standard ggplot2.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="charts.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #Prepare data</span></span>
@@ -763,8 +783,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb72-16"><a href="charts.html#cb72-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   labs(title=&quot;We&#39;re living longer&quot;,</span></span>
 <span id="cb72-17"><a href="charts.html#cb72-17" aria-hidden="true" tabindex="-1"></a><span class="co">#        subtitle=&quot;Biggest life expectancy rise, 1967-2007&quot;)</span></span></code></pre></div>
 </div>
-<div id="facet-wraps" class="section level2" number="6.12">
-<h2><span class="header-section-number">6.12</span> Facet wraps</h2>
+<div id="facet-wraps" class="section level2 hasAnchor" number="6.12">
+<h2><span class="header-section-number">6.12</span> Facet wraps<a href="charts.html#facet-wraps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Handy rather than showing multiple lines on the same chart.</p>
 <p>Top tips: <code>facet_wrap()</code>dataframes need to be in long form in order to be manipulated easily.</p>
 <p>It also helps to add on separate columns for the start and end values (if you want to add data point labels).</p>
@@ -869,8 +889,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb73-99"><a href="charts.html#cb73-99" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="st">&quot;cm&quot;</span>))</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 </div>
-<div id="pie-chart" class="section level2" number="6.13">
-<h2><span class="header-section-number">6.13</span> Pie chart</h2>
+<div id="pie-chart" class="section level2 hasAnchor" number="6.13">
+<h2><span class="header-section-number">6.13</span> Pie chart<a href="charts.html#pie-chart" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>These should be used sparingly… but they are handy for showing proportions when the proportion of the whole is paramount (e.g. 45%) - rather than the proportion in relation to another data point (e.g. 16% one year vs 18% the next).</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="charts.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Data</span></span>
 <span id="cb74-2"><a href="charts.html#cb74-2" aria-hidden="true" tabindex="-1"></a>pie_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -919,8 +939,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb75-5"><a href="charts.html#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      dpi = 600, </span></span>
 <span id="cb75-6"><a href="charts.html#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      filename = &quot;/Users/charlescoverdale/Desktop/pietest.png&quot;)</span></span></code></pre></div>
 </div>
-<div id="patchwork" class="section level2" number="6.14">
-<h2><span class="header-section-number">6.14</span> Patchwork</h2>
+<div id="patchwork" class="section level2 hasAnchor" number="6.14">
+<h2><span class="header-section-number">6.14</span> Patchwork<a href="charts.html#patchwork" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://patchwork.data-imaginist.com/articles/guides/assembly.html">Patchwork</a> is a nifty package for arranging plots and other graphic elements (text, tables etc) in different grid arrangements. The basic syntax is to use <code>plot1 | plot2</code> for side by side charts, and <code>plot1 / plot2</code>for top and bottom charts. You can also combine these two functions for a grid of different size columns (e.g. <code>plot3 / (plot1 | plot2)</code></p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="charts.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make some simply plots using the mtcars package</span></span>
 <span id="cb76-2"><a href="charts.html#cb76-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
@@ -938,8 +958,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-2"><a href="charts.html#cb77-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> gridExtra<span class="sc">::</span><span class="fu">tableGrob</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">c</span>(<span class="st">&#39;mpg&#39;</span>, <span class="st">&#39;disp&#39;</span>)])</span></code></pre></div>
 <p><img src="series_files/figure-html/unnamed-chunk-64-2.png" width="672" /></p>
 </div>
-<div id="saving-to-powerpoint" class="section level2" number="6.15">
-<h2><span class="header-section-number">6.15</span> Saving to powerpoint</h2>
+<div id="saving-to-powerpoint" class="section level2 hasAnchor" number="6.15">
+<h2><span class="header-section-number">6.15</span> Saving to powerpoint<a href="charts.html#saving-to-powerpoint" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There’s a bunch of ways to save ggplot graphics - but the way I find most useful is by exporting to pptx in a common ‘charts’ directory.</p>
 <p>If you want to save as a png you can use the normal ggsave function - however it will not be editable (e.g. able to click and drag to rescale for a presentation).</p>
 <p>Therefore instead we can use the grattantheme package to easily save to an editable pptx graphic.</p>
@@ -958,8 +978,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb78-12"><a href="charts.html#cb78-12" aria-hidden="true" tabindex="-1"></a><span class="co">#        &quot;/Users/charlescoverdale/Desktop/test.pptx&quot;, </span></span>
 <span id="cb78-13"><a href="charts.html#cb78-13" aria-hidden="true" tabindex="-1"></a><span class="co">#        type = &quot;wholecolumn&quot;)</span></span></code></pre></div>
 </div>
-<div id="automating-chart-creation" class="section level2" number="6.16">
-<h2><span class="header-section-number">6.16</span> Automating chart creation</h2>
+<div id="automating-chart-creation" class="section level2 hasAnchor" number="6.16">
+<h2><span class="header-section-number">6.16</span> Automating chart creation<a href="charts.html#automating-chart-creation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s say we have a dataframe of multiple variables. We want to produce simple charts of the same style for each variable (including formatting and titles etc). Sure we can change the <code>aes(x=)</code>and <code>aes(y=)</code> variables in ggplot2 manually for each column - but this is time intensive especially for large data frames. Instead, we can write a function that will loop through the whole dataframe and produce the same format of chart.</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="charts.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a data set</span></span>
 <span id="cb79-2"><a href="charts.html#cb79-2" aria-hidden="true" tabindex="-1"></a>Year <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;2018&quot;</span>, <span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2020&quot;</span>, <span class="st">&quot;2021&quot;</span>)</span>
@@ -1029,6 +1049,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="series_files/figure-html/unnamed-chunk-66-1.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-66-2.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-66-3.png" width="672" /></p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="charts.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cowplot::plot_grid(plotlist = plots)</span></span></code></pre></div>
 
+<hr />
 </div>
 </div>
             </section>
@@ -1037,7 +1058,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="election-data-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="machine-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hypothesis-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1079,7 +1100,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["series.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

@@ -10,4 +10,3 @@ bookdown::gitbook:
         <li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
         <li><a href="https://github.com/charlescoverdale/casualdabbler" target="blank">Get the code on github</a></li>
     edit: https://github.com/charlescoverdale/casualdabbler/edit/master/%s
-    download: ["pdf"]

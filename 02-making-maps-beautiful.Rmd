@@ -32,6 +32,7 @@ library(purrr)
 library(Census2016)
 library(absmapsdata)
 library(officer)
+library(bookdown)
 ```
 
 The absmapsdata package is particularly important, as it contains most ASGS shapefiles (the ones found on the ABS website).

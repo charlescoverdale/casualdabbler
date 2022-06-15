@@ -1,6 +1,6 @@
 ---
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -31,21 +31,9 @@ We'll start our journey by loading some packages
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
 
-# Load in packages
-library(ggplot2)
-library(caret)
-library(skimr)
-library(RANN)
-library(randomForest)
-library(fastAdaboost)
-library(gbm)
-library(xgboost)
-library(caretEnsemble)
-library(C50)
-library(earth)
-library(skimr)
-library(cumSeg)
-library(caTools)
+#Loads the required required packages
+pacman::p_load(ggplot2,caret,skimr,RANN,randomForest,fastAdaboost,gbm,xgboost,caretEnsemble,c50,earth,cumSed,CaTools)
+
 ```
 
 ## Beyond regressions

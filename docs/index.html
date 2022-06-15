@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>R cookbook for the casual dabbler</title>
   <meta name="description" content="A practical user guide for R in advisory." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="R cookbook for the casual dabbler" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical user guide for R in advisory." />
   <meta name="github-repo" content="openscapes/series" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2022-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 
 <link rel="next" href="making-beautiful-maps-in-r.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,10 +49,98 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -136,40 +222,48 @@
 <li class="chapter" data-level="6.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>6.15</b> Saving to powerpoint</a></li>
 <li class="chapter" data-level="6.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>6.16</b> Automating chart creation</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>7</b> Machine Learning</a>
+<li class="chapter" data-level="7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Hypothesis testing</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="machine-learning.html"><a href="machine-learning.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
-<li class="chapter" data-level="7.2" data-path="machine-learning.html"><a href="machine-learning.html#beyond-regressions"><i class="fa fa-check"></i><b>7.2</b> Beyond regressions</a></li>
-<li class="chapter" data-level="7.3" data-path="machine-learning.html"><a href="machine-learning.html#classification-models-using-caret"><i class="fa fa-check"></i><b>7.3</b> Classification models using <code>Caret</code></a></li>
-<li class="chapter" data-level="7.4" data-path="machine-learning.html"><a href="machine-learning.html#build-a-classification-model"><i class="fa fa-check"></i><b>7.4</b> Build a classification model</a></li>
-<li class="chapter" data-level="7.5" data-path="machine-learning.html"><a href="machine-learning.html#compare-different-ml-models"><i class="fa fa-check"></i><b>7.5</b> Compare different ML models</a></li>
-<li class="chapter" data-level="7.6" data-path="machine-learning.html"><a href="machine-learning.html#building-a-predictive-ml-model"><i class="fa fa-check"></i><b>7.6</b> Building a predictive ML model</a></li>
+<li class="chapter" data-level="7.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>7.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="7.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>7.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="7.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>7.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="7.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>7.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="7.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="7.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>7.6</b> Confidence intervals (model)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis testing</a>
+<li class="chapter" data-level="8" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>8</b> Forecasting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>8.1</b> A quick refresher</a></li>
-<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>8.2</b> T-testing our first hypothesis</a></li>
-<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>8.3</b> Tailed tests</a></li>
-<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>8.4</b> Correlation (and working with normal distributions)</a></li>
-<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>8.5</b> Confidence intervals (mean)</a></li>
-<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>8.6</b> Confidence intervals (model)</a></li>
+<li class="chapter" data-level="8.1" data-path="forecasting.html"><a href="forecasting.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>9</b> Forecasting</a>
+<li class="chapter" data-level="9" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>9</b> Text-mining</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="forecasting.html"><a href="forecasting.html#background-1"><i class="fa fa-check"></i><b>9.1</b> Background</a></li>
-<li class="chapter" data-level="9.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>9.2</b> ARIMA models</a></li>
+<li class="chapter" data-level="9.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>9.1</b> Power with words</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>9.2</b> Frequency analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>9.3</b> Sentiment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="web-scraping.html"><a href="web-scraping.html"><i class="fa fa-check"></i><b>10</b> Web-scraping</a>
+<li class="chapter" data-level="10" data-path="economic-indicators.html"><a href="economic-indicators.html"><i class="fa fa-check"></i><b>10</b> Economic indicators</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="web-scraping.html"><a href="web-scraping.html#introduction-1"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="web-scraping.html"><a href="web-scraping.html#anatomy-of-a-webpage"><i class="fa fa-check"></i><b>10.2</b> Anatomy of a webpage</a></li>
-<li class="chapter" data-level="10.3" data-path="web-scraping.html"><a href="web-scraping.html#scraping-a-table"><i class="fa fa-check"></i><b>10.3</b> Scraping a table</a></li>
+<li class="chapter" data-level="10.1" data-path="economic-indicators.html"><a href="economic-indicators.html#overview"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="economic-indicators.html"><a href="economic-indicators.html#gross-domestic-product"><i class="fa fa-check"></i><b>10.2</b> Gross Domestic Product</a></li>
+<li class="chapter" data-level="10.3" data-path="economic-indicators.html"><a href="economic-indicators.html#unemployment-rate"><i class="fa fa-check"></i><b>10.3</b> Unemployment rate</a></li>
+<li class="chapter" data-level="10.4" data-path="economic-indicators.html"><a href="economic-indicators.html#inflation-cpi"><i class="fa fa-check"></i><b>10.4</b> Inflation (CPI)</a></li>
+<li class="chapter" data-level="10.5" data-path="economic-indicators.html"><a href="economic-indicators.html#wage-price-index"><i class="fa fa-check"></i><b>10.5</b> Wage Price Index</a></li>
+<li class="chapter" data-level="10.6" data-path="economic-indicators.html"><a href="economic-indicators.html#rba-cash-rate"><i class="fa fa-check"></i><b>10.6</b> RBA cash rate</a></li>
+<li class="chapter" data-level="10.7" data-path="economic-indicators.html"><a href="economic-indicators.html#aud-exchange-rate"><i class="fa fa-check"></i><b>10.7</b> AUD exchange rate</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>11</b> Text-mining</a>
+<li class="chapter" data-level="11" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html"><i class="fa fa-check"></i><b>11</b> Geocoding in R</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>11.1</b> Power with words</a></li>
-<li class="chapter" data-level="11.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>11.2</b> Frequency analysis</a></li>
-<li class="chapter" data-level="11.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>11.3</b> Sentiment analysis</a></li>
+<li class="chapter" data-level="11.1" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#about-geocoding"><i class="fa fa-check"></i><b>11.1</b> About geocoding</a></li>
+<li class="chapter" data-level="11.2" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#introducing-the-dataset"><i class="fa fa-check"></i><b>11.2</b> Introducing the dataset</a></li>
+<li class="chapter" data-level="11.3" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#data-cleaning"><i class="fa fa-check"></i><b>11.3</b> Data cleaning</a></li>
+<li class="chapter" data-level="11.4" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#running-the-geocode"><i class="fa fa-check"></i><b>11.4</b> Running the geocode</a></li>
+<li class="chapter" data-level="11.5" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#from-geocode-to-shapefile"><i class="fa fa-check"></i><b>11.5</b> From geocode to shapefile</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html"><i class="fa fa-check"></i><b>12</b> Drive time analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#background-on-drive-times"><i class="fa fa-check"></i><b>12.1</b> Background on drive times</a></li>
+<li class="chapter" data-level="12.2" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#method-1-osrm-package"><i class="fa fa-check"></i><b>12.2</b> Method 1: OSRM package</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
@@ -195,23 +289,23 @@
 <div id="header">
 <h1 class="title">R cookbook for the casual dabbler</h1>
 <p class="author"><em>Charles Coverdale</em></p>
-<p class="date"><em>2021-12-12</em></p>
+<p class="date"><em>2022-06-15</em></p>
 </div>
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<div id="introduction" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><img src="cover/cover_image_v3.png" width="705" /></p>
 <p>G’day and welcome to <em>R cookbook for the casual dabbler.</em></p>
 <p><strong>Some history:</strong> I use R a lot for work and for side projects. Over the years I’ve collated a bunch of useful scripts, from macroeconomic analysis to quick hacks for making map legends format properly.</p>
 <p>Historically my code has been stored in random Rpubs documents, medium articles, and a bunch of .Rmd files on my hardrive. Occasionally I feel like doing things properly - and upload code to a repository on github.</p>
 <p>It doesn’t take a genius to realize this isn’t a very sustainable solution - and it also isn’t very useful for sharing code with others. It turns out 2-years of lockdown in Melbourne was enough incentive to sit down and collate my best and most useful code into a single place. In the spirit of open source, a book seemed like the most logical format. The following is a <em>very rough</em> book written in <strong>markdown</strong> - R’s very own publishing language.</p>
-<div id="usage" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Usage</h2>
+<div id="usage" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Usage<a href="index.html#usage" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In each chapter I’ve written up the background, methodology and code for a separate piece of analysis.</p>
 <p>Most of this code will not be extraordinary to the seasoned R aficionado. The vast majority can be found elsewhere if you dig around on stackexchange or read some of Hadley’s books.</p>
 <p>However I find that in classic Pareto style ~20% of my code contributes to the <strong>vast</strong> majority of my work output. Having this on hand will hopefully be useful to both myself and others.</p>
 </div>
-<div id="additional-resources" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Additional resources</h2>
+<div id="additional-resources" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Additional resources<a href="index.html#additional-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The R community is continually writing new books and package documentation with great worked examples. Some of my favourites (which all happen to be written in the R markdown language) are:</p>
 <ul>
 <li><p><a href="https://bookdown.org/robinlovelace/geocompr/">Geocomputation with R</a></p></li>
@@ -223,13 +317,13 @@
 <li><p><a href="https://github.com/uo-ec607/lectures">PhD lectures notes in environmental economics and data science (University of Oregon)</a></p></li>
 </ul>
 </div>
-<div id="limitations" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Limitations</h2>
+<div id="limitations" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Limitations<a href="index.html#limitations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I’ll be honest with you - there’s bound to be bugs galore in this. If you find one (along with spelling errors etc) please email me at charlesfcoverdale@gmail.com with the subject line ‘R cookbook for the casual dabbler.’</p>
 <hr />
 </div>
-<div id="about-the-author" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> About the author</h2>
+<div id="about-the-author" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> About the author<a href="index.html#about-the-author" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Charles Coverdale is an economist based in Melbourne, Australia. He is passionate about economics, climate science, and building talented teams. You can get in touch with Charles <a href="https://twitter.com/cfcoverdale">on twitter</a> to hear more about his current projects.</p>
 
 </div>
@@ -282,7 +376,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["series.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

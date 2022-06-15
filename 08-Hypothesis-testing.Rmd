@@ -14,9 +14,9 @@ When looking at the outputs of our hypothesis test, we consider p-values. Note: 
 
 What we need to know:
 
--   A small p-value (typically ≤ 0.05) indicates strong evidence ***against*** the null hypothesis, so we ***reject*** it.
+-   A small p-value (typically \< 0.05) indicates strong evidence ***against*** the null hypothesis, so we ***reject*** it.
 
--   A large p-value (\> 0.05) indicates weak evidence ***against*** the null hypothesis, so you ***fail to reject*** it.
+-   A large p-value (> 0.05) indicates weak evidence ***against*** the null hypothesis, so you ***fail to reject*** it.
 
 Let's load in some packages and get started.
 
@@ -35,7 +35,6 @@ library(reshape)
 library(tidyr)
 library(lubridate)
 library(gapminder)
-library(grattantheme)
 library(ggalt)
 library(purrr)
 library(scales)

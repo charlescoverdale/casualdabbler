@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Drive time analysis | R cookbook for the casual dabbler</title>
+  <meta name="description" content="A practical user guide for R in advisory." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Drive time analysis | R cookbook for the casual dabbler" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A practical user guide for R in advisory." />
+  <meta name="github-repo" content="openscapes/series" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Drive time analysis | R cookbook for the casual dabbler" />
+  
+  <meta name="twitter:description" content="A practical user guide for R in advisory." />
+  
+
+<meta name="author" content="Charles Coverdale" />
+
+
+<meta name="date" content="2022-06-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="geocoding-in-r.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Cookbook for the Casual Dabbler</a></li> 
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#additional-resources"><i class="fa fa-check"></i><b>1.2</b> Additional resources</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#limitations"><i class="fa fa-check"></i><b>1.3</b> Limitations</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i><b>1.4</b> About the author</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html"><i class="fa fa-check"></i><b>2</b> Making beautiful maps in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#why-use-a-map"><i class="fa fa-check"></i><b>2.1</b> Why use a map</a></li>
+<li class="chapter" data-level="2.2" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#getting-started"><i class="fa fa-check"></i><b>2.2</b> Getting started</a></li>
+<li class="chapter" data-level="2.3" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#making-your-first-map"><i class="fa fa-check"></i><b>2.3</b> Making your first map</a></li>
+<li class="chapter" data-level="2.4" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-okay-to-good"><i class="fa fa-check"></i><b>2.4</b> From okay to good</a></li>
+<li class="chapter" data-level="2.5" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-good-to-great"><i class="fa fa-check"></i><b>2.5</b> From good to great</a></li>
+<li class="chapter" data-level="2.6" data-path="making-beautiful-maps-in-r.html"><a href="making-beautiful-maps-in-r.html#from-great-to-fantastic"><i class="fa fa-check"></i><b>2.6</b> From great to fantastic</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html"><i class="fa fa-check"></i><b>3</b> Basic modelling in R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#source-format-and-plot-data"><i class="fa fa-check"></i><b>3.1</b> Source, format, and plot data</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#build-a-linear-model"><i class="fa fa-check"></i><b>3.2</b> Build a linear model</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-model-fit"><i class="fa fa-check"></i><b>3.3</b> Analyse the model fit</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#compare-the-predicted-values-with-the-actual-values"><i class="fa fa-check"></i><b>3.4</b> Compare the predicted values with the actual values</a></li>
+<li class="chapter" data-level="3.5" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#analyse-the-residuals"><i class="fa fa-check"></i><b>3.5</b> Analyse the residuals</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#linear-regression-with-more-than-one-variable"><i class="fa fa-check"></i><b>3.6</b> Linear regression with more than one variable</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-modelling-in-r.html"><a href="basic-modelling-in-r.html#fitting-a-polynomial-regression"><i class="fa fa-check"></i><b>3.7</b> Fitting a polynomial regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html"><i class="fa fa-check"></i><b>4</b> Working with raster data in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#getting-started-1"><i class="fa fa-check"></i><b>4.1</b> Getting started</a></li>
+<li class="chapter" data-level="4.2" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#import-data"><i class="fa fa-check"></i><b>4.2</b> Import data</a></li>
+<li class="chapter" data-level="4.3" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#data-wrangling"><i class="fa fa-check"></i><b>4.3</b> Data Wrangling</a></li>
+<li class="chapter" data-level="4.4" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#working-with-raster-data"><i class="fa fa-check"></i><b>4.4</b> Working with raster data</a></li>
+<li class="chapter" data-level="4.5" data-path="working-with-raster-data-in-r.html"><a href="working-with-raster-data-in-r.html#making-an-interactive-map"><i class="fa fa-check"></i><b>4.5</b> Making an interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="election-data-in-r.html"><a href="election-data-in-r.html"><i class="fa fa-check"></i><b>5</b> Election data in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="election-data-in-r.html"><a href="election-data-in-r.html#getting-started-2"><i class="fa fa-check"></i><b>5.1</b> Getting started</a></li>
+<li class="chapter" data-level="5.2" data-path="election-data-in-r.html"><a href="election-data-in-r.html#working-with-election-maps"><i class="fa fa-check"></i><b>5.2</b> Working with election maps</a></li>
+<li class="chapter" data-level="5.3" data-path="election-data-in-r.html"><a href="election-data-in-r.html#answering-election-questions"><i class="fa fa-check"></i><b>5.3</b> Answering election questions</a></li>
+<li class="chapter" data-level="5.4" data-path="election-data-in-r.html"><a href="election-data-in-r.html#demographic-analysis-of-voting-trends"><i class="fa fa-check"></i><b>5.4</b> Demographic analysis of voting trends</a></li>
+<li class="chapter" data-level="5.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#mapping-booths"><i class="fa fa-check"></i><b>5.5</b> Mapping booths</a></li>
+<li class="chapter" data-level="5.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>5.6</b> Exploring booth level data</a></li>
+<li class="chapter" data-level="5.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>5.7</b> Donkeys, dicks, and other informalities</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>6</b> Charts</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="charts.html"><a href="charts.html#getting-started-3"><i class="fa fa-check"></i><b>6.1</b> Getting started</a></li>
+<li class="chapter" data-level="6.2" data-path="charts.html"><a href="charts.html#make-the-data-tidy"><i class="fa fa-check"></i><b>6.2</b> Make the data tidy</a></li>
+<li class="chapter" data-level="6.3" data-path="charts.html"><a href="charts.html#line-plot"><i class="fa fa-check"></i><b>6.3</b> Line plot</a></li>
+<li class="chapter" data-level="6.4" data-path="charts.html"><a href="charts.html#scatter-and-trend-plot"><i class="fa fa-check"></i><b>6.4</b> Scatter and trend plot</a></li>
+<li class="chapter" data-level="6.5" data-path="charts.html"><a href="charts.html#shading-areas-on-plots"><i class="fa fa-check"></i><b>6.5</b> Shading areas on plots</a></li>
+<li class="chapter" data-level="6.6" data-path="charts.html"><a href="charts.html#bar-chart-numercial"><i class="fa fa-check"></i><b>6.6</b> Bar chart (numercial)</a></li>
+<li class="chapter" data-level="6.7" data-path="charts.html"><a href="charts.html#stacked-bar-chart"><i class="fa fa-check"></i><b>6.7</b> Stacked bar chart</a></li>
+<li class="chapter" data-level="6.8" data-path="charts.html"><a href="charts.html#histogram"><i class="fa fa-check"></i><b>6.8</b> Histogram</a></li>
+<li class="chapter" data-level="6.9" data-path="charts.html"><a href="charts.html#ridge-chart"><i class="fa fa-check"></i><b>6.9</b> Ridge chart</a></li>
+<li class="chapter" data-level="6.10" data-path="charts.html"><a href="charts.html#bbc-style-bar-charts-categorical"><i class="fa fa-check"></i><b>6.10</b> BBC style: Bar charts (categorical)</a></li>
+<li class="chapter" data-level="6.11" data-path="charts.html"><a href="charts.html#bbc-style-dumbbell-charts"><i class="fa fa-check"></i><b>6.11</b> BBC style: Dumbbell charts</a></li>
+<li class="chapter" data-level="6.12" data-path="charts.html"><a href="charts.html#facet-wraps"><i class="fa fa-check"></i><b>6.12</b> Facet wraps</a></li>
+<li class="chapter" data-level="6.13" data-path="charts.html"><a href="charts.html#pie-chart"><i class="fa fa-check"></i><b>6.13</b> Pie chart</a></li>
+<li class="chapter" data-level="6.14" data-path="charts.html"><a href="charts.html#patchwork"><i class="fa fa-check"></i><b>6.14</b> Patchwork</a></li>
+<li class="chapter" data-level="6.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>6.15</b> Saving to powerpoint</a></li>
+<li class="chapter" data-level="6.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>6.16</b> Automating chart creation</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>7.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="7.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>7.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="7.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>7.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="7.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>7.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="7.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="7.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>7.6</b> Confidence intervals (model)</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>8</b> Forecasting</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="forecasting.html"><a href="forecasting.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>9</b> Text-mining</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>9.1</b> Power with words</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>9.2</b> Frequency analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>9.3</b> Sentiment analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="economic-indicators.html"><a href="economic-indicators.html"><i class="fa fa-check"></i><b>10</b> Economic indicators</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="economic-indicators.html"><a href="economic-indicators.html#overview"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="economic-indicators.html"><a href="economic-indicators.html#gross-domestic-product"><i class="fa fa-check"></i><b>10.2</b> Gross Domestic Product</a></li>
+<li class="chapter" data-level="10.3" data-path="economic-indicators.html"><a href="economic-indicators.html#unemployment-rate"><i class="fa fa-check"></i><b>10.3</b> Unemployment rate</a></li>
+<li class="chapter" data-level="10.4" data-path="economic-indicators.html"><a href="economic-indicators.html#inflation-cpi"><i class="fa fa-check"></i><b>10.4</b> Inflation (CPI)</a></li>
+<li class="chapter" data-level="10.5" data-path="economic-indicators.html"><a href="economic-indicators.html#wage-price-index"><i class="fa fa-check"></i><b>10.5</b> Wage Price Index</a></li>
+<li class="chapter" data-level="10.6" data-path="economic-indicators.html"><a href="economic-indicators.html#rba-cash-rate"><i class="fa fa-check"></i><b>10.6</b> RBA cash rate</a></li>
+<li class="chapter" data-level="10.7" data-path="economic-indicators.html"><a href="economic-indicators.html#aud-exchange-rate"><i class="fa fa-check"></i><b>10.7</b> AUD exchange rate</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html"><i class="fa fa-check"></i><b>11</b> Geocoding in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#about-geocoding"><i class="fa fa-check"></i><b>11.1</b> About geocoding</a></li>
+<li class="chapter" data-level="11.2" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#introducing-the-dataset"><i class="fa fa-check"></i><b>11.2</b> Introducing the dataset</a></li>
+<li class="chapter" data-level="11.3" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#data-cleaning"><i class="fa fa-check"></i><b>11.3</b> Data cleaning</a></li>
+<li class="chapter" data-level="11.4" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#running-the-geocode"><i class="fa fa-check"></i><b>11.4</b> Running the geocode</a></li>
+<li class="chapter" data-level="11.5" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#from-geocode-to-shapefile"><i class="fa fa-check"></i><b>11.5</b> From geocode to shapefile</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html"><i class="fa fa-check"></i><b>12</b> Drive time analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#background-on-drive-times"><i class="fa fa-check"></i><b>12.1</b> Background on drive times</a></li>
+<li class="chapter" data-level="12.2" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#method-1-osrm-package"><i class="fa fa-check"></i><b>12.2</b> Method 1: OSRM package</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
+<li><a href="https://github.com/charlescoverdale/casualdabbler" target="blank">Get the code on github</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R cookbook for the casual dabbler</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="drive-time-analysis" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Drive time analysis<a href="drive-time-analysis.html#drive-time-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="background-on-drive-times" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Background on drive times<a href="drive-time-analysis.html#background-on-drive-times" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>A ‘drive time’ describes how far you can drive (i.e in a car on a public road) in a certain amount of time.</p></li>
+<li><p>Running a drive time analysis is useful to identify demographic catchments around a point (e.g. a school, hospital, road, or precinct.</p></li>
+<li><p>This can assist in defining the ‘catchment’ of users for a particular infrastructure asset.</p></li>
+<li><p>These polygons can then be overlayed with ABS census data (e.g. SA2) and spliced in with census variables (age, income, housing, SES status, etc).</p></li>
+<li><p>There’s various companies that own drive time data. Most of these are map makers (e.g. google, ESRI, and Tom Tom).<br />
+</p></li>
+</ul>
+<p>To get started, let’s install and load packages.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="drive-time-analysis.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Loads the required required packages</span></span>
+<span id="cb160-2"><a href="drive-time-analysis.html#cb160-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggmap, tmaptools, RCurl, jsonlite, tidyverse, leaflet, writexl, readr, readxl, sf, mapview, rgdal, webshot,osrm)</span></code></pre></div>
+</div>
+<div id="method-1-osrm-package" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Method 1: OSRM package<a href="drive-time-analysis.html#method-1-osrm-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Useful links for further reading: <a href="https://gis.stackexchange.com/questions/347807/using-osrm-to-create-isochrones-in-r-potentially-problematic-at-10-minutes-dri">Source 1</a>, <a href="https://rpubs.com/maiae/drivetime">Source 2</a></em></p>
+<p>The OSRM package (<a href="https://github.com/riatelab/osrm">Github</a>) pulls from OpenStreetMap to find travel times based on location.</p>
+<p>The downside is that the polygons it generates are pretty chunky… i.e. it doesn’t take into account major roads and streets as the key tributaries/arteries of a city area. We can get around this a bit by dialing up the ‘res’ (i.e. the resolution) in the <code>osrmIsochrone</code> function… but it’s only a partial solution.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="drive-time-analysis.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a dataframe with the lat and long</span></span>
+<span id="cb161-2"><a href="drive-time-analysis.html#cb161-2" aria-hidden="true" tabindex="-1"></a>locations <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(<span class="sc">~</span>place,</span>
+<span id="cb161-3"><a href="drive-time-analysis.html#cb161-3" aria-hidden="true" tabindex="-1"></a>                             <span class="sc">~</span>lon,     </span>
+<span id="cb161-4"><a href="drive-time-analysis.html#cb161-4" aria-hidden="true" tabindex="-1"></a>                             <span class="sc">~</span>lat,</span>
+<span id="cb161-5"><a href="drive-time-analysis.html#cb161-5" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Melbourne&quot;</span>,</span>
+<span id="cb161-6"><a href="drive-time-analysis.html#cb161-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fl">144.9631</span>,</span>
+<span id="cb161-7"><a href="drive-time-analysis.html#cb161-7" aria-hidden="true" tabindex="-1"></a>                             <span class="sc">-</span><span class="fl">37.8136</span>)</span>
+<span id="cb161-8"><a href="drive-time-analysis.html#cb161-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-9"><a href="drive-time-analysis.html#cb161-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Run it through the osrm package</span></span>
+<span id="cb161-10"><a href="drive-time-analysis.html#cb161-10" aria-hidden="true" tabindex="-1"></a>iso <span class="ot">&lt;-</span> <span class="fu">osrmIsochrone</span>(<span class="at">loc =</span> <span class="fu">c</span>(locations<span class="sc">$</span>lon, </span>
+<span id="cb161-11"><a href="drive-time-analysis.html#cb161-11" aria-hidden="true" tabindex="-1"></a>                             locations<span class="sc">$</span>lat), </span>
+<span id="cb161-12"><a href="drive-time-analysis.html#cb161-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>,</span>
+<span id="cb161-13"><a href="drive-time-analysis.html#cb161-13" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">to =</span> <span class="dv">30</span>, </span>
+<span id="cb161-14"><a href="drive-time-analysis.html#cb161-14" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">by =</span> <span class="dv">5</span>),</span>
+<span id="cb161-15"><a href="drive-time-analysis.html#cb161-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">res=</span><span class="dv">50</span>)</span>
+<span id="cb161-16"><a href="drive-time-analysis.html#cb161-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-17"><a href="drive-time-analysis.html#cb161-17" aria-hidden="true" tabindex="-1"></a><span class="co">#iso@data$drive_times &lt;- factor(paste(iso@data$min, &quot;to&quot;, iso@data$max, &quot;mins&quot;))</span></span>
+<span id="cb161-18"><a href="drive-time-analysis.html#cb161-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-19"><a href="drive-time-analysis.html#cb161-19" aria-hidden="true" tabindex="-1"></a><span class="co">#factpal &lt;- colorFactor(&quot;RdYlBu&quot;, iso@data$drive_times)</span></span>
+<span id="cb161-20"><a href="drive-time-analysis.html#cb161-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-21"><a href="drive-time-analysis.html#cb161-21" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb161-22"><a href="drive-time-analysis.html#cb161-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setView</span>(<span class="fu">mean</span>(locations<span class="sc">$</span>lon), <span class="fu">mean</span>(locations<span class="sc">$</span>lat), <span class="at">zoom =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb161-23"><a href="drive-time-analysis.html#cb161-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb161-24"><a href="drive-time-analysis.html#cb161-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(<span class="st">&quot;CartoDB.Positron&quot;</span>, <span class="at">group=</span><span class="st">&quot;Greyscale&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb161-25"><a href="drive-time-analysis.html#cb161-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb161-26"><a href="drive-time-analysis.html#cb161-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(<span class="at">lng =</span> locations<span class="sc">$</span>lon, locations<span class="sc">$</span>lat) <span class="sc">%&gt;%</span> </span>
+<span id="cb161-27"><a href="drive-time-analysis.html#cb161-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb161-28"><a href="drive-time-analysis.html#cb161-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">stroke=</span><span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb161-29"><a href="drive-time-analysis.html#cb161-29" aria-hidden="true" tabindex="-1"></a>              <span class="co">#fillColor = ~factpal(iso@data$drive_times),</span></span>
+<span id="cb161-30"><a href="drive-time-analysis.html#cb161-30" aria-hidden="true" tabindex="-1"></a>              <span class="at">weight=</span><span class="fl">0.5</span>, <span class="at">fillOpacity=</span><span class="fl">0.2</span>,</span>
+<span id="cb161-31"><a href="drive-time-analysis.html#cb161-31" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> iso, <span class="co">#popup = iso@data$drive_times,</span></span>
+<span id="cb161-32"><a href="drive-time-analysis.html#cb161-32" aria-hidden="true" tabindex="-1"></a>              <span class="at">group =</span> <span class="st">&quot;Drive Time&quot;</span>) <span class="co">#%&gt;% </span></span></code></pre></div>
+<div id="htmlwidget-6bbaf395a81b16563a26" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6bbaf395a81b16563a26">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[-37.8136,144.9631],7,[]],"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,"Greyscale",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[-37.8136,144.9631,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPolygons","args":[[[[{"lng":[144.951183572762,144.940697116792,144.947339563976,144.951183572762,144.975016427238,144.976660072374,144.978421120735,144.975016427238,144.951183572762],"lat":[-37.8000424646931,-37.8041853089977,-37.8230134905931,-37.8260498443745,-37.8251052143629,-37.8230134905931,-37.8041853089977,-37.8014160537955,-37.8000424646931]}]],[[{"lng":[144.975016427238,144.951183572762,144.934160105279,144.927350718285,144.925517421787,144.912455184237,144.903517863809,144.896368007466,144.903517863809,144.915180750042,144.919973882376,144.927350718285,144.94939873344,144.951183572762,144.971441499067,144.975016427238,144.998849281715,145.0050665481,145.015460059077,145.009682397386,144.998849281715,144.997765970148,144.975016427238],"lat":[-37.7695289107969,-37.7724018658085,-37.7665145429223,-37.7648017791632,-37.7665145429223,-37.7853523261705,-37.7947694176874,-37.8041853089977,-37.8094812203871,-37.8230134905931,-37.841836870148,-37.8429340490607,-37.860655446856,-37.8620645742456,-37.860655446856,-37.859129795254,-37.8472140964719,-37.841836870148,-37.8230134905931,-37.8041853089977,-37.7862492437361,-37.7853523261705,-37.7695289107969]},{"lng":[144.975016427238,144.951183572762,144.940697116792,144.947339563976,144.951183572762,144.975016427238,144.976660072374,144.978421120735,144.975016427238],"lat":[-37.8014160537955,-37.8000424646931,-37.8041853089977,-37.8230134905931,-37.8260498443745,-37.8251052143629,-37.8230134905931,-37.8041853089977,-37.8014160537955]}]],[[{"lng":[144.927350718285,144.923829955692,144.903517863809,144.897300597423,144.879685009332,144.873064771977,144.865935285595,144.866644390845,144.864518647392,144.87596112582,144.879685009332,144.903517863809,144.927350718285,144.944149206022,144.951183572762,144.973098841246,144.975016427238,144.998849281715,145.013602953534,145.022682136191,145.046514990668,145.064389631526,145.063538458152,145.065134408228,145.046514990668,145.043337276738,145.043337276738,145.027448707087,145.022682136191,145.008175181293,144.998849281715,144.975016427238,144.951183572762,144.949481226014,144.927350718285],"lat":[-37.7232551155966,-37.7288245784186,-37.7462760222799,-37.7476719600666,-37.759536368113,-37.7665145429223,-37.7853523261705,-37.8041853089977,-37.8230134905931,-37.841836870148,-37.8441320756855,-37.8477357468184,-37.8471538158387,-37.860655446856,-37.8662089104173,-37.879469219913,-37.886052905472,-37.8876203629018,-37.879469219913,-37.8731984960159,-37.8626714380356,-37.860655446856,-37.841836870148,-37.8230134905931,-37.8067825850286,-37.8041853089977,-37.7853523261705,-37.7665145429223,-37.7641594825272,-37.7476719600666,-37.7376945322098,-37.738677217385,-37.7295785658111,-37.7288245784186,-37.7232551155966]},{"lng":[144.927350718285,144.925517421787,144.912455184237,144.903517863809,144.896368007466,144.903517863809,144.915180750042,144.919973882376,144.927350718285,144.94939873344,144.951183572762,144.971441499067,144.975016427238,144.998849281715,145.0050665481,145.015460059077,145.009682397386,144.998849281715,144.997765970148,144.975016427238,144.951183572762,144.934160105279,144.927350718285],"lat":[-37.7648017791632,-37.7665145429223,-37.7853523261705,-37.7947694176874,-37.8041853089977,-37.8094812203871,-37.8230134905931,-37.841836870148,-37.8429340490607,-37.860655446856,-37.8620645742456,-37.860655446856,-37.859129795254,-37.8472140964719,-37.841836870148,-37.8230134905931,-37.8041853089977,-37.7862492437361,-37.7853523261705,-37.7695289107969,-37.7724018658085,-37.7665145429223,-37.7648017791632]}]],[[{"lng":[144.91435097948,144.903517863809,144.883657151745,144.879685009332,144.872535152989,144.855852154855,144.853919761249,144.842233380868,144.83740091268,144.832019300378,144.823439472767,144.823318416998,144.808186445902,144.785488489257,144.784353591425,144.78276473446,144.780686998429,144.76804690152,144.784353591425,144.793205794516,144.808186445902,144.820670322056,144.83011267202,144.831917013449,144.832019300378,144.832073343132,144.839963585204,144.855852154855,144.861148344739,144.879685009332,144.903486952195,144.903517863809,144.903548775423,144.904354104317,144.927350718285,144.938899678605,144.951183572762,144.966250319845,144.970747856287,144.974908586267,144.975016427238,144.998849281715,145.022682136191,145.032676559036,145.046514990668,145.057348106339,145.070347845145,145.094180699622,145.10862485385,145.101891329011,145.100536127482,145.099476889505,145.118013554098,145.141846408575,145.131121624061,145.119657199235,145.118013554098,145.094180699622,145.077553126731,145.070347845145,145.046514990668,145.033632366627,145.022682136191,144.998849281715,144.975016427238,144.96104544358,144.951183572762,144.927350718285,144.91435097948],"lat":[-37.6911154220197,-37.6892294605302,-37.6911154220197,-37.6958301159022,-37.7099723987963,-37.7201241685875,-37.7288245784186,-37.7476719600666,-37.7665145429223,-37.7747566637181,-37.7853523261705,-37.8041853089977,-37.8163330725497,-37.8041853089977,-37.8035469814139,-37.8041853089977,-37.8230134905931,-37.841836870148,-37.8463677072181,-37.841836870148,-37.8324257806761,-37.841836870148,-37.860655446856,-37.879469219913,-37.8795118760706,-37.879469219913,-37.860655446856,-37.8578678126576,-37.860655446856,-37.8627798230961,-37.879469219913,-37.8794936185743,-37.879469219913,-37.860655446856,-37.8513733411543,-37.860655446856,-37.8703530135219,-37.879469219913,-37.8982781885172,-37.917082351869,-37.9171674276589,-37.9210704959613,-37.9287206159968,-37.917082351869,-37.9023664589073,-37.8982781885172,-37.8947518729049,-37.8982781885172,-37.879469219913,-37.860655446856,-37.841836870148,-37.8230134905931,-37.8098342676425,-37.8041853089977,-37.7853523261705,-37.7665145429223,-37.7660763978294,-37.7587564135556,-37.7476719600666,-37.7421039149131,-37.7395950983484,-37.7288245784186,-37.7142574063413,-37.7099723987963,-37.7172567641845,-37.7099723987963,-37.7047104692067,-37.6956415339026,-37.6911154220197]},{"lng":[144.927350718285,144.923829955692,144.903517863809,144.897300597423,144.879685009332,144.873064771977,144.865935285595,144.866644390845,144.864518647392,144.87596112582,144.879685009332,144.903517863809,144.927350718285,144.944149206022,144.951183572762,144.973098841246,144.975016427238,144.998849281715,145.013602953534,145.022682136191,145.046514990668,145.064389631526,145.063538458152,145.065134408228,145.046514990668,145.043337276738,145.043337276738,145.027448707087,145.022682136191,145.008175181293,144.998849281715,144.975016427238,144.951183572762,144.949481226014,144.927350718285],"lat":[-37.7232551155966,-37.7288245784186,-37.7462760222799,-37.7476719600666,-37.759536368113,-37.7665145429223,-37.7853523261705,-37.8041853089977,-37.8230134905931,-37.841836870148,-37.8441320756855,-37.8477357468184,-37.8471538158387,-37.860655446856,-37.8662089104173,-37.879469219913,-37.886052905472,-37.8876203629018,-37.879469219913,-37.8731984960159,-37.8626714380356,-37.860655446856,-37.841836870148,-37.8230134905931,-37.8067825850286,-37.8041853089977,-37.7853523261705,-37.7665145429223,-37.7641594825272,-37.7476719600666,-37.7376945322098,-37.738677217385,-37.7295785658111,-37.7288245784186,-37.7232551155966]},{"lng":[144.910288561103,144.903517863809,144.893064857459,144.903517863809,144.910288561103],"lat":[-37.7288245784186,-37.7145430647005,-37.7288245784186,-37.7346421834589,-37.7288245784186]}],[{"lng":[144.832019300378,144.831465047949,144.832019300378,144.834998407188,144.832019300378],"lat":[-37.7095125296051,-37.7099723987963,-37.710245653051,-37.7099723987963,-37.7095125296051]}]],[[{"lng":[144.927350718285,144.917420362253,144.903517863809,144.886834865675,144.879685009332,144.877518386198,144.855852154855,144.838314771372,144.832019300378,144.826838245057,144.808186445902,144.799519953365,144.797972365412,144.799993902175,144.784353591425,144.760520736948,144.754562523329,144.753569487726,144.736687882472,144.712855027996,144.711021731497,144.712855027996,144.723688143667,144.719664414989,144.736687882472,144.736687882472,144.736687882472,144.730392411478,144.736687882472,144.760520736948,144.784353591425,144.80112485939,144.808186445902,144.811459627632,144.832019300378,144.842881893915,144.855852154855,144.879685009332,144.892667887257,144.903517863809,144.91436784036,144.914807110666,144.927350718285,144.933650151187,144.951183572762,144.959401798443,144.961855000139,144.96412448922,144.975016427238,144.992039894721,144.993691425149,144.998849281715,145.022682136191,145.046514990668,145.051622030913,145.070347845145,145.075365288193,145.094180699622,145.118013554098,145.141846408575,145.155465182562,145.165679263052,145.178006601574,145.165679263052,145.160498207731,145.145421336747,145.14411620424,145.153762835813,145.165679263052,145.189512117528,145.195754055605,145.189512117528,145.188257756766,145.169442345337,145.165679263052,145.156512780561,145.141846408575,145.134219895143,145.118013554098,145.103007682761,145.1161802576,145.094180699622,145.070347845145,145.059132384215,145.046514990668,145.045025437263,145.028640349811,145.022682136191,144.998849281715,144.994309690386,144.975016427238,144.951183572762,144.951183572762,144.936517200776,144.927350718285],"lat":[-37.6470971585649,-37.6533870802956,-37.6672892273381,-37.6533870802956,-37.6474282203583,-37.6533870802956,-37.6648219367257,-37.6722536489113,-37.6832569327315,-37.6911154220197,-37.7065442143533,-37.7099723987963,-37.7288245784186,-37.7476719600666,-37.7586640499713,-37.7655955038857,-37.7665145429223,-37.7853523261705,-37.8026584892418,-37.8035778683595,-37.8041853089977,-37.8073236727043,-37.8230134905931,-37.841836870148,-37.860655446856,-37.860655446856,-37.860655446856,-37.879469219913,-37.8885500115449,-37.8920090661933,-37.8839933347346,-37.879469219913,-37.8751693524759,-37.879469219913,-37.8880426110351,-37.879469219913,-37.8688205044382,-37.8703663812193,-37.879469219913,-37.8880326535548,-37.879469219913,-37.860655446856,-37.8555926249983,-37.860655446856,-37.8744968835506,-37.879469219913,-37.8982781885172,-37.917082351869,-37.9256745097147,-37.9358817091711,-37.9546762596285,-37.9639517974159,-37.9626938046385,-37.9558507594117,-37.9546762596285,-37.9408940593284,-37.9358817091711,-37.9246026715603,-37.9306601476102,-37.9268913118714,-37.917082351869,-37.9100313537782,-37.8982781885172,-37.8841719125128,-37.879469219913,-37.860655446856,-37.841836870148,-37.8230134905931,-37.8147075317885,-37.8131906905691,-37.8041853089977,-37.7869219247667,-37.7853523261705,-37.7665145429223,-37.762166680542,-37.7476719600666,-37.7333124854606,-37.7476719600666,-37.7551219269051,-37.7476719600666,-37.7288245784186,-37.7177897384127,-37.7204951371514,-37.7099723987963,-37.6924160571707,-37.6911154220197,-37.6722536489113,-37.6560825979547,-37.6694589042862,-37.6722536489113,-37.6850801764265,-37.6722536489113,-37.6722536489113,-37.6533870802956,-37.6470971585649]},{"lng":[144.903517863809,144.883657151745,144.879685009332,144.872535152989,144.855852154855,144.853919761249,144.842233380868,144.83740091268,144.832019300378,144.823439472767,144.823318416998,144.808186445902,144.785488489257,144.784353591425,144.78276473446,144.780686998429,144.76804690152,144.784353591425,144.793205794516,144.808186445902,144.820670322056,144.83011267202,144.831917013449,144.832019300378,144.832073343132,144.839963585204,144.855852154855,144.861148344739,144.879685009332,144.903486952195,144.903517863809,144.903548775423,144.904354104317,144.927350718285,144.938899678605,144.951183572762,144.966250319845,144.970747856287,144.974908586267,144.975016427238,144.998849281715,145.022682136191,145.032676559036,145.046514990668,145.057348106339,145.070347845145,145.094180699622,145.10862485385,145.101891329011,145.100536127482,145.099476889505,145.118013554098,145.141846408575,145.131121624061,145.119657199235,145.118013554098,145.094180699622,145.077553126731,145.070347845145,145.046514990668,145.033632366627,145.022682136191,144.998849281715,144.975016427238,144.96104544358,144.951183572762,144.927350718285,144.91435097948,144.903517863809],"lat":[-37.6892294605302,-37.6911154220197,-37.6958301159022,-37.7099723987963,-37.7201241685875,-37.7288245784186,-37.7476719600666,-37.7665145429223,-37.7747566637181,-37.7853523261705,-37.8041853089977,-37.8163330725497,-37.8041853089977,-37.8035469814139,-37.8041853089977,-37.8230134905931,-37.841836870148,-37.8463677072181,-37.841836870148,-37.8324257806761,-37.841836870148,-37.860655446856,-37.879469219913,-37.8795118760706,-37.879469219913,-37.860655446856,-37.8578678126576,-37.860655446856,-37.8627798230961,-37.879469219913,-37.8794936185743,-37.879469219913,-37.860655446856,-37.8513733411543,-37.860655446856,-37.8703530135219,-37.879469219913,-37.8982781885172,-37.917082351869,-37.9171674276589,-37.9210704959613,-37.9287206159968,-37.917082351869,-37.9023664589073,-37.8982781885172,-37.8947518729049,-37.8982781885172,-37.879469219913,-37.860655446856,-37.841836870148,-37.8230134905931,-37.8098342676425,-37.8041853089977,-37.7853523261705,-37.7665145429223,-37.7660763978294,-37.7587564135556,-37.7476719600666,-37.7421039149131,-37.7395950983484,-37.7288245784186,-37.7142574063413,-37.7099723987963,-37.7172567641845,-37.7099723987963,-37.7047104692067,-37.6956415339026,-37.6911154220197,-37.6892294605302]},{"lng":[144.784353591425,144.776409306599,144.784353591425,144.78842261536,144.784353591425],"lat":[-37.7793590067142,-37.7853523261705,-37.787586998862,-37.7853523261705,-37.7793590067142]},{"lng":[144.832019300378,144.816130730727,144.832019300378,144.837816481197,144.832019300378],"lat":[-37.7239070810486,-37.7288245784186,-37.7345751356993,-37.7288245784186,-37.7239070810486]},{"lng":[144.832019300378,144.834998407188,144.832019300378,144.831465047949,144.832019300378],"lat":[-37.710245653051,-37.7099723987963,-37.7095125296051,-37.7099723987963,-37.710245653051]}],[{"lng":[144.903517863809,144.910288561103,144.903517863809,144.893064857459,144.903517863809],"lat":[-37.7346421834589,-37.7288245784186,-37.7145430647005,-37.7288245784186,-37.7346421834589]}],[{"lng":[144.784353591425,144.78912016232,144.784353591425,144.778225143131,144.784353591425],"lat":[-37.6984948102725,-37.6911154220197,-37.6886554627308,-37.6911154220197,-37.6984948102725]}]],[[{"lng":[144.998849281715,144.98636540556,144.975016427238,144.965086071206,144.951183572762,144.927350718285,144.909476077428,144.903517863809,144.898447043707,144.893984722018,144.879685009332,144.865385296646,144.855852154855,144.845490044213,144.838828687372,144.832019300378,144.825209913385,144.818548556544,144.808186445902,144.792041608998,144.808186445902,144.813860935063,144.813367501223,144.808186445902,144.784353591425,144.760520736948,144.736687882472,144.720799312821,144.736687882472,144.749231490091,144.751583416519,144.736687882472,144.712855027996,144.689022173519,144.712855027996,144.717268519565,144.722021510486,144.712855027996,144.689022173519,144.671809556397,144.686855550385,144.672411396156,144.685050031106,144.671461122852,144.673701052784,144.675551429684,144.689022173519,144.712855027996,144.732715740059,144.736687882472,144.740660024884,144.760520736948,144.775187108934,144.779770350179,144.784353591425,144.808186445902,144.832019300378,144.853690444699,144.855852154855,144.879685009332,144.881848822319,144.903517863809,144.925186905298,144.925260117015,144.927350718285,144.928400623769,144.951183572762,144.952553277042,144.952962143992,144.953340392172,144.975016427238,144.977853671819,144.97812892689,144.980558951535,144.998849281715,145.022682136191,145.046514990668,145.055681473159,145.070347845145,145.085014217131,145.088367808286,145.094180699622,145.118013554098,145.141846408575,145.15433028473,145.165679263052,145.175212404842,145.189512117528,145.213344972004,145.217317114417,145.213344972004,145.206335308923,145.208481124152,145.208163916683,145.213344972004,145.224634218862,145.213344972004,145.203414615972,145.213344972004,145.220154358998,145.237177826481,145.246991354795,145.251477539167,145.237177826481,145.213344972004,145.209305505144,145.207928414169,145.200801364385,145.189512117528,145.165679263052,145.161346016783,145.149790693401,145.141846408575,145.118013554098,145.094180699622,145.088069711294,145.088367808286,145.070347845145,145.056328518982,145.046514990668,145.036152880026,145.022682136191,144.998849281715],"lat":[-37.624628803933,-37.6345157169996,-37.6463108808917,-37.6345157169996,-37.6235052078633,-37.6203590485174,-37.6345157169996,-37.6386185951045,-37.6345157169996,-37.6156395598526,-37.6043115648617,-37.6156395598526,-37.6242202255091,-37.6156395598526,-37.596758609686,-37.5913631722616,-37.596758609686,-37.6156395598526,-37.6217291665343,-37.6345157169996,-37.6473000675811,-37.6533870802956,-37.6722536489113,-37.6801133038745,-37.6749875363745,-37.6778017270778,-37.678541439489,-37.6911154220197,-37.7036872728474,-37.7099723987963,-37.7288245784186,-37.7330133001201,-37.7433229902002,-37.7476719600666,-37.7520206743759,-37.7665145429223,-37.7853523261705,-37.7883902287574,-37.7905841918476,-37.8041853089977,-37.8230134905931,-37.841836870148,-37.860655446856,-37.879469219913,-37.8982781885172,-37.917082351869,-37.9277086661479,-37.921421091694,-37.9358817091711,-37.9390144680774,-37.9358817091711,-37.9286517559458,-37.917082351869,-37.8982781885172,-37.8958975720313,-37.8946614523346,-37.8965723577657,-37.879469219913,-37.8776945408953,-37.8779521582444,-37.879469219913,-37.896570698378,-37.879469219913,-37.860655446856,-37.8598116673618,-37.860655446856,-37.878640520495,-37.879469219913,-37.8982781885172,-37.917082351869,-37.9341806076765,-37.9358817091711,-37.9546762596285,-37.9734660024485,-37.9878827765804,-37.9873721954173,-37.9797281815546,-37.9922509368407,-38.0038085061372,-37.9922509368407,-37.9734660024485,-37.9665073990525,-37.9578082173169,-37.9645191055096,-37.9546762596285,-37.9489814489653,-37.9546762596285,-37.9659506822876,-37.9578082173169,-37.9546762596285,-37.9515441683946,-37.9358817091711,-37.917082351869,-37.8982781885172,-37.8883793302991,-37.879469219913,-37.8705580315195,-37.860655446856,-37.8472140964719,-37.841836870148,-37.8307648755472,-37.8230134905931,-37.8041853089977,-37.7928860953973,-37.7918470004802,-37.7853523261705,-37.7665145429223,-37.7476719600666,-37.7387448511075,-37.7325944386124,-37.7288245784186,-37.7099723987963,-37.7036872728474,-37.6968301639441,-37.6955011934987,-37.6911154220197,-37.6722536489113,-37.6579891245318,-37.6533870802956,-37.6456170995618,-37.6345157169996,-37.6238471736824,-37.624628803933]},{"lng":[144.879685009332,144.877518386198,144.855852154855,144.838314771372,144.832019300378,144.826838245057,144.808186445902,144.799519953365,144.797972365412,144.799993902175,144.784353591425,144.760520736948,144.754562523329,144.753569487726,144.736687882472,144.712855027996,144.711021731497,144.712855027996,144.723688143667,144.719664414989,144.736687882472,144.736687882472,144.736687882472,144.730392411478,144.736687882472,144.760520736948,144.784353591425,144.80112485939,144.808186445902,144.811459627632,144.832019300378,144.842881893915,144.855852154855,144.879685009332,144.892667887257,144.903517863809,144.91436784036,144.914807110666,144.927350718285,144.933650151187,144.951183572762,144.959401798443,144.961855000139,144.96412448922,144.975016427238,144.992039894721,144.993691425149,144.998849281715,145.022682136191,145.046514990668,145.051622030913,145.070347845145,145.075365288193,145.094180699622,145.118013554098,145.141846408575,145.155465182562,145.165679263052,145.178006601574,145.165679263052,145.160498207731,145.145421336747,145.14411620424,145.153762835813,145.165679263052,145.189512117528,145.195754055605,145.189512117528,145.188257756766,145.169442345337,145.165679263052,145.156512780561,145.141846408575,145.134219895143,145.118013554098,145.103007682761,145.1161802576,145.094180699622,145.070347845145,145.059132384215,145.046514990668,145.045025437263,145.028640349811,145.022682136191,144.998849281715,144.994309690386,144.975016427238,144.951183572762,144.951183572762,144.936517200776,144.927350718285,144.917420362253,144.903517863809,144.886834865675,144.879685009332],"lat":[-37.6474282203583,-37.6533870802956,-37.6648219367257,-37.6722536489113,-37.6832569327315,-37.6911154220197,-37.7065442143533,-37.7099723987963,-37.7288245784186,-37.7476719600666,-37.7586640499713,-37.7655955038857,-37.7665145429223,-37.7853523261705,-37.8026584892418,-37.8035778683595,-37.8041853089977,-37.8073236727043,-37.8230134905931,-37.841836870148,-37.860655446856,-37.860655446856,-37.860655446856,-37.879469219913,-37.8885500115449,-37.8920090661933,-37.8839933347346,-37.879469219913,-37.8751693524759,-37.879469219913,-37.8880426110351,-37.879469219913,-37.8688205044382,-37.8703663812193,-37.879469219913,-37.8880326535548,-37.879469219913,-37.860655446856,-37.8555926249983,-37.860655446856,-37.8744968835506,-37.879469219913,-37.8982781885172,-37.917082351869,-37.9256745097147,-37.9358817091711,-37.9546762596285,-37.9639517974159,-37.9626938046385,-37.9558507594117,-37.9546762596285,-37.9408940593284,-37.9358817091711,-37.9246026715603,-37.9306601476102,-37.9268913118714,-37.917082351869,-37.9100313537782,-37.8982781885172,-37.8841719125128,-37.879469219913,-37.860655446856,-37.841836870148,-37.8230134905931,-37.8147075317885,-37.8131906905691,-37.8041853089977,-37.7869219247667,-37.7853523261705,-37.7665145429223,-37.762166680542,-37.7476719600666,-37.7333124854606,-37.7476719600666,-37.7551219269051,-37.7476719600666,-37.7288245784186,-37.7177897384127,-37.7204951371514,-37.7099723987963,-37.6924160571707,-37.6911154220197,-37.6722536489113,-37.6560825979547,-37.6694589042862,-37.6722536489113,-37.6850801764265,-37.6722536489113,-37.6722536489113,-37.6533870802956,-37.6470971585649,-37.6533870802956,-37.6672892273381,-37.6533870802956,-37.6474282203583]},{"lng":[144.855852154855,144.859463193412,144.855852154855,144.850177665694,144.855852154855],"lat":[-37.6552930120064,-37.6533870802956,-37.6448097822204,-37.6533870802956,-37.6552930120064]},{"lng":[144.784353591425,144.778225143131,144.784353591425,144.78912016232,144.784353591425],"lat":[-37.6886554627308,-37.6911154220197,-37.6984948102725,-37.6911154220197,-37.6886554627308]}],[{"lng":[144.751693753809,144.736687882472,144.721682011135,144.736687882472,144.751693753809],"lat":[-37.6533870802956,-37.641505669811,-37.6533870802956,-37.6652665900084,-37.6533870802956]}],[{"lng":[144.832019300378,144.816130730727,144.832019300378,144.837816481197,144.832019300378],"lat":[-37.7239070810486,-37.7288245784186,-37.7345751356993,-37.7288245784186,-37.7239070810486]}],[{"lng":[144.784353591425,144.776409306599,144.784353591425,144.78842261536,144.784353591425],"lat":[-37.7793590067142,-37.7853523261705,-37.787586998862,-37.7853523261705,-37.7793590067142]}],[{"lng":[145.24611514691,145.237177826481,145.228240506052,145.237177826481,145.24611514691],"lat":[-37.8982781885172,-37.8912253883632,-37.8982781885172,-37.9053303129325,-37.8982781885172]}]]],null,"Drive Time",{"interactive":true,"className":"","stroke":true,"color":"black","weight":0.5,"opacity":0.5,"fill":true,"fillColor":"black","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-38.0038085061372,-37.5913631722616],"lng":[144.671461122852,145.251477539167]}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="drive-time-analysis.html#cb162-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># addLegend(&quot;bottomright&quot;, pal = factpal, </span></span>
+<span id="cb162-2"><a href="drive-time-analysis.html#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#                           values = iso@data$drive_time,   </span></span>
+<span id="cb162-3"><a href="drive-time-analysis.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#                           title = &quot;Drive Time&quot;)</span></span></code></pre></div>
+<p>We can export these polygons as shapefiles for use in <a href="https://www.qgis.org/en/site/">QGIS</a> or other spatial programs.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="drive-time-analysis.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Write the points to a shapefile for use in QGIS</span></span>
+<span id="cb163-2"><a href="drive-time-analysis.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="co">#sf::st_write(iso, &quot;C:/Data/iso_polygons.shp&quot;)</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="geocoding-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/charlescoverdale/casualdabbler/edit/master/14-Drivetime.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

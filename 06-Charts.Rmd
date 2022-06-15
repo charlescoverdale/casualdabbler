@@ -26,11 +26,11 @@ library(reshape)
 library(tidyr)
 library(lubridate)
 library(gapminder)
-library(grattantheme)
 library(ggalt)
 library(purrr)
 library(scales)
 library(purrr)
+library(patchwork)
 #library(bbplot)
 ```
 

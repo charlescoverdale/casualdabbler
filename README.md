@@ -14,11 +14,9 @@ This repo contains the code use to produce the first edition of [R Cookbook for 
 
 **Upcoming chapters:**
 
--   Text mining in R
-
--   Web-scraping in R
-
 -   Bayesian for the common man
+
+-   Causal inference in R
 
 **Limitations:**
 

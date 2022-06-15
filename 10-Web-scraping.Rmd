@@ -15,13 +15,8 @@ if (numeric_version(packageVersion("rvest")) < numeric_version('0.99.0')) {
   remotes::install_github('tidyverse/rvest')
 }
 
-# Load and install the packages that we'll be using today
-if (!require("pacman")) install.packages("pacman")
+# Load and install the packages
 pacman::p_load(tidyverse, rvest, lubridate, janitor, data.table, hrbrthemes)
-
-library(ggplot2)
-library(dplyr)
-library(tidyverse)
 ```
 
 ## Anatomy of a webpage
@@ -44,8 +39,7 @@ We can start by pulling all the data from the webpage.
 
 ```{r, warning=FALSE,message=FALSE}
 
-m100 <- rvest:: read_html(
-               "http://en.wikipedia.org/wiki/Men%27s_100_metres_world_record_progression") 
+m100 <- rvest:: read_html("https://en.wikipedia.org/wiki/Men%27s_100_metres_world_record_progression") 
 m100
 
 ```

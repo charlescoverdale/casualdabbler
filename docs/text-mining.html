@@ -4,19 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Text-mining | R cookbook for the casual dabbler</title>
+  <title>Chapter 9 Text-mining | R cookbook for the casual dabbler</title>
   <meta name="description" content="A practical user guide for R in advisory." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Text-mining | R cookbook for the casual dabbler" />
+  <meta property="og:title" content="Chapter 9 Text-mining | R cookbook for the casual dabbler" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="A practical user guide for R in advisory." />
   <meta name="github-repo" content="openscapes/series" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Text-mining | R cookbook for the casual dabbler" />
+  <meta name="twitter:title" content="Chapter 9 Text-mining | R cookbook for the casual dabbler" />
   
   <meta name="twitter:description" content="A practical user guide for R in advisory." />
   
@@ -24,16 +23,15 @@
 <meta name="author" content="Charles Coverdale" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2022-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="web-scraping.html"/>
-
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="prev" href="forecasting.html"/>
+<link rel="next" href="economic-indicators.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,22 +49,39 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19.1/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -187,7 +202,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="election-data-in-r.html"><a href="election-data-in-r.html#mapping-booths"><i class="fa fa-check"></i><b>5.5</b> Mapping booths</a></li>
 <li class="chapter" data-level="5.6" data-path="election-data-in-r.html"><a href="election-data-in-r.html#exploring-booth-level-data"><i class="fa fa-check"></i><b>5.6</b> Exploring booth level data</a></li>
 <li class="chapter" data-level="5.7" data-path="election-data-in-r.html"><a href="election-data-in-r.html#donkeys-dicks-and-other-informalities"><i class="fa fa-check"></i><b>5.7</b> Donkeys, dicks, and other informalities</a></li>
-<li class="chapter" data-level="5.8" data-path="election-data-in-r.html"><a href="election-data-in-r.html#section"><i class="fa fa-check"></i><b>5.8</b> —</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="charts.html"><a href="charts.html"><i class="fa fa-check"></i><b>6</b> Charts</a>
 <ul>
@@ -208,42 +222,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.15" data-path="charts.html"><a href="charts.html#saving-to-powerpoint"><i class="fa fa-check"></i><b>6.15</b> Saving to powerpoint</a></li>
 <li class="chapter" data-level="6.16" data-path="charts.html"><a href="charts.html#automating-chart-creation"><i class="fa fa-check"></i><b>6.16</b> Automating chart creation</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="machine-learning.html"><a href="machine-learning.html"><i class="fa fa-check"></i><b>7</b> Machine Learning</a>
+<li class="chapter" data-level="7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Hypothesis testing</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="machine-learning.html"><a href="machine-learning.html#background"><i class="fa fa-check"></i><b>7.1</b> Background</a></li>
-<li class="chapter" data-level="7.2" data-path="machine-learning.html"><a href="machine-learning.html#beyond-regressions"><i class="fa fa-check"></i><b>7.2</b> Beyond regressions</a></li>
-<li class="chapter" data-level="7.3" data-path="machine-learning.html"><a href="machine-learning.html#classification-models-using-caret"><i class="fa fa-check"></i><b>7.3</b> Classification models using <code>Caret</code></a></li>
-<li class="chapter" data-level="7.4" data-path="machine-learning.html"><a href="machine-learning.html#build-a-classification-model"><i class="fa fa-check"></i><b>7.4</b> Build a classification model</a></li>
-<li class="chapter" data-level="7.5" data-path="machine-learning.html"><a href="machine-learning.html#compare-different-ml-models"><i class="fa fa-check"></i><b>7.5</b> Compare different ML models</a></li>
-<li class="chapter" data-level="7.6" data-path="machine-learning.html"><a href="machine-learning.html#building-a-predictive-ml-model"><i class="fa fa-check"></i><b>7.6</b> Building a predictive ML model</a></li>
-<li class="chapter" data-level="7.7" data-path="machine-learning.html"><a href="machine-learning.html#section-1"><i class="fa fa-check"></i><b>7.7</b> —</a></li>
+<li class="chapter" data-level="7.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>7.1</b> A quick refresher</a></li>
+<li class="chapter" data-level="7.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>7.2</b> T-testing our first hypothesis</a></li>
+<li class="chapter" data-level="7.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>7.3</b> Tailed tests</a></li>
+<li class="chapter" data-level="7.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>7.4</b> Correlation (and working with normal distributions)</a></li>
+<li class="chapter" data-level="7.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>7.5</b> Confidence intervals (mean)</a></li>
+<li class="chapter" data-level="7.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>7.6</b> Confidence intervals (model)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis testing</a>
+<li class="chapter" data-level="8" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>8</b> Forecasting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-quick-refresher"><i class="fa fa-check"></i><b>8.1</b> A quick refresher</a></li>
-<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#t-testing-our-first-hypothesis"><i class="fa fa-check"></i><b>8.2</b> T-testing our first hypothesis</a></li>
-<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#tailed-tests"><i class="fa fa-check"></i><b>8.3</b> Tailed tests</a></li>
-<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#correlation-and-working-with-normal-distributions"><i class="fa fa-check"></i><b>8.4</b> Correlation (and working with normal distributions)</a></li>
-<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-mean"><i class="fa fa-check"></i><b>8.5</b> Confidence intervals (mean)</a></li>
-<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#confidence-intervals-model"><i class="fa fa-check"></i><b>8.6</b> Confidence intervals (model)</a></li>
+<li class="chapter" data-level="8.1" data-path="forecasting.html"><a href="forecasting.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>9</b> Forecasting</a>
+<li class="chapter" data-level="9" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>9</b> Text-mining</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="forecasting.html"><a href="forecasting.html#background-1"><i class="fa fa-check"></i><b>9.1</b> Background</a></li>
-<li class="chapter" data-level="9.2" data-path="forecasting.html"><a href="forecasting.html#arima-models"><i class="fa fa-check"></i><b>9.2</b> ARIMA models</a></li>
+<li class="chapter" data-level="9.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>9.1</b> Power with words</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>9.2</b> Frequency analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>9.3</b> Sentiment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="web-scraping.html"><a href="web-scraping.html"><i class="fa fa-check"></i><b>10</b> Web-scraping</a>
+<li class="chapter" data-level="10" data-path="economic-indicators.html"><a href="economic-indicators.html"><i class="fa fa-check"></i><b>10</b> Economic indicators</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="web-scraping.html"><a href="web-scraping.html#introduction-1"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="web-scraping.html"><a href="web-scraping.html#anatomy-of-a-webpage"><i class="fa fa-check"></i><b>10.2</b> Anatomy of a webpage</a></li>
-<li class="chapter" data-level="10.3" data-path="web-scraping.html"><a href="web-scraping.html#scraping-a-table"><i class="fa fa-check"></i><b>10.3</b> Scraping a table</a></li>
-<li class="chapter" data-level="10.4" data-path="web-scraping.html"><a href="web-scraping.html#section-2"><i class="fa fa-check"></i><b>10.4</b> —</a></li>
+<li class="chapter" data-level="10.1" data-path="economic-indicators.html"><a href="economic-indicators.html#overview"><i class="fa fa-check"></i><b>10.1</b> Overview</a></li>
+<li class="chapter" data-level="10.2" data-path="economic-indicators.html"><a href="economic-indicators.html#gross-domestic-product"><i class="fa fa-check"></i><b>10.2</b> Gross Domestic Product</a></li>
+<li class="chapter" data-level="10.3" data-path="economic-indicators.html"><a href="economic-indicators.html#unemployment-rate"><i class="fa fa-check"></i><b>10.3</b> Unemployment rate</a></li>
+<li class="chapter" data-level="10.4" data-path="economic-indicators.html"><a href="economic-indicators.html#inflation-cpi"><i class="fa fa-check"></i><b>10.4</b> Inflation (CPI)</a></li>
+<li class="chapter" data-level="10.5" data-path="economic-indicators.html"><a href="economic-indicators.html#wage-price-index"><i class="fa fa-check"></i><b>10.5</b> Wage Price Index</a></li>
+<li class="chapter" data-level="10.6" data-path="economic-indicators.html"><a href="economic-indicators.html#rba-cash-rate"><i class="fa fa-check"></i><b>10.6</b> RBA cash rate</a></li>
+<li class="chapter" data-level="10.7" data-path="economic-indicators.html"><a href="economic-indicators.html#aud-exchange-rate"><i class="fa fa-check"></i><b>10.7</b> AUD exchange rate</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="text-mining.html"><a href="text-mining.html"><i class="fa fa-check"></i><b>11</b> Text-mining</a>
+<li class="chapter" data-level="11" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html"><i class="fa fa-check"></i><b>11</b> Geocoding in R</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="text-mining.html"><a href="text-mining.html#power-with-words"><i class="fa fa-check"></i><b>11.1</b> Power with words</a></li>
-<li class="chapter" data-level="11.2" data-path="text-mining.html"><a href="text-mining.html#frequency-analysis"><i class="fa fa-check"></i><b>11.2</b> Frequency analysis</a></li>
-<li class="chapter" data-level="11.3" data-path="text-mining.html"><a href="text-mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>11.3</b> Sentiment analysis</a></li>
+<li class="chapter" data-level="11.1" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#about-geocoding"><i class="fa fa-check"></i><b>11.1</b> About geocoding</a></li>
+<li class="chapter" data-level="11.2" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#introducing-the-dataset"><i class="fa fa-check"></i><b>11.2</b> Introducing the dataset</a></li>
+<li class="chapter" data-level="11.3" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#data-cleaning"><i class="fa fa-check"></i><b>11.3</b> Data cleaning</a></li>
+<li class="chapter" data-level="11.4" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#running-the-geocode"><i class="fa fa-check"></i><b>11.4</b> Running the geocode</a></li>
+<li class="chapter" data-level="11.5" data-path="geocoding-in-r.html"><a href="geocoding-in-r.html#from-geocode-to-shapefile"><i class="fa fa-check"></i><b>11.5</b> From geocode to shapefile</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html"><i class="fa fa-check"></i><b>12</b> Drive time analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#background-on-drive-times"><i class="fa fa-check"></i><b>12.1</b> Background on drive times</a></li>
+<li class="chapter" data-level="12.2" data-path="drive-time-analysis.html"><a href="drive-time-analysis.html#method-1-osrm-package"><i class="fa fa-check"></i><b>12.2</b> Method 1: OSRM package</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://https://www.linkedin.com/in/charlescoverdale/" target="blank">Connect with me on linkedin</a></li>
@@ -266,36 +286,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="text-mining" class="section level1" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Text-mining</h1>
-<div id="power-with-words" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Power with words</h2>
+<div id="text-mining" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Text-mining<a href="text-mining.html#text-mining" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="power-with-words" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Power with words<a href="text-mining.html#power-with-words" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Numbers are great… but words literally tell a story. Analysing text (e.g. books, tweets, survey responses) in a quantitative format is naturally challenging - however there’s a few tricks which can simplify the process.</p>
 <p>This chapter outlines the process for inputting text data, and running some simple analysis. The notes and code loosely follow the fabulous book <a href="https://www.bookdepository.com/Text-Mining-with-R-Julia-Silge/9781491981658"><em>Text Mining with R</em></a> by Julia Silge and David Robinson.</p>
 <p>First up, let’s load some packages.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="text-mining.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb144-2"><a href="text-mining.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb144-3"><a href="text-mining.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb144-4"><a href="text-mining.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb144-5"><a href="text-mining.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="text-mining.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb114-2"><a href="text-mining.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb114-3"><a href="text-mining.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb114-4"><a href="text-mining.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb114-5"><a href="text-mining.html#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
 </div>
-<div id="frequency-analysis" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> Frequency analysis</h2>
+<div id="frequency-analysis" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Frequency analysis<a href="text-mining.html#frequency-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There’s a online depository called <a href="https://www.gutenberg.org/">Project Gutenberg</a> which catalogue texts that have lost their copyright (mostly because it expires over time). These can be called with the R package called <a href="https://cran.r-project.org/web/packages/gutenbergr/vignettes/intro.html"><code>gutenbergr</code></a></p>
 <p>It just so happens that <a href="https://www.gutenberg.org/ebooks/30">The Bible</a> is on this list. Let’s check out the most frequent words.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="text-mining.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
-<span id="cb145-2"><a href="text-mining.html#cb145-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb145-3"><a href="text-mining.html#cb145-3" aria-hidden="true" tabindex="-1"></a>bible <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(<span class="dv">30</span>)</span>
-<span id="cb145-4"><a href="text-mining.html#cb145-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb145-5"><a href="text-mining.html#cb145-5" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="ot">&lt;-</span> bible <span class="sc">%&gt;%</span></span>
-<span id="cb145-6"><a href="text-mining.html#cb145-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
-<span id="cb145-7"><a href="text-mining.html#cb145-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words)</span>
-<span id="cb145-8"><a href="text-mining.html#cb145-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb145-9"><a href="text-mining.html#cb145-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the most common words</span></span>
-<span id="cb145-10"><a href="text-mining.html#cb145-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb145-11"><a href="text-mining.html#cb145-11" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb145-12"><a href="text-mining.html#cb145-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 12,595 × 2
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="text-mining.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span>
+<span id="cb115-2"><a href="text-mining.html#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="text-mining.html#cb115-3" aria-hidden="true" tabindex="-1"></a>bible <span class="ot">&lt;-</span> <span class="fu">gutenberg_download</span>(<span class="dv">30</span>)</span>
+<span id="cb115-4"><a href="text-mining.html#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="text-mining.html#cb115-5" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="ot">&lt;-</span> bible <span class="sc">%&gt;%</span></span>
+<span id="cb115-6"><a href="text-mining.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">%&gt;%</span></span>
+<span id="cb115-7"><a href="text-mining.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words)</span>
+<span id="cb115-8"><a href="text-mining.html#cb115-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-9"><a href="text-mining.html#cb115-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the most common words</span></span>
+<span id="cb115-10"><a href="text-mining.html#cb115-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-11"><a href="text-mining.html#cb115-11" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb115-12"><a href="text-mining.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 12,595 x 2
 ##    word       n
 ##    &lt;chr&gt;  &lt;int&gt;
 ##  1 lord    7830
@@ -308,22 +328,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 002     2721
 ##  9 israel  2565
 ## 10 003     2560
-## # … with 12,585 more rows</code></pre>
+## # ... with 12,585 more rows</code></pre>
 <p>Somewhat unsurprisingly - “lord” wins it by a country mile.</p>
 </div>
-<div id="sentiment-analysis" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> Sentiment analysis</h2>
+<div id="sentiment-analysis" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Sentiment analysis<a href="text-mining.html#sentiment-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Just like a frequency analysis, we can do a ‘vibe’ analysis (i.e. sentiment of a text) using a clever thesaurus matching technique. In the tidytext package are lexicons which include the general sentiment of words (e.g. the emotion you can use to describe that word).</p>
 <p>Let’s see the count of words most associated with ‘joy’ in the bible.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="text-mining.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Download sentiment list</span></span>
-<span id="cb147-2"><a href="text-mining.html#cb147-2" aria-hidden="true" tabindex="-1"></a>nrcjoy <span class="ot">&lt;-</span> <span class="fu">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb147-3"><a href="text-mining.html#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment <span class="sc">==</span> <span class="st">&quot;joy&quot;</span>)</span>
-<span id="cb147-4"><a href="text-mining.html#cb147-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb147-5"><a href="text-mining.html#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Join bible words with sentiment list</span></span>
-<span id="cb147-6"><a href="text-mining.html#cb147-6" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="sc">%&gt;%</span></span>
-<span id="cb147-7"><a href="text-mining.html#cb147-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(nrcjoy) <span class="sc">%&gt;%</span></span>
-<span id="cb147-8"><a href="text-mining.html#cb147-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 258 × 2
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="text-mining.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Download sentiment list</span></span>
+<span id="cb117-2"><a href="text-mining.html#cb117-2" aria-hidden="true" tabindex="-1"></a>nrcjoy <span class="ot">&lt;-</span> <span class="fu">get_sentiments</span>(<span class="st">&quot;nrc&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb117-3"><a href="text-mining.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sentiment <span class="sc">==</span> <span class="st">&quot;joy&quot;</span>)</span>
+<span id="cb117-4"><a href="text-mining.html#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-5"><a href="text-mining.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Join bible words with sentiment list</span></span>
+<span id="cb117-6"><a href="text-mining.html#cb117-6" aria-hidden="true" tabindex="-1"></a>bible_tidy <span class="sc">%&gt;%</span></span>
+<span id="cb117-7"><a href="text-mining.html#cb117-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(nrcjoy) <span class="sc">%&gt;%</span></span>
+<span id="cb117-8"><a href="text-mining.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 258 x 2
 ##    word         n
 ##    &lt;chr&gt;    &lt;int&gt;
 ##  1 god       4446
@@ -336,8 +356,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 love       310
 ##  9 blessed    302
 ## 10 mighty     284
-## # … with 248 more rows</code></pre>
+## # ... with 248 more rows</code></pre>
 
+<hr />
+<hr />
 </div>
 </div>
             </section>
@@ -345,8 +367,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="web-scraping.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="forecasting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="economic-indicators.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -388,7 +410,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["series.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null
