@@ -11,6 +11,7 @@ rmd_files: [
   "06-Charts.Rmd",
   "08-Hypothesis-testing.Rmd",
   "09-Forecasting.Rmd", 
+  "10-Web-scraping.Rmd",
   "11-Text-mining.Rmd",
   "12-Economic-indicators.Rmd",
   "13-Geocoding.Rmd",

@@ -31,7 +31,7 @@ We'll start our journey by loading some packages
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
 
-#Loads the required required packages
+#Loads the required packages
 pacman::p_load(ggplot2,caret,skimr,RANN,randomForest,fastAdaboost,gbm,xgboost,caretEnsemble,c50,earth,cumSed,CaTools)
 
 ```
@@ -144,6 +144,11 @@ Used for **C**lassification **A**nd **RE**gression **T**raining (how
 clever), it's a bit of a one-stop shop for all machine learning
 functionality.
 
+As a bit of a pro-tip, the package has a **lot** of dependancies. It's
+worth running this line of code to get up to speed:
+
+`install.packages("caret", dependencies = TRUE)`
+
 In this worked example, we'll work through how to estimate a binary
 variable (which of two brands of orange juice a customer purchased)
 based on some retail and demographic data. The original data set is
@@ -180,7 +185,7 @@ going to be a little biased.
 set.seed(100)
 
 # Step 1: Get row numbers for the training data
-trainRowNumbers <- caret::createDataPartition(orange$Purchase, p=0.8, list=FALSE)
+trainRowNumbers <- caret::createDataPartition(orange$Purchase, p=0.8, list=TRUE)
 
 # Step 2: Create the training  dataset
 trainData <- orange[trainRowNumbers,]

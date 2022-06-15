@@ -10,13 +10,8 @@ First up, let's load some packages.
 
 ```{r,results='hide', warning=FALSE,message=FALSE}
 
-# Install development version of rvest if necessary
-if (numeric_version(packageVersion("rvest")) < numeric_version('0.99.0')) {
-  remotes::install_github('tidyverse/rvest')
-}
-
 # Load and install the packages
-pacman::p_load(tidyverse, rvest, lubridate, janitor, data.table, hrbrthemes)
+pacman::p_load(tidyverse, dplyr, rvest, lubridate, janitor, data.table, hrbrthemes)
 ```
 
 ## Anatomy of a webpage
@@ -48,13 +43,18 @@ m100
 
 To get the table of 'Unofficial progression before the IAAF' we're going to have to be more specific.
 
-Using the SelectGadget tool we can click around and identify that that specific table is called ***div+ .wikitable :nth-child(1)*** in the HTML code.
+Using the SelectGadget tool we can click around and identify that that specific table is named in the HTML code: **.wikitable :nth-child(1)**
+
+Side note: The names of tables in HTML webpages changes all the time. Therefore this code is considered unstable in terms of setting and forgetting.
 
 ```{r, warning=FALSE,message=FALSE}
 
-pre_iaaf <- m100 %>%
-            html_element("#mw-content-text > div.mw-parser-output > table:nth-child(9)") %>%
-            html_table()                                      
+pre_iaaf <- 
+  m100 %>%
+  #Select table
+  rvest::html_element(".wikitable :nth-child(1)") %>%
+  #Convert to data frame
+  rvest::html_table()                                     
 
 pre_iaaf
 
@@ -66,7 +66,7 @@ Niiiiice - now that's better. Let's do some quick data cleaning.
 
 pre_iaaf <- pre_iaaf %>%
             clean_names() %>%
-            mutate(date = mdy(date))
+            dplyr::mutate(date = mdy(date))
   
 pre_iaaf
 ```
@@ -78,7 +78,7 @@ For the second table:
 ```{r,warning=FALSE,message=FALSE}
 
 iaaf_76 <- m100 %>%
-           html_element("#mw-content-text > div.mw-parser-output > table:nth-child(15)") %>%
+           html_element("h3+ .wikitable") %>%
            rvest::html_table()
 
 iaaf_76 <- iaaf_76 %>%
@@ -86,6 +86,7 @@ iaaf_76 <- iaaf_76 %>%
            mutate(date = mdy(date)) 
 
 iaaf_76
+
 ```
 
 And now for the third table:
@@ -93,11 +94,12 @@ And now for the third table:
 ```{r,warning=FALSE,message=FALSE}
 
 iaaf <- m100 %>%
-        html_element("#mw-content-text > div.mw-parser-output > table:nth-child(20)") %>%
+        html_element("p+ .wikitable") %>%
         html_table() %>%
         clean_names() %>%
         mutate(date = mdy(date))
 iaaf
+
 ```
 
 How good. Now let's bind the rows together to make a master data set.
